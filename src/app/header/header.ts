@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './header.css',
 })
 export class Header {
+  title = 'ResQ';
 
 }
