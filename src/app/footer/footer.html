@@ -1,5 +1,110 @@
-<p>footpage works!</p>
+<footer class="site-footer">
 
-<footer>
-  <p>&copy; 2024 ResQ. All rights reserved.</p>
+  <!-- Onglets -->
+  <div class="footer-top">
+    <button class="tab" [class.active]="activeTab === 'remerciements'" (click)="activeTab = 'remerciements'">
+      Remerciements
+    </button>
+
+    <button class="tab" [class.active]="activeTab === 'contacts'" (click)="activeTab = 'contacts'">
+      Contacts
+    </button>
+  </div>
+
+  <!-- Zone de contenu -->
+  <div class="footer-content">
+    @if (activeTab === 'remerciements') {
+    <div>
+      <p>Nous remercions chaleureusement les personnes qui nous ont accompagnés tout au long de ce projet :</p>
+
+      <ul>
+        <li>
+          <strong>Marie-José Huguet</strong> — Enseignant GEI
+          <a href="mailto:mjhuguet@insa-toulouse.fr">mjhuguet@insa-toulouse.fr</a>
+        </li>
+
+        <li>
+          <strong>Philippe Leleux</strong> — Enseignant GEI
+          <a href="mailto:leleux@insa-toulouse.fr">leleux@insa-toulouse.fr</a>
+        </li>
+
+        <li>
+          <strong>Sami Yangui</strong> — Enseignant GEI
+          <a href="mailto:yangui@insa-toulouse.fr">yangui@insa-toulouse.fr</a>
+        </li>
+
+        <li>
+          <strong>Nawal Guermouche</strong> — Enseignant GEI
+          <a href="mailto:guermouc@insa-toulouse.fr">guermouc@insa-toulouse.fr</a>
+        </li>
+
+        <li>
+          <strong>Céline Peyraube</strong> — Enseignant GEI
+          <a href="mailto:peyraube@insa-toulouse.fr">peyraube@insa-toulouse.fr</a>
+        </li>
+
+        <li>
+          <strong>Alexandre Huyghe</strong> — Enseignant GEI
+          <a href="mailto:ahuyghe@insa-toulouse.fr">ahuyghe@insa-toulouse.fr</a>
+        </li>
+
+        <li>
+          <strong>Florent Brodziak</strong> — Ingénieur Sopra Steria
+          <a href="mailto:florent.brodziak@soprasteria.com">florent.brodziak@soprasteria.com</a>
+        </li>
+
+        <li>
+          <strong>Guilhem Bouley</strong> — Ingénieur Sopra Steria
+          <a href="mailto:guilhem.bouley@soprasteria.com">guilhem.bouley@soprasteria.com</a>
+        </li>
+      </ul>
+
+      <p>Merci pour vos conseils, votre disponibilité et vos retours à chaque étape du projet.</p>
+    </div>
+    }
+
+    @if (activeTab === 'contacts') {
+    <div>
+      <p>Voici les membres de l'équipe : </p>
+
+      <ul>
+        <li>
+          <strong>Yassine Amri</strong> -
+          <a href="mailto:amri@insa-toulouse.fr">amri@insa-toulouse.fr</a>
+        </li>
+
+        <li>
+          <strong>Yacine Boukari</strong> -
+          <a href="mailto:boukari@insa-toulouse.fr">boukari@insa-toulouse.fr</a>
+        </li>
+
+        <li>
+          <strong>Elian Boaglio</strong> —
+          <a href="mailto:boaglio@insa-toulouse.fr">boaglio@insa-toulouse.fr</a>
+        </li>
+
+        <li>
+          <strong>Mateo Blyweert</strong> —
+          <a href="mailto:blyweert@insa-toulouse.fr">blyweert@insa-toulouse.fr</a>
+        </li>
+
+        <li>
+          <strong>Sophie Large</strong> —
+          <a href="mailto:slarge@insa-toulouse.fr">slarge@insa-toulouse.fr</a>
+        </li>
+
+        <li>
+          <strong>Paul Lemeilleur</strong> —
+          <a href="mailto:plemeill@insa-toulouse.fr">plemeill@insa-toulouse.fr</a>
+        </li>
+      </ul>
+    </div>
+    }
+  </div>
+
+  <div class="footer-bottom">
+    <span class="copyright">© ResQ. 2025</span>
+    <span class="rights">All Rights Reserved</span>
+  </div>
+
 </footer>

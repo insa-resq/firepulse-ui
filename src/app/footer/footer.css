@@ -1,0 +1,93 @@
+.site-footer {
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  font-family: monospace;
+  background-color: #f5f5f5; /* léger fond pour distinguer le footer */
+  border-radius: 00.5cm;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* --- Top links --- */
+.footer-top {
+  display: flex;
+  gap: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #666666; /* gris pour les onglets */
+  flex-wrap: wrap; /* permet le wrap sur petits écrans */
+}
+
+.footer-top .tab {
+  background: none;
+  border: none;
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 6px 0;
+  position: relative;
+  color: #666666; /* gris clair */
+  transition: color 0.3s;
+}
+
+.footer-top .tab.active {
+  color: #000; /* noir */
+}
+
+.footer-top .tab:hover {
+  color: #000000; /* fonce au survol */
+}
+
+.footer-top .tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: #000; /* underline noir pour actif */
+}
+
+/* --- Content --- */
+.footer-content {
+  font-family: monospace;
+  font-size: 13px;
+  margin-top: 10px;
+  margin-left: 4px;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  font-size: 12px;
+  color: #708050;
+  margin-top: 15px;
+}
+
+/* --- Responsive --- */
+@media screen and (max-width: 600px) {
+  .footer-top {
+    gap: 10px;
+  }
+
+  .footer-top .tab {
+    font-size: 12px;
+    padding: 4px 0;
+  }
+
+  .footer-content {
+    font-size: 12px;
+  }
+
+  .footer-bottom {
+    font-size: 11px;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
