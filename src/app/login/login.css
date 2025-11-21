@@ -1,0 +1,51 @@
+.login-container {
+    width: 300px;
+    margin: 50px auto;
+    
+    padding: 30px;
+    border-radius: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input {
+    padding: 10px;
+    font-size: 16px;
+}
+
+input::placeholder {
+    color: #777;
+}
+
+
+/* Le bouton doit s’étendre sur 2 colonnes */
+button {
+    grid-column: span 2;
+    padding: 10px;
+    cursor: pointer;
+    justify-self: center;
+    font-size: medium;
+}
+
+h2 {
+    font-family: 'Crimson Text', serif;
+    text-align: center;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+h2::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 50px;
+    height: 3px;
+    background: #2a72ff;
+    border-radius: 3px;
+}
