@@ -1,0 +1,65 @@
+/* Wrapper — toujours centré */
+.tablet-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;   /* centre horizontalement */
+  align-items: center;       /* centre verticalement */
+  padding: 80px 0;
+}
+
+/* Bande verte derrière la tablette */
+.background-strip {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  width: 90%;
+  height: 400px;     /* plus haut pour correspondre à l’image */
+  background: #97a184;
+  border-radius: 30px;
+  z-index: 1;
+}
+
+/* Tablette */
+.tablet {
+  position: relative;
+  z-index: 2;
+}
+
+/* --- TABLETTE VERSION ORDINATEUR --- */
+.tablet-screen {
+  background: white;
+  width: 900px;        /* ← plus grand encore */
+  min-height: 650px;   /* ← hauteur augmentée */
+  border-radius: 25px;
+  box-shadow: 0 0 0 14px #000000; /* bord noir plus épais comme l’image */
+  padding: 50px;
+  transition: 0.3s ease;
+}
+
+/* ---------------------------- */
+/* 📱 VERSION TÉLÉPHONE MOBILE */
+/* ---------------------------- */
+
+@media screen and (max-width: 768px) {
+  .background-strip {
+    height: 220px;
+    width: 95%;
+  }
+
+  .tablet-screen {
+    width: 340px;
+    min-height: 620px;
+    border-radius: 40px;
+    padding: 24px;
+    box-shadow: 0 0 0 10px #000000;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .tablet-screen {
+    width: 280px;
+    min-height: 560px;
+  }
+}
