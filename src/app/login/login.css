@@ -1,34 +1,51 @@
 .login-container {
-    width: 300px;
+    width: 90%;
+    max-width: 350px;
     margin: 50px auto;
-    
     padding: 30px;
     border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-form {
+/* Responsive : on centre et on espace */
+.form-container {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
 input {
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: border 0.2s ease;
 }
 
-input::placeholder {
-    color: #777;
+input:focus {
+    border-color: #2a72ff;
+    outline: none;
 }
 
-
-/* Le bouton doit s’étendre sur 2 colonnes */
 button {
-    grid-column: span 2;
-    padding: 10px;
+    padding: 12px;
     cursor: pointer;
-    justify-self: center;
-    font-size: medium;
+    font-size: 16px;
+    background: #2a72ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+button:disabled {
+    background: #aac5ff;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background: #005cff;
 }
 
 h2 {
@@ -44,8 +61,36 @@ h2::after {
     left: 50%;
     transform: translateX(-50%);
     bottom: 0;
-    width: 50px;
+    width: 60px;
     height: 3px;
     background: #2a72ff;
     border-radius: 3px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 400px) {
+    .login-container {
+        padding: 20px;
+    }
+    input, button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Message d’erreur propre */
+.error {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #d93025;
+}
+
+/* On évite les marges négatives qui cassent tout */
+input.ng-invalid.ng-touched {
+    border-color: #d93025;
 }

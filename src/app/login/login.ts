@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
@@ -13,10 +14,17 @@ export class LoginComponent {
   password: string = '';
 
   onSubmit() {
+    if (!this.email || !this.password) {
+      console.warn('Email ou mot de passe manquant');
+      return;
+    }
+
+    // Simplicité : log dans la console
+    console.log('Tentative de connexion...');
     console.log('Email:', this.email);
     console.log('Password:', this.password);
 
-    // Ici, tu pourras appeler ton service d'authentification
+    // Placeholder future connexion API
     // this.authService.login(this.email, this.password).subscribe(...)
   }
 }
