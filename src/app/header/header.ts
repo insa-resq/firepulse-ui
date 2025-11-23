@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from "../../service/AuthService";
 
 @Component({
   selector: 'app-header',
@@ -12,15 +13,12 @@ import { CommonModule } from '@angular/common';
 export class Header {
   isLoggedIn = true;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public auth : AuthService) {
+    this.auth.isLoggedIn$.subscribe(status => this.isLoggedIn = status);
+    }
 
   toggleAuth() {
-    if (this.isLoggedIn) {
-      this.isLoggedIn = false;
-      this.router.navigate(['/login']);
-    } else {
-      this.isLoggedIn = true;
-      this.router.navigate(['/dashboard']);
-    }
+    this.auth.toggleAuth();
+    this.router.navigate([this.isLoggedIn ? '/dashboard' : '/login']);
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TabletComponent} from "../tablet/tablet";
+import { AuthService } from "../../service/AuthService";
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,8 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
+  constructor(public auth : AuthService) {}
+
   onSubmit() {
     if (!this.email || !this.password) {
       console.warn('Email ou mot de passe manquant');
@@ -28,5 +31,7 @@ export class LoginComponent {
 
     // Placeholder future connexion API
     // this.authService.login(this.email, this.password).subscribe(...)
+
+    this.auth.login();
   }
 }
