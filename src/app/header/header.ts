@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +8,17 @@ import { Component } from '@angular/core';
   styleUrl: './header.css',
 })
 export class Header {
-  title = 'ResQ';
+  isLoggedIn = true;
 
+  constructor(private router: Router) {}
+
+  toggleAuth() {
+    if (this.isLoggedIn) {
+      this.isLoggedIn = false;
+      this.router.navigate(['/login']);
+    } else {
+      this.isLoggedIn = true;
+      this.router.navigate(['/dashboard']);
+    }
+  }
 }
