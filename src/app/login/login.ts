@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TabletComponent} from "../tablet/tablet";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,
+    TabletComponent],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
