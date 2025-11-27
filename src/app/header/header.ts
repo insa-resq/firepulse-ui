@@ -11,14 +11,16 @@ import { AuthService } from "../../service/AuthService";
   styleUrl: './header.css',
 })
 export class Header {
-  isLoggedIn = true;
+  isLoggedIn = false;
 
   constructor(private router: Router, public auth : AuthService) {
     this.auth.isLoggedIn$.subscribe(status => this.isLoggedIn = status);
     }
 
-  toggleAuth() {
+  onClick() {
+    console.log("click");
+    const next = this.isLoggedIn ? '/homepage' : '/login';
+    this.router.navigate([next]);
     this.auth.toggleAuth();
-    this.router.navigate([this.isLoggedIn ? '/dashboard' : '/login']);
   }
 }

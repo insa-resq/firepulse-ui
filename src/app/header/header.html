@@ -6,7 +6,7 @@
     <a *ngIf="isLoggedIn" routerLink="/planning" routerLinkActive="active">Planning de la caserne</a>
   </div>
 
-  <button class="auth-btn" (click)="toggleAuth()">
+  <button class="auth-btn" (click)="onClick()">
     {{ isLoggedIn ? 'Déconnexion ↗' : 'Connexion ↗' }}
   </button>
 </nav>
