@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TabletComponent} from "../tablet/tablet";
 import { AuthService } from "../../service/AuthService";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
