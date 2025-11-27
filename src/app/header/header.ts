@@ -18,9 +18,11 @@ export class Header {
     }
 
   onClick() {
-    console.log("click");
-    const next = this.isLoggedIn ? '/homepage' : '/login';
-    this.router.navigate([next]);
-    this.auth.toggleAuth();
+     if (this.isLoggedIn) {
+          this.auth.logout();
+          this.router.navigate(['/homepage']);
+        } else {
+          this.router.navigate(['/login']);
+        }
   }
 }

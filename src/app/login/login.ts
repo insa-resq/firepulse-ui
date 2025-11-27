@@ -16,7 +16,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(public auth : AuthService) {}
+  constructor(public auth : AuthService, private router: Router) {}
 
   onSubmit() {
     if (!this.email || !this.password) {
@@ -33,5 +33,6 @@ export class LoginComponent {
     // this.authService.login(this.email, this.password).subscribe(...)
 
     this.auth.login();
+    this.router.navigate(['/homepage']);
   }
 }
