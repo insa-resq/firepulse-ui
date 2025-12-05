@@ -1,0 +1,45 @@
+
+<app-tablet>
+  <div class="planning-container">
+
+    <div class="planning-header">
+      <button (click)="semainePrecedente()">◀ Semaine précédente</button>
+      <h2>Semaine {{ numeroSemaine }}</h2>
+      <button (click)="semaineSuivante()">Semaine suivante ▶</button>
+    </div>
+
+    <table class="planning-table">
+      <thead>
+      <tr>
+        <th>Pompier</th>
+
+        @for (jour of jours; track jour) {
+          <th>{{ jour }}</th>
+        }
+
+      </tr>
+      </thead>
+
+      <tbody>
+
+        @for (pompier of pompiers; track pompier.nom) {
+          <tr>
+            <td class="pompier">{{ pompier.nom }}</td>
+
+            @for (jour of jours; track jour) {
+              <td
+                class="cell"
+                [ngClass]="getDispo(pompier.nom, jour)"
+              >
+              </td>
+            }
+
+          </tr>
+        }
+
+      </tbody>
+    </table>
+
+  </div>
+
+</app-tablet>
