@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import {Router, RouterLink, RouterLinkActive, RouterModule} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from "../../service/AuthService";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, RouterLink, RouterLinkActive],
   templateUrl: './header.html',
-  styleUrl: './header.css',
+  styleUrls: ['./header.css'],
 })
 export class Header {
   isLoggedIn = false;
@@ -20,9 +20,9 @@ export class Header {
   onClick() {
      if (this.isLoggedIn) {
           this.auth.logout();
-          this.router.navigate(['/homepage']);
+          this.router.navigate(['/homepage']).catch();
         } else {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/login']).catch();
         }
   }
 }

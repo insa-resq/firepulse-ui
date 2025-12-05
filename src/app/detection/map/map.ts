@@ -4,7 +4,8 @@ import { Alert } from '../alert';
 @Component({
   selector: 'app-map',
   templateUrl: './map.html',
-  styleUrls: ['./map.css']
+  styleUrls: ['./map.css'],
+  standalone: true
 })
 export class Map implements AfterViewInit, OnChanges {
   @Input() alerts: Alert[] = [];

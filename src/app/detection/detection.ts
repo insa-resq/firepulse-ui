@@ -8,7 +8,8 @@ import { Alert } from './alert';
   selector: 'app-detection',
   templateUrl: './detection.html',
   styleUrls: ['./detection.css'],
-  imports: [Alerts, Map]
+  imports: [Alerts, Map],
+  standalone: true
 })
 export class DetectionComponent implements OnInit {
   @Input() alerts: Alert[] = [];

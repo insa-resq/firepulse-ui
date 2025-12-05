@@ -7,7 +7,8 @@ import { Alert } from '../alert';
   selector: 'app-alerts',
   imports: [DatePipe],
   templateUrl: './alerts.html',
-  styleUrls: ['./alerts.css']
+  styleUrls: ['./alerts.css'],
+  standalone: true
 })
 export class Alerts {
   @Input() alerts: Alert[] = [];

@@ -1,10 +1,13 @@
 <nav class="navbar">
   <div class="title">ResQ</div>
 
-  <div class="links">
-    <a *ngIf="isLoggedIn" routerLink="/detection" routerLinkActive="active">Détection des feux</a>
-    <a *ngIf="isLoggedIn" routerLink="/planning" routerLinkActive="active">Planning de la caserne</a>
-  </div>
+  @if (isLoggedIn) {
+    <div class="links">
+      <a routerLink="/detection" routerLinkActive="active">Détection des feux</a>
+      <a routerLink="/planning" routerLinkActive="active">Planning de la caserne</a>
+    </div>
+  }
+
 
   <button class="auth-btn" (click)="onClick()">
     {{ isLoggedIn ? 'Déconnexion ↗' : 'Connexion ↗' }}
