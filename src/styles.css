@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* import CSS Leaflet */
+@import "leaflet/dist/leaflet.css";
+
+/* layout global pour permettre le centrage vertical */
+html, body, app-root, .app-container {
+  height: 100%;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;      /* centre verticalement */
+  justify-content: center;  /* centre horizontalement */
+}
+
+/* si tu utilises <app-tablet class="test"> */
+app-tablet.test {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}

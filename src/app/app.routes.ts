@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from "./login/login";
-import {DetectionComponent} from "./detection/detection";
+import { DetectionComponent } from "./detection/detection";
 import { PlanningComponent } from "./planning/planning";
 import { HomepageComponent } from "./homepage/homepage";
 

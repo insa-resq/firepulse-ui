@@ -1,1 +1,8 @@
-<p>detection works!</p>
+<div class="detection-container">
+  <app-alerts
+      [alerts]="$any(alerts)"
+      (statusUpdated)="onStatusChanged()">
+  </app-alerts>
+
+  <app-map [alerts]="$any(alerts)"></app-map>
+</div>
