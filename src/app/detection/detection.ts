@@ -13,6 +13,7 @@ import { Alert } from './alert';
 })
 export class DetectionComponent implements OnInit {
   @Input() alerts: Alert[] = [];
+  selectedAlertId?: number;
 
   constructor(private detectionService: DetectionService) {}
 
@@ -28,5 +29,9 @@ export class DetectionComponent implements OnInit {
 
   onStatusChanged() {
     this.loadAlerts();
+  }
+
+  onAlertSelected(alert: Alert) {
+    this.selectedAlertId = alert.id;
   }
 }

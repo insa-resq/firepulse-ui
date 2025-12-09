@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, Input, AfterViewInit, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Alert } from '../alert';
 
 @Component({
@@ -9,11 +9,14 @@ import { Alert } from '../alert';
 })
 export class Map implements AfterViewInit, OnChanges {
   @Input() alerts: Alert[] = [];
+  @Input() selectedAlertId?: number;
+  @Output() alertSelected = new EventEmitter<Alert>();
 
   // Leaflet objects kept as any to avoid top-level access during SSR
   L: any;
   map: any;
   markersLayer: any;
+  markersById = new globalThis.Map<number, any>();
 
   // Garder async pour pouvoir await import()
   async ngAfterViewInit() {
@@ -47,31 +50,31 @@ export class Map implements AfterViewInit, OnChanges {
   ngOnChanges() {
     if (this.map) {
       this.plotMarkers();
+      this.focusSelected();
     }
   }
 
   plotMarkers() {
     if (!this.markersLayer || !this.L) return;
-
     this.markersLayer.clearLayers();
+    this.markersById.clear();
 
     this.alerts.forEach(a => {
-      // Définir la couleur selon le status
-      const color = this.getColorByStatus(a.status);
-      
-      // Créer une icône personnalisée (divIcon avec HTML/CSS)
-      const customIcon = this.L.divIcon({
-        className: 'custom-marker',
-        html: `<div style="background-color: ${color}; width: 15px; height: 15px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3);"></div>`,
-        iconSize: [5, 5],
-        iconAnchor: [12, 12],
-        popupAnchor: [0, -12]
-      });
-
-      this.L.marker([a.latitude, a.longitude], { icon: customIcon })
+      const marker = this.L.marker([a.latitude, a.longitude])
         .bindPopup(`<b>${a.description}</b><br>Status : ${a.status}`)
+        .on('click', () => this.alertSelected.emit(a))
         .addTo(this.markersLayer);
+      this.markersById.set(a.id, marker);
     });
+  }
+
+  private focusSelected() {
+    if (!this.selectedAlertId) return;
+    const m = this.markersById.get(this.selectedAlertId);
+    if (m) {
+      m.openPopup();
+      this.map.setView(m.getLatLng(), Math.max(this.map.getZoom(), 8), { animate: true });
+    }
   }
 
   // Helper : couleur selon status

@@ -1,6 +1,8 @@
 <div class="alerts-container">
   @for (alert of alerts; track alert.id) {
-    <div class="alert-card">
+    <div class="alert-card"
+         [class.is-selected]="alert.id === selectedAlertId"
+         (click)="selectAlert(alert)">
       <!-- Header avec statut et sévérité -->
       <div class="alert-header">
         <span class="badge severity" [class]="'severity-' + alert.severity.toLowerCase()">
@@ -38,17 +40,6 @@
         </a>
       </div>
 
-      <!-- Footer avec actions (conditionnel selon confiance) -->
-      @if (alert.confidence < 0.75) {
-        <div class="alert-actions">
-          <button class="btn btn-validate" (click)="validateAlert(alert.id)">
-            ✓ Valider
-          </button>
-          <button class="btn btn-dismiss" (click)="dismissAlert(alert.id)">
-            ✗ Annuler
-          </button>
-        </div>
-      }
     </div>
   }
 </div>

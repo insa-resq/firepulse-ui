@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { DetectionService } from '../../../service/detection.service';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Alert } from '../alert';
@@ -10,14 +10,15 @@ import { Alert } from '../alert';
   styleUrls: ['./alerts.css'],
   standalone: true
 })
-export class Alerts {
+export class Alerts implements OnInit {
   @Input() alerts: Alert[] = [];
+  @Input() selectedAlertId?: number;
   @Output() statusUpdated = new EventEmitter<void>();
+  @Output() alertSelected = new EventEmitter<Alert>();
 
   constructor(private detectionService: DetectionService) {}
 
   ngOnInit() {
-    // S'assurer que les dates sont des objets Date
     this.alerts = this.alerts.map(alert => ({
       ...alert,
       createdAt: new Date(alert.createdAt),
@@ -37,5 +38,9 @@ export class Alerts {
 
   dismissAlert(id: number) {
     this.updateStatus(id, 'DISMISSED');
+  }
+
+  selectAlert(alert: Alert) {
+    this.alertSelected.emit(alert);
   }
 }
