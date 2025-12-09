@@ -48,6 +48,7 @@ export class Map implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges() {
+    console.log('ngOnChanges - selectedAlertId:', this.selectedAlertId); // debug
     if (this.map) {
       this.plotMarkers();
       this.focusSelected();
@@ -60,20 +61,33 @@ export class Map implements AfterViewInit, OnChanges {
     this.markersById.clear();
 
     this.alerts.forEach(a => {
-      const marker = this.L.marker([a.latitude, a.longitude])
+      const color = this.getColorByStatus(a.status);
+      
+      const customIcon = this.L.divIcon({
+        className: 'custom-marker',
+        html: `<div style="background-color: ${color}; width: 15px; height: 15px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3);"></div>`,
+        iconSize: [25, 25],
+        iconAnchor: [12, 12],
+        popupAnchor: [0, -12]
+      });
+
+      const marker = this.L.marker([a.latitude, a.longitude], { icon: customIcon })
         .bindPopup(`<b>${a.description}</b><br>Status : ${a.status}`)
-        .on('click', () => this.alertSelected.emit(a))
+        .on('click', () => {
+          console.log('Marker clicked:', a); // debug
+          this.alertSelected.emit(a)})
         .addTo(this.markersLayer);
+      
       this.markersById.set(a.id, marker);
     });
   }
 
   private focusSelected() {
     if (!this.selectedAlertId) return;
-    const m = this.markersById.get(this.selectedAlertId);
-    if (m) {
-      m.openPopup();
-      this.map.setView(m.getLatLng(), Math.max(this.map.getZoom(), 8), { animate: true });
+    const marker = this.markersById.get(this.selectedAlertId);
+    if (marker) {
+      marker.openPopup();
+      this.map.setView(marker.getLatLng(), Math.max(this.map.getZoom(), 9), { animate: true });
     }
   }
 

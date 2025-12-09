@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { DetectionService } from '../../../service/detection.service';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Alert } from '../alert';
 
 @Component({
@@ -41,6 +41,8 @@ export class Alerts implements OnInit {
   }
 
   selectAlert(alert: Alert) {
+    console.log('Alert selected (alerts component):', alert.id); // debug
     this.alertSelected.emit(alert);
+    
   }
 }

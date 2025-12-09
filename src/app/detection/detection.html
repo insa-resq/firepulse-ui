@@ -1,8 +1,18 @@
 <div class="detection-container">
-  <app-alerts
-      [alerts]="$any(alerts)"
-      (statusUpdated)="onStatusChanged()">
-  </app-alerts>
+  <div class="alerts-pane">
+    <app-alerts
+      [alerts]="alerts"
+      [selectedAlertId]="selectedAlertId"
+      (statusUpdated)="onStatusChanged()"
+      (alertSelected)="onAlertSelected($event)">
+    </app-alerts>
+  </div>
 
-  <app-map [alerts]="$any(alerts)"></app-map>
+  <div class="map-pane">
+    <app-map
+      [alerts]="alerts"
+      [selectedAlertId]="selectedAlertId"
+      (alertSelected)="onAlertSelected($event)">
+    </app-map>
+  </div>
 </div>

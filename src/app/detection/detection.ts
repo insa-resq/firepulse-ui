@@ -1,37 +1,37 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Alerts } from './alerts/alerts';
+import { Map } from './map/map';
 import { DetectionService } from '../../service/detection.service';
-import { Alerts } from "./alerts/alerts";
-import { Map } from "./map/map";
 import { Alert } from './alert';
 
 @Component({
   selector: 'app-detection',
+  imports: [Alerts, Map],
   templateUrl: './detection.html',
   styleUrls: ['./detection.css'],
-  imports: [Alerts, Map],
   standalone: true
 })
 export class DetectionComponent implements OnInit {
-  @Input() alerts: Alert[] = [];
+  alerts: Alert[] = [];
   selectedAlertId?: number;
 
   constructor(private detectionService: DetectionService) {}
 
   ngOnInit() {
-    this.loadAlerts();
-  }
-
-  loadAlerts() {
-    this.detectionService.getAlerts().subscribe(data => {
+    this.detectionService.getAlerts().subscribe((data) => {
       this.alerts = data;
     });
   }
 
   onStatusChanged() {
-    this.loadAlerts();
+    this.detectionService.getAlerts().subscribe((data) => {
+      this.alerts = data;
+    });
   }
 
   onAlertSelected(alert: Alert) {
+    console.log('Alert selected:', alert.id); // debug
     this.selectedAlertId = alert.id;
+    console.log('selectedAlertId set to:', this.selectedAlertId); // debug
   }
 }
