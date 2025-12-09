@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class DetectionService {
-  private api = 'http://ton-microservice/api/alerts';
+  private api = 'http://localhost:3000/alerts';
 
   constructor(private http: HttpClient) {}
 

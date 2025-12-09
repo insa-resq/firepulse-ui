@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DetectionService } from './detection.service';
+import { DetectionService } from '../../service/detection.service';
 import { Alerts } from "./alerts/alerts";
 import { Map } from "./map/map";
 import { Alert } from './alert';

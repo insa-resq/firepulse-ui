@@ -6,7 +6,7 @@ export interface Alert {
     confidence: number;
     latitude: number;
     longitude: number;
-    severity: 'Low' | 'Medium' | 'High' | 'Critical';
-    status: 'New' | 'In Progress' | 'Resolved' | 'Dismissed';
+    severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+    status: 'NEW' | 'IN PROGRESS' | 'RESOLVED' | 'DISMISSED';
     imageId: string;
 }
