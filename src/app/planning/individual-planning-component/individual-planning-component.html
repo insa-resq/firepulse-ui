@@ -1,1 +1,37 @@
-<p>individual-planning-component works!</p>
+<app-tablet>
+  <div class="planning-container">
+
+    <div class="planning-header">
+      <button (click)="semainePrecedente()">◀ Semaine précédente</button>
+      <h2>Semaine {{ numeroSemaine }}</h2>
+      <button (click)="semaineSuivante()">Semaine suivante ▶</button>
+    </div>
+
+    <table class="planning-table">
+      <thead>
+      <tr>
+        @for (jour of jours; track jour) {
+          <th>{{ jour }}</th>
+        }
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        @for (jour of jours; track jour) {
+          <td
+            class="cell"
+            [class.dispo]="getStatut(jour) === 'dispo'"
+            [class.astreinte]="getStatut(jour) === 'astreinte'"
+            [class.indispo]="getStatut(jour) === 'indispo'"
+          >
+          </td>
+        }
+      </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+
+</app-tablet>
