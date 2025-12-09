@@ -94,10 +94,10 @@ export class Map implements AfterViewInit, OnChanges {
   // Helper : couleur selon status
   getColorByStatus(status: string): string {
     const statusColors: { [key: string]: string } = {
-      'New': '#ff4444',        // rouge
-      'In Progress': '#ff9800', // orange
-      'Resolved': '#4caf50',   // vert
-      'Dismissed': '#9e9e9e'      // gris
+      'NEW': '#ff4444',        // rouge
+      'IN PROGRESS': '#ff9800', // orange
+      'RESOLVED': '#4caf50',   // vert
+      'DISMISSED': '#9e9e9e'      // gris
     };
     return statusColors[status] || '#2196f3'; // bleu par défaut
   }
