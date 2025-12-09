@@ -1,3 +1,8 @@
-<app-global-planning-component></app-global-planning-component>
+@if(hasGlobalPlanningRights){
+  <app-global-planning-component></app-global-planning-component>
+} @else {
+  <app-individual-planning-component></app-individual-planning-component>
+}
 
-<app-individual-planning-component></app-individual-planning-component>
+
+
