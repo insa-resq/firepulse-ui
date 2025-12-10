@@ -6,12 +6,11 @@ FROM base-stage AS build-stage
 
 COPY package.json package-lock.json ./
 
-RUN --mount=type=cache,target=/root/.npm \
-    npm ci
+RUN --mount=type=cache,target=/root/.npm npm ci
 
 COPY . .
 
-RUN npm run build
+RUN npm run build -- --configuration=production
 
 FROM base-stage AS runtime-stage
 
