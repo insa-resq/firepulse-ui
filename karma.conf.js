@@ -22,6 +22,7 @@ module.exports = function (config) {
         autoWatch: false,
         singleRun: true,
         restartOnFileChange: true,
+        failOnEmptyTestSuite: false,
         // DEFAULT BROWSER (For Development)
         browsers: ['Chrome'],
         // CUSTOM LAUNCHERS (For CI)
