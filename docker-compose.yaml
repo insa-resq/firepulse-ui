@@ -1,0 +1,30 @@
+name: firepulse-ui-services
+
+services:
+  web-service:
+    image: ghcr.io/insa-resq/firepulse-ui/web-service:${IMAGE_TAG:-latest}
+    pull_policy: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: firepulse-ui-web-service
+    restart: always
+    init: true
+    deploy:
+      update_config:
+        failure_action: rollback
+    ports:
+      - '4200:4200'
+    networks:
+      - firepulse_ui
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "-O-", "http://localhost:4200/health" ]
+      start_period: 10s
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+networks:
+  firepulse_ui:
+    name: firepulse_ui
+    driver: bridge

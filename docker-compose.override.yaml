@@ -1,0 +1,6 @@
+name: firepulse-ui-services-override
+
+services:
+    web-service:
+        image: firepulse-ui-web-service
+        pull_policy: never
