@@ -1,0 +1,156 @@
+.alerts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.alert-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.alert-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Selected state */
+.alert-card.is-selected {
+  border: 3px solid #0066cc;
+  box-shadow: 0 4px 16px rgba(0, 102, 204, 0.3);
+}
+
+/* Header */
+.alert-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Severity colors */
+.severity-low { background: #d4edda; color: #155724; }
+.severity-medium { background: #fff3cd; color: #856404; }
+.severity-high { background: #f8d7da; color: #721c24; }
+.severity-critical { background: #721c24; color: white; }
+
+/* Status colors */
+.status-new { background: #cce5ff; color: #004085; }
+.status-in-progress { background: #fff3cd; color: #856404; }
+.status-resolved { background: #d4edda; color: #155724; }
+.status-dismissed { background: #e2e3e5; color: #383d41; }
+
+/* Body */
+.alert-body {
+  padding: 1rem;
+}
+
+.alert-description {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #212529;
+}
+
+.alert-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.label {
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.value {
+  color: #212529;
+}
+
+.confidence {
+  font-weight: 700;
+  color: #0066cc;
+}
+
+.image-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #0066cc;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.image-link:hover {
+  color: #004499;
+  text-decoration: underline;
+}
+
+/* Actions */
+.alert-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-validate {
+  background: #28a745;
+  color: white;
+}
+
+.btn-validate:hover {
+  background: #218838;
+}
+
+.btn-dismiss {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-dismiss:hover {
+  background: #c82333;
+}

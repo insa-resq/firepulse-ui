@@ -1,28 +1,44 @@
-<table>
-  <thead>
-    <tr>
-      <th>Description</th>
-      <th>Créée le</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
+<div class="alerts-container">
+  @for (alert of alerts; track alert.id) {
+    <div class="alert-card"
+         [class.is-selected]="alert.id === selectedAlertId"
+         (click)="selectAlert(alert)">
+      <!-- Header avec statut et sévérité -->
+      <div class="alert-header">
+        <span class="badge severity" [class]="'severity-' + alert.severity.toLowerCase()">
+          {{ alert.severity }}
+        </span>
+        <span class="badge status" [class]="'status-' + alert.status.toLowerCase().replace(' ', '-')">
+          {{ alert.status }}
+        </span>
+      </div>
 
-  <tbody>
-  @for (a of alerts; track a.id; let i = $index, let even = $even) {
-    <tr>
-      <td>{{ a.description }}</td>
-      <td>{{ a.createdAt | date:'short' }}</td>
-      <td>{{ a.status }}</td>
-      <td>
-        <button (click)="updateStatus(a.id, 'valid')">Valide</button>
-        <button (click)="updateStatus(a.id, 'invalid')">Fausse alerte</button>
-      </td>
-    </tr>
-  } @empty {
-    <tr>
-      <td colspan="4">Aucune alerte</td>
-    </tr>
+      <!-- Informations principales -->
+      <div class="alert-body">
+        <h3 class="alert-description">{{ alert.description }}</h3>
+        
+        <div class="alert-info">
+          <div class="info-row">
+            <span class="label">Confiance :</span>
+            <span class="value confidence">{{ (alert.confidence * 100).toFixed(0) }}%</span>
+          </div>
+          
+          <div class="info-row">
+            <span class="label">Créée le :</span>
+            <span class="value">{{ alert.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+          
+          <div class="info-row">
+            <span class="label">Modifiée le :</span>
+            <span class="value">{{ alert.updatedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+        </div>
+
+        <!-- Lien vers l'image -->
+        <a [href]="'/images/' + alert.imageId" target="_blank" class="image-link">
+          Voir l'image
+        </a>
+      </div>
+    </div>
   }
-</tbody>
-</table>
+</div>
