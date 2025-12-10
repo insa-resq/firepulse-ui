@@ -2,7 +2,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
-  role: 'Admin' | 'User' | 'Guest';
+  role: 'Sap' | 'Cpl' | 'Cch' | 'Sgt' | 'Sch'| 'Adj' | 'Adc' | 'Ltn' | 'Cne' | 'Cdt' | 'Lcl' | 'Col' | 'Gnl' ;
   rights: string[];
 
 }

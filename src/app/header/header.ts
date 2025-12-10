@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, HostListener} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive, RouterModule} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from "../../service/AuthService";
+import {UserService} from '../../service/UserService';
+import {User} from '../../model/User';
 
 @Component({
   selector: 'app-header',
@@ -12,17 +14,54 @@ import { AuthService } from "../../service/AuthService";
 })
 export class Header {
   isLoggedIn = false;
+  menuOpen = false;
+  userIcon = '';
 
-  constructor(private router: Router, public auth : AuthService) {
-    this.auth.isLoggedIn$.subscribe(status => this.isLoggedIn = status);
+  constructor(
+    private router: Router,
+    public auth: AuthService,
+    public userService: UserService,
+    public el:  ElementRef
+  ) {
+    this.auth.isLoggedIn$.subscribe(status => {
+      this.isLoggedIn = status;
+      this.updateUserIcon();
+    });
+  }
+
+  login() {
+    this.router.navigate(['/login']).catch();
+  }
+
+  logout() {
+    this.menuOpen = false;
+    this.auth.logout();
+    this.router.navigate(['/homepage']).catch();
+  }
+
+  private updateUserIcon() {
+    const user: User | null = this.userService.currentUser;
+
+    if (user) {
+      this.userIcon = `/assets/icons/${user.role}.svg`;
     }
+  }
 
-  onClick() {
-     if (this.isLoggedIn) {
-          this.auth.logout();
-          this.router.navigate(['/homepage']).catch();
-        } else {
-          this.router.navigate(['/login']).catch();
-        }
+  getInitials(user: User | null): string {
+    if (!user || !user.username) return 'U';
+    const name = user.username.trim();
+    if (!name) return 'U';
+    const parts = name.split(/[\s._-]+/).filter(Boolean);
+    if (parts.length === 1) {
+      return parts[0].slice(0, 2).toUpperCase();
+    }
+    return (parts[0][0] + (parts[1][0] ?? '')).toUpperCase();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!this.el.nativeElement.contains(event.target)) {
+      this.menuOpen = false;
+    }
   }
 }

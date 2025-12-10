@@ -18,7 +18,7 @@ export class AuthService {
       username: 'Paul Lemeilleur',
       email: 'polypol@lebest.pol',
       rights: ['GLOBAL_PLANNING'],
-      role: 'Admin'
+      role: 'Adj'
     });
   }
 

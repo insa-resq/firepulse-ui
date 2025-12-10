@@ -26,4 +26,6 @@ export class UserService {
   hasRight(right: string): boolean {
     return this.userSubject.value?.rights.includes(right) ?? false;
   }
+
+
 }

@@ -1,15 +1,45 @@
 <nav class="navbar">
   <div class="title">ResQ</div>
 
-  @if (isLoggedIn) {
-    <div class="links">
-      <a routerLink="/detection" routerLinkActive="active">Détection des feux</a>
-      <a routerLink="/planning" routerLinkActive="active">Planning de la caserne</a>
-    </div>
-  }
+  <div class="links">
+    @if(isLoggedIn){
+      <a routerLink="/detection" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Détection</a>
+      <a routerLink="/planning" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Planning</a>
+    }
+  </div>
 
+  <div class="auth-area">
+    <!-- Non connecté -->
+    @if(!isLoggedIn){
+      <button class="auth-btn" (click)="login()">Connexion</button>
+    }
 
-  <button class="auth-btn" (click)="onClick()">
-    {{ isLoggedIn ? 'Déconnexion ↗' : 'Connexion ↗' }}
-  </button>
+    <!-- Connecté -->
+    @if(isLoggedIn){
+      <div class="user-menu">
+        <button
+          class="user-btn"
+          type="button"
+          (click)="menuOpen = !menuOpen"
+          aria-haspopup="true"
+          [attr.aria-expanded]="menuOpen">
+
+          @if(userIcon) {
+            <img [src]="userIcon" alt="avatar" />
+          } @else {
+            <span class="fallback-avatar">{{ getInitials(userService.currentUser) || 'U' }}</span>
+          }
+        </button>
+
+        @if(menuOpen){
+          <ul class="dropdown" role="menu">
+            <li role="menuitem">
+              <a routerLink="/account" (click)="menuOpen = false">Compte</a>
+            </li>
+            <li role="menuitem" (click)="logout()">Déconnexion</li>
+          </ul>
+        }
+      </div>
+    }
+  </div>
 </nav>
