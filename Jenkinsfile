@@ -15,12 +15,10 @@ pipeline {
                         string(credentialsId: 'ssh-user', variable: 'SSH_USER'),
                         string(credentialsId: 'ssh-password', variable: 'SSH_PASSWORD'),
                     ]) {
-                        // Create/Override .env file on deployment server
+                        // Create deployment directory if it doesn't exist
                         sh """
                             sshpass -p "${SSH_PASSWORD}" ssh -o StrictHostKeyChecking=no ${SSH_USER}@${DEPLOYMENT_SERVER} '
                                 mkdir -p ${DEPLOYMENT_DIRECTORY}
-                                echo "IMAGE_TAG=${IMAGE_TAG}" >> ${DEPLOYMENT_DIRECTORY}/.env
-                                chmod 600 ${DEPLOYMENT_DIRECTORY}/.env
                             '
                         """
                         // Transfer docker-compose.yaml
@@ -46,6 +44,7 @@ pipeline {
                                     set -e
                                     echo "${GITHUB_TOKEN}" | docker login ghcr.io -u "jenkins" --password-stdin
                                     cd ${DEPLOYMENT_DIRECTORY}
+                                    export IMAGE_TAG=${IMAGE_TAG}
                                     echo "Pulling updated image for service..."
                                     docker compose pull web-service
                                     echo "Starting service..."
