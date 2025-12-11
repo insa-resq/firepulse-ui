@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class DetectionService {
-  private readonly baseUrl = new URL('/detection-service', environment.apiUrl).toString();
+  private readonly baseUrl = new URL('detection-service', environment.apiUrl).toString();
   
   constructor(private http: HttpClient) {}
 
