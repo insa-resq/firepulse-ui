@@ -2,34 +2,46 @@
   <div class="planning-container">
 
     <div class="planning-header">
-      <button (click)="semainePrecedente()">◀ Semaine précédente</button>
-      <h2>Semaine {{ numeroSemaine }}</h2>
-      <button (click)="semaineSuivante()">Semaine suivante ▶</button>
+      <button (click)="previousWeek()">◀ Semaine précédente</button>
+      <h2>Semaine {{ nbWeek }}</h2>
+      <button (click)="nextWeek()">Semaine suivante ▶</button>
     </div>
 
     <table class="planning-table">
       <thead>
       <tr>
-        @for (jour of jours; track jour) {
-          <th>{{ jour }}</th>
+        @for (day of days; track day) {
+          <th>{{ day }}</th>
         }
       </tr>
       </thead>
 
       <tbody>
       <tr>
-        @for (jour of jours; track jour) {
+        @for (day of days; track day) {
           <td
             class="cell"
-            [class.dispo]="getStatut(jour) === 'dispo'"
-            [class.astreinte]="getStatut(jour) === 'astreinte'"
-            [class.indispo]="getStatut(jour) === 'indispo'"
+            [class.available]="getStatus(day) === 'available'"
+            [class.on-call]="getStatus(day) === 'on-call'"
+            [class.unavailable]="getStatus(day) === 'unavailable'"
           >
           </td>
         }
       </tr>
       </tbody>
     </table>
+
+    <div class="legende">
+      <div class="legende-item">
+        <span class="color-box available"></span> De garde
+      </div>
+      <div class="legende-item">
+        <span class="color-box on-call"></span> Astreinte
+      </div>
+      <div class="legende-item">
+        <span class="color-box unavailable"></span> Indisponible
+      </div>
+    </div>
 
 
   </div>

@@ -37,26 +37,30 @@
   font-size: 20px;
 }
 
-.pompier {
-  font-weight: bold;
-  background: #f4f4f4;
-}
-
 .cell {
   font-size: 26px;
   font-weight: bold;
 }
 
-.dispo {
+.available {
   background-color: #c8e6c9;
 }
 
-.astreinte {
+.on-call {
   background-color: #fff9c4;
 }
 
-.indispo {
+.unavailable {
   background-color: #ffcdd2;
+}
+
+.color-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-right: 6px;
+  border: 1px solid #999;
 }
 
 .legende {
@@ -66,4 +70,9 @@
   gap: 25px;
   font-weight: bold;
   font-size: 16px;
+}
+
+.legende-item {
+  display: flex;
+  align-items: center;
 }

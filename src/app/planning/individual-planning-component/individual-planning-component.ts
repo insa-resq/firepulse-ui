@@ -11,52 +11,52 @@ import {TabletComponent} from '../../tablet/tablet';
 })
 export class IndividualPlanningComponent implements OnInit{
 
-  jours = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+  days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
-  dateActuelle = new Date();
-  numeroSemaine!: number;
+  currentDate = new Date();
+  nbWeek!: number;
 
-  disponibilites = [
-    { semaine: 50, jour: 'Lundi', statut: 'dispo' },
-    { semaine: 50, jour: 'Mardi', statut: 'astreinte' },
-    { semaine: 50, jour: 'Mercredi', statut: 'dispo' },
-    { semaine: 50, jour: 'Jeudi', statut: 'indispo' },
-    { semaine: 50, jour: 'Vendredi', statut: 'dispo' },
-    { semaine: 50, jour: 'Samedi', statut: 'astreinte' },
-    { semaine: 50, jour: 'Dimanche', statut: 'indispo' },
+  avaibility = [
+    { week: 50, day: 'Lundi', status: 'available' },
+    { week: 50, day: 'Mardi', status: 'on-call' },
+    { week: 50, day: 'Mercredi', status: 'available' },
+    { week: 50, day: 'Jeudi', status: 'unavailable' },
+    { week: 50, day: 'Vendredi', status: 'available' },
+    { week: 50, day: 'Samedi', status: 'on-call' },
+    { week: 50, day: 'Dimanche', status: 'unavailable' },
 
-    { semaine: 51, jour: 'Lundi', statut: 'indispo' },
-    { semaine: 51, jour: 'Vendredi', statut: 'astreinte' },
+    { week: 51, day: 'Lundi', status: 'unavailable' },
+    { week: 51, day: 'Vendredi', status: 'on-call' },
   ];
 
   ngOnInit() {
-    this.updateNumeroSemaine();
+    this.updateNbWeek();
   }
 
-  updateNumeroSemaine() {
-    const date = new Date(this.dateActuelle);
-    const debutAnnee = new Date(date.getFullYear(), 0, 1);
+  updateNbWeek() {
+    const date = new Date(this.currentDate);
+    const startYear = new Date(date.getFullYear(), 0, 1);
     const diff = Math.floor(
-      (date.getTime() - debutAnnee.getTime()) / 86400000
+      (date.getTime() - startYear.getTime()) / 86400000
     );
-    this.numeroSemaine = Math.ceil((diff + debutAnnee.getDay() + 1) / 7);
+    this.nbWeek = Math.ceil((diff + startYear.getDay() + 1) / 7);
   }
 
-  semainePrecedente() {
-    this.dateActuelle.setDate(this.dateActuelle.getDate() - 7);
-    this.updateNumeroSemaine();
+  previousWeek() {
+    this.currentDate.setDate(this.currentDate.getDate() - 7);
+    this.updateNbWeek();
   }
 
-  semaineSuivante() {
-    this.dateActuelle.setDate(this.dateActuelle.getDate() + 7);
-    this.updateNumeroSemaine();
+  nextWeek() {
+    this.currentDate.setDate(this.currentDate.getDate() + 7);
+    this.updateNbWeek();
   }
 
-  getStatut(jour: string): string {
-    const dispo = this.disponibilites.find(
-      d => d.semaine === this.numeroSemaine && d.jour === jour
+  getStatus(day: string): string {
+    const available = this.avaibility.find(
+      d => d.week === this.nbWeek && d.day === day
     );
-    return dispo ? dispo.statut : '';
+    return available ? available.status : '';
   }
 
 

@@ -31,7 +31,7 @@
   text-align: center;
 }
 
-.pompier {
+.firefighter {
   font-weight: bold;
   background: #f4f4f4;
 }
@@ -41,21 +41,37 @@
   font-weight: bold;
 }
 
-.dispo {
+.available {
   background-color: #c8e6c9;
 }
 
-.astreinte {
+.on-call {
   background-color: #fff9c4;
 }
 
-.indispo {
+.unavailable {
   background-color: #ffcdd2;
 }
 
+.color-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-right: 6px;
+  border: 1px solid #999;
+}
+
 .legende {
-  margin-top: 15px;
+  margin-top: 20px;
   display: flex;
-  gap: 15px;
+  justify-content: center;
+  gap: 25px;
   font-weight: bold;
+  font-size: 16px;
+}
+
+.legende-item {
+  display: flex;
+  align-items: center;
 }

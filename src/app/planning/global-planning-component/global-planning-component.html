@@ -3,9 +3,9 @@
   <div class="planning-container">
 
     <div class="planning-header">
-      <button (click)="semainePrecedente()">◀ Semaine précédente</button>
-      <h2>Semaine {{ numeroSemaine }}</h2>
-      <button (click)="semaineSuivante()">Semaine suivante ▶</button>
+      <button (click)="previousWeek()">◀ Semaine précédente</button>
+      <h2>Semaine {{ nbWeek }}</h2>
+      <button (click)="nextWeek()">Semaine suivante ▶</button>
     </div>
 
     <table class="planning-table">
@@ -13,8 +13,8 @@
       <tr>
         <th>Pompier</th>
 
-        @for (jour of jours; track jour) {
-          <th>{{ jour }}</th>
+        @for (day of days; track day) {
+          <th>{{ day }}</th>
         }
 
       </tr>
@@ -22,14 +22,14 @@
 
       <tbody>
 
-        @for (pompier of pompiers; track pompier.nom) {
+        @for (firefighter of firefighters; track firefighter.name) {
           <tr>
-            <td class="pompier">{{ pompier.nom }}</td>
+            <td class="firefighter">{{ firefighter.name }}</td>
 
-            @for (jour of jours; track jour) {
+            @for (day of days; track day) {
               <td
                 class="cell"
-                [ngClass]="getDispo(pompier.nom, jour)"
+                [ngClass]="getAvailibility(firefighter.name, day)"
               >
               </td>
             }
@@ -39,6 +39,18 @@
 
       </tbody>
     </table>
+
+    <div class="legende">
+      <div class="legende-item">
+        <span class="color-box available"></span> De garde
+      </div>
+      <div class="legende-item">
+        <span class="color-box on-call"></span> Astreinte
+      </div>
+      <div class="legende-item">
+        <span class="color-box unavailable"></span> Indisponible
+      </div>
+    </div>
 
   </div>
 

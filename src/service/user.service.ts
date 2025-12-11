@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {User} from '../model/User';
+import {UserModel} from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private userSubject = new BehaviorSubject<User | null>(null);
+  private userSubject = new BehaviorSubject<UserModel | null>(null);
   user$ = this.userSubject.asObservable();
 
   constructor() {}
 
-  setUser(user: User) {
+  setUser(user: UserModel) {
     this.userSubject.next(user);
   }
 
@@ -19,7 +19,7 @@ export class UserService {
     this.userSubject.next(null);
   }
 
-  get currentUser(): User | null {
+  get currentUser(): UserModel | null {
     return this.userSubject.value;
   }
 

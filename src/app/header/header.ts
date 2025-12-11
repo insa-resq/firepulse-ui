@@ -1,9 +1,9 @@
 import {Component, ElementRef, HostListener} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive, RouterModule} from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from "../../service/AuthService";
-import {UserService} from '../../service/UserService';
-import {User} from '../../model/User';
+import { AuthService } from "../../service/auth.service";
+import {UserService} from '../../service/user.service';
+import {UserModel} from '../../model/user.model';
 
 @Component({
   selector: 'app-header',
@@ -40,14 +40,14 @@ export class Header {
   }
 
   private updateUserIcon() {
-    const user: User | null = this.userService.currentUser;
+    const user: UserModel | null = this.userService.currentUser;
 
     if (user) {
       this.userIcon = `/assets/icons/${user.role}.svg`;
     }
   }
 
-  getInitials(user: User | null): string {
+  getInitials(user: UserModel | null): string {
     if (!user || !user.username) return 'U';
     const name = user.username.trim();
     if (!name) return 'U';

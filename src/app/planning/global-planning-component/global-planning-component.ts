@@ -12,56 +12,56 @@ import {NgClass} from '@angular/common';
   standalone: true
 })
 export class GlobalPlanningComponent {
-  jours = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+  days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
-  pompiers = [
-    { nom: 'Dupont' },
-    { nom: 'Martin' },
-    { nom: 'Bernard' }
+  firefighters = [
+    { name: 'Dupont' },
+    { name: 'Martin' },
+    { name: 'Bernard' }
   ];
 
-  dateActuelle = new Date();
-  numeroSemaine!: number;
+  currentDate = new Date();
+  nbWeek!: number;
 
-  disponibilites = [
-    { semaine: 50, pompier: 'Dupont', jour: 'Lundi', statut: 'dispo' },
-    { semaine: 50, pompier: 'Dupont', jour: 'Samedi', statut: 'astreinte' },
-    { semaine: 50, pompier: 'Martin', jour: 'Mardi', statut: 'indispo' },
-    { semaine: 50, pompier: 'Bernard', jour: 'Dimanche', statut: 'dispo' },
+  availability = [
+    { week: 50, firefighter: 'Dupont', day: 'Lundi', status: 'available' },
+    { week: 50, firefighter: 'Dupont', day: 'Samedi', status: 'on-call' },
+    { week: 50, firefighter: 'Martin', day: 'Mardi', status: 'unavailable' },
+    { week: 50, firefighter: 'Bernard', day: 'Dimanche', status: 'available' },
 
-    { semaine: 51, pompier: 'Dupont', jour: 'Lundi', statut: 'indispo' },
-    { semaine: 51, pompier: 'Martin', jour: 'Vendredi', statut: 'astreinte' }
+    { week: 51, firefighter: 'Dupont', day: 'Lundi', status: 'unavailable' },
+    { week: 51, firefighter: 'Martin', day: 'Vendredi', status: 'on-call' }
   ];
 
   ngOnInit() {
-    this.updateNumeroSemaine();
+    this.updateNbWeek();
   }
 
-  updateNumeroSemaine() {
-    const date = new Date(this.dateActuelle);
-    const debutAnnee = new Date(date.getFullYear(), 0, 1);
-    const jours = Math.floor((date.getTime() - debutAnnee.getTime()) / 86400000);
-    this.numeroSemaine = Math.ceil((jours + debutAnnee.getDay() + 1) / 7);
+  updateNbWeek() {
+    const date = new Date(this.currentDate);
+    const startYear = new Date(date.getFullYear(), 0, 1);
+    const days = Math.floor((date.getTime() - startYear.getTime()) / 86400000);
+    this.nbWeek = Math.ceil((days + startYear.getDay() + 1) / 7);
   }
 
-  semainePrecedente() {
-    this.dateActuelle.setDate(this.dateActuelle.getDate() - 7);
-    this.updateNumeroSemaine();
+  previousWeek() {
+    this.currentDate.setDate(this.currentDate.getDate() - 7);
+    this.updateNbWeek();
   }
 
-  semaineSuivante() {
-    this.dateActuelle.setDate(this.dateActuelle.getDate() + 7);
-    this.updateNumeroSemaine();
+  nextWeek() {
+    this.currentDate.setDate(this.currentDate.getDate() + 7);
+    this.updateNbWeek();
   }
 
-  getDispo(pompier: string, jour: string): string {
-    const dispo = this.disponibilites.find(
-      d => d.semaine === this.numeroSemaine &&
-        d.pompier === pompier &&
-        d.jour === jour
+  getAvailibility(pompier: string, jour: string): string {
+    const dispo = this.availability.find(
+      d => d.week === this.nbWeek &&
+        d.firefighter === pompier &&
+        d.day === jour
     );
 
-    return dispo ? dispo.statut : '';
+    return dispo ? dispo.status : '';
   }
 
 

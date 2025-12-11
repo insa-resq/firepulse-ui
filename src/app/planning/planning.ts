@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {GlobalPlanningComponent} from './global-planning-component/global-planning-component';
 import {IndividualPlanningComponent} from './individual-planning-component/individual-planning-component';
-import {UserService} from '../../service/UserService';
+import {UserService} from '../../service/user.service';
 
 
 @Component({
