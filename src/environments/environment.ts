@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://192.168.10.46:8080'
+    apiUrl: 'https://splendid-mule-15.telebit.io/api/'
 };
