@@ -22,3 +22,32 @@
   height: 100%;
   border-radius: 12px;
 }
+
+.map-legend-horizontal {
+  margin-top: 15px;
+  background: #fff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  flex-wrap: wrap; /* ✔ pour mobile */
+  width: fit-content;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
