@@ -1,5 +1,5 @@
 import { Component, Input, AfterViewInit, OnChanges, Output, EventEmitter } from '@angular/core';
-import { Alert } from '../../../model/alert';
+import { Alert } from '../../../model/alert.model';
 
 @Component({
   selector: 'app-map',

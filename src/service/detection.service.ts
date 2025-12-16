@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import type { Alert } from '../model/alert';
+import type { Alert } from '../model/alert.model';
 import { environment } from '../environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -10,7 +10,7 @@ export class DetectionService {
   constructor(private http: HttpClient) {}
 
   getAlerts() {
-    return this.http.get<Alert[]>(`${this.baseUrl}/alerts`);
+    return this.http.get<Alert[]>(`${this.baseUrl}/fire-alerts`);
   }
 
   updateStatus(id: number, status: string) {

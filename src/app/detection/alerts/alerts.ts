@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { DetectionService } from '../../../service/detection.service';
 import { DatePipe } from '@angular/common';
-import { Alert } from '../../../model/alert';
+import { Alert } from '../../../model/alert.model';
 
 @Component({
   selector: 'app-alerts',

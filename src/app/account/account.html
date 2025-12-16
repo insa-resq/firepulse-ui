@@ -1,1 +1,112 @@
-<p>account works!</p>
+<div class="account-container">
+  <h1>Mon compte</h1>
+
+  <!-- User Info Section -->
+  <div class="user-info-card">
+    <h2>Informations personnelles</h2>
+    <div class="info-row">
+      <span class="label">ID:</span>
+      <span class="value">{{ currentUser?.id }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Email:</span>
+      <span class="value">{{ currentUser?.email }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Rôle:</span>
+      <span class="value">{{ currentUser?.role }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Station:</span>
+      <span class="value">{{ currentUser?.stationId }}</span>
+    </div>
+  </div>
+
+  <!-- Edit Own Email Section -->
+  <div class="edit-email-card">
+    <h2>Modifier mon email</h2>
+    <form (ngSubmit)="updateMyEmail()" #emailForm="ngForm">
+      <div class="form-group">
+        <label for="newEmail">Nouvel email:</label>
+        <input 
+          type="email" 
+          id="newEmail" 
+          name="newEmail"
+          [(ngModel)]="newEmail"
+          required
+          email
+        />
+      </div>
+      <button type="submit" [disabled]="!emailForm.valid || isUpdating">
+        {{ isUpdating ? 'Mise à jour...' : 'Mettre à jour' }}
+      </button>
+      @if (updateMessage) {
+        <div class="message" [class.success]="updateSuccess" [class.error]="!updateSuccess">
+          {{ updateMessage }}
+        </div>
+      }
+    </form>
+  </div>
+
+  <!-- Admin Section -->
+  @if (isAdmin) {
+    <div class="admin-section">
+      <h2>Administration des utilisateurs</h2>
+      
+      <!-- Users List -->
+      <div class="users-list">
+        @for (user of users; track user.id) {
+          <div class="user-card" [class.current-user]="user.id === currentUser?.id">
+            <div class="user-header">
+              <h3>{{ user.email }}</h3>
+              <span class="role-badge">{{ user.role }}</span>
+            </div>
+            <div class="user-details">
+              <span>ID: {{ user.id }}</span>
+              <span>Station: {{ user.stationId }}</span>
+            </div>
+            
+            @if (user.id !== currentUser?.id) {
+              <div class="user-actions">
+                <!-- Edit Email -->
+                <div class="action-group">
+                  <input 
+                    type="email" 
+                    [(ngModel)]="userEdits[user.id].email"
+                    placeholder="Nouvel email"
+                  />
+                  <button (click)="updateOtherUserEmail(user)" class="btn-edit">
+                    Modifier email
+                  </button>
+                </div>
+                
+                <!-- Edit Station -->
+                <div class="action-group">
+                  <input 
+                    type="text" 
+                    [(ngModel)]="userEdits[user.id].stationId"
+                    placeholder="Nouvelle station"
+                  />
+                  <button (click)="updateOtherUserStation(user)" class="btn-edit">
+                    Modifier station
+                  </button>
+                </div>
+                
+                <!-- Delete User -->
+                <button (click)="deleteOtherUser(user)" class="btn-delete">
+                  Supprimer
+                </button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+      
+      @if (adminMessage) {
+        <div class="message" [class.success]="adminSuccess" [class.error]="!adminSuccess">
+          {{ adminMessage }}
+        </div>
+      }
+    </div>
+  }
+</div>

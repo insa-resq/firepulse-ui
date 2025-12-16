@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Alerts } from './alerts/alerts';
 import { Map } from './map/map';
 import { DetectionService } from '../../service/detection.service';
-import { Alert } from '../../model/alert';
+import { Alert } from '../../model/alert.model';
 
 @Component({
   selector: 'app-detection',

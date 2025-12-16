@@ -15,10 +15,12 @@ export class AuthService {
     this.loggedIn.next(true);
     this.userService.setUser({
       id: 1,
-      username: 'Paul Lemeilleur',
+      createdAt: new Date(),
+      updatedAt: new Date(),
       email: 'polypol@lebest.pol',
-      rights: ['GLOBAL_PLANNING'],
-      role: 'Adj'
+      role: 'ADMIN',
+      avatarUrl: '',
+      stationId: ''
     });
   }
 

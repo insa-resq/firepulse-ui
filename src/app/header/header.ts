@@ -48,8 +48,8 @@ export class Header {
   }
 
   getInitials(user: UserModel | null): string {
-    if (!user || !user.username) return 'U';
-    const name = user.username.trim();
+    if (!user || !user.email) return 'U';
+    const name = user.email.trim();
     if (!name) return 'U';
     const parts = name.split(/[\s._-]+/).filter(Boolean);
     if (parts.length === 1) {

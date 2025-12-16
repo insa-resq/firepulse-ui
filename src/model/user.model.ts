@@ -1,8 +1,9 @@
 export interface UserModel {
   id: number;
-  username: string;
+  createdAt: Date;
+  updatedAt: Date;
   email: string;
-  role: 'Sap' | 'Cpl' | 'Cch' | 'Sgt' | 'Sch'| 'Adj' | 'Adc' | 'Ltn' | 'Cne' | 'Cdt' | 'Lcl' | 'Col' | 'Gnl' ;
-  rights: string[];
-
+  role: 'ADMIN' | 'ALERT_MONITOR' | 'PLANNING_MANAGER' | 'FIREFIGHTER';
+  avatarUrl: string;
+  stationId: string;
 }
