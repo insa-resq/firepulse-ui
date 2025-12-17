@@ -17,6 +17,9 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
+  errorMessage: string | null = null;
+  isLoading = false;
+
   constructor(public auth : AuthService, private router: Router) {}
 
   onSubmit() {
@@ -25,15 +28,29 @@ export class LoginComponent {
       return;
     }
 
-    // Simplicité : log dans la console
-    console.log('Tentative de connexion...');
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
+    this.errorMessage = null;
+    this.isLoading = true;
 
-    // Placeholder future connexion API
-    // this.authService.login(this.email, this.password).subscribe(...)
+    this.auth.login(this.email, this.password).subscribe({
+      next : () => this.router.navigate(['/homepage']),
+      error: (err) => {
+        this.isLoading = false;
 
-    this.auth.login();
-    this.router.navigate(['/homepage']);
+        if (err.status === 401) {
+          this.errorMessage = 'Email ou mot de passe incorrect.';
+        } else if (err.status === 404) {
+          this.errorMessage = 'Utilisateur introuvable.';
+        } else {
+          this.errorMessage = 'Une erreur est survenue. Réessayez plus tard.';
+        }
+      },
+      complete: () => {
+        this.isLoading = false;
+      }});
+
+  }
+
+  clearError() {
+    this.errorMessage = null;
   }
 }

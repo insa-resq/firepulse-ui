@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, tap} from 'rxjs';
 import {UserModel} from '../model/user.model';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { environment } from '../environments/environment';
 export class UserService {
   private userSubject = new BehaviorSubject<UserModel | null>(null);
   user$ = this.userSubject.asObservable();
-  private apiUrl = environment.apiUrl;
+  private readonly baseUrl = new URL('accounts-service', environment.apiUrl).toString().replace(/\/+$/, '');
 
   constructor(private http: HttpClient) {}
 
@@ -34,28 +34,38 @@ export class UserService {
     return this.userSubject.value?.role === 'ADMIN';
   }
 
-  // Get all users (admin only)
-  getAllUsers(): Observable<UserModel[]> {
-    return this.http.get<UserModel[]>(`${this.apiUrl}/users`);
+  getCurrentUser(): Observable<UserModel> {
+    const token = localStorage.getItem('token'); // Récupération du token
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<UserModel>(`${this.baseUrl}/users/me`, { headers })
+      .pipe( tap(user => this.setUser(user)));
   }
 
-  // Update own email
+
+  getAllUsers(): Observable<UserModel[]> {
+    return this.http.get<UserModel[]>(`${this.baseUrl}/users`);
+  }
+
   updateEmail(email: string): Observable<UserModel> {
-    return this.http.patch<UserModel>(`${this.apiUrl}/users/me`, { email });
+    return this.http.patch<UserModel>(`${this.baseUrl}/users/me`, { email });
   }
 
   // Update another user's email (admin only)
   updateUserEmail(userId: number, email: string): Observable<UserModel> {
-    return this.http.patch<UserModel>(`${this.apiUrl}/users/${userId}`, { email });
+    return this.http.patch<UserModel>(`${this.baseUrl}/users/${userId}`, { email });
   }
 
   // Update another user's station (admin only)
   updateUserStation(userId: number, stationId: string): Observable<UserModel> {
-    return this.http.patch<UserModel>(`${this.apiUrl}/users/${userId}`, { stationId });
+    return this.http.patch<UserModel>(`${this.baseUrl}/users/${userId}`, { stationId });
   }
 
   // Delete user (admin only)
   deleteUser(userId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/users/${userId}`);
+    return this.http.delete<void>(`${this.baseUrl}/users/${userId}`);
   }
 }
