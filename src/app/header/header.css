@@ -58,6 +58,9 @@
 
 .user-menu {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .user-btn {
@@ -80,26 +83,22 @@
   transform: scale(0.95);
 }
 
-.user-btn img {
-  width: 60%;
-  height: 60%;
-  object-fit: cover;
-  display: block;
-  border-radius: 50%;
-}
-
-.fallback-avatar {
-  width: 100%;
-  height: 100%;
+.user-icon {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  font-weight: 700;
-  font-size: 16px;
-  user-select: none;
-  background: #4b561f; /* couleur du bouton */
-  border-radius: 50%;
+}
+
+.user-icon img,
+.user-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .dropdown {

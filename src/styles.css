@@ -8,6 +8,11 @@ html, body, app-root, .app-container {
   height: 100%;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .app-container {
   display: flex;
   flex-direction: column;

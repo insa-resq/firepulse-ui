@@ -15,20 +15,20 @@
     }
 
     <!-- Connecté -->
-    @if(isLoggedIn){
+    @if(isLoggedIn && userService.currentUser){
       <div class="user-menu">
+        @if(userIcon){
+            <div class="user-icon">
+                <img src="{{ userIcon }}" alt="avatar"/>
+            </div>
+        }
         <button
           class="user-btn"
           type="button"
           (click)="menuOpen = !menuOpen"
           aria-haspopup="true"
           [attr.aria-expanded]="menuOpen">
-
-          @if(userIcon) {
-            <img [src]="userIcon" alt="avatar" />
-          } @else {
-            <span class="fallback-avatar">{{ getInitials(userService.currentUser) || 'U' }}</span>
-          }
+          <img src="{{ userService.currentUser.avatarUrl }}" alt="avatar" />
         </button>
 
         @if(menuOpen){

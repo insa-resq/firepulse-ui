@@ -1,6 +1,7 @@
 import {Component, ElementRef, HostListener} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive, RouterModule} from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FirefighterRank } from '../../model/firefighter.model';
 import { AuthService } from "../../service/auth.service";
 import {UserService} from '../../service/user.service';
 import {UserModel} from '../../model/user.model';
@@ -16,6 +17,18 @@ export class Header {
   isLoggedIn = false;
   menuOpen = false;
   userIcon = '';
+
+  private readonly RANK_TO_ICON_MAP: Record<FirefighterRank, `${string}.${'png' | 'svg'}`> = {
+    FIRST_CLASS: 'Sap.svg',
+    SECOND_CLASS: 'Sap.svg',
+    CORPORAL: 'Cpl.svg',
+    CHIEF_CORPORAL: 'Cch.svg',
+    SERGEANT: 'Sgt.svg',
+    CHIEF_SERGEANT: 'Sch.svg',
+    ADJUTANT: 'Adj.svg',
+    CHIEF_ADJUTANT: 'Adc.svg',
+    LIEUTENANT: 'Ltn.svg',
+  } as const;
 
   constructor(
     private router: Router,
@@ -43,19 +56,11 @@ export class Header {
     const user: UserModel | null = this.userService.currentUser;
 
     if (user) {
-      this.userIcon = `/assets/icons/${user.role}.svg`;
+      const rank = FirefighterRank.SECOND_CLASS; // Get the actual rank from the API
+      
+      const iconFile = this.RANK_TO_ICON_MAP[rank];
+      this.userIcon = `/icons/${iconFile}`;
     }
-  }
-
-  getInitials(user: UserModel | null): string {
-    if (!user || !user.email) return 'U';
-    const name = user.email.trim();
-    if (!name) return 'U';
-    const parts = name.split(/[\s._-]+/).filter(Boolean);
-    if (parts.length === 1) {
-      return parts[0].slice(0, 2).toUpperCase();
-    }
-    return (parts[0][0] + (parts[1][0] ?? '')).toUpperCase();
   }
 
   @HostListener('document:click', ['$event'])
