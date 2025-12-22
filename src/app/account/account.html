@@ -6,11 +6,11 @@
     <div class="profile-header">
       <div class="avatar-container">
         @if (currentUser?.avatarUrl) {
-          <img [src]="currentUser?.avatarUrl" alt="Photo de profil" class="avatar" />
+        <img [src]="currentUser?.avatarUrl" alt="Photo de profil" class="avatar" />
         } @else {
-          <div class="avatar-placeholder">
-            {{ currentUser?.email?.charAt(0)?.toUpperCase() }}
-          </div>
+        <div class="avatar-placeholder">
+          {{ currentUser?.email?.charAt(0)?.toUpperCase() }}
+        </div>
         }
       </div>
       <h2>Informations personnelles</h2>
@@ -25,7 +25,9 @@
     </div>
     <div class="info-row">
       <span class="label">Station:</span>
-      <span class="value">{{ currentUser?.stationId }}</span>
+      <span class="value">
+        {{ stationName || 'Chargement...' }}
+      </span>
     </div>
   </div>
 
@@ -35,22 +37,15 @@
     <form (ngSubmit)="updateMyEmail()" #emailForm="ngForm">
       <div class="form-group">
         <label for="newEmail">Nouvel email:</label>
-        <input 
-          type="email" 
-          id="newEmail" 
-          name="newEmail"
-          [(ngModel)]="newEmail"
-          required
-          email
-        />
+        <input type="email" id="newEmail" name="newEmail" [(ngModel)]="newEmail" required email />
       </div>
       <button type="submit" [disabled]="!emailForm.valid || isUpdating">
         {{ isUpdating ? 'Mise à jour...' : 'Mettre à jour' }}
       </button>
       @if (updateMessage) {
-        <div class="message" [class.success]="updateSuccess" [class.error]="!updateSuccess">
-          {{ updateMessage }}
-        </div>
+      <div class="message" [class.success]="updateSuccess" [class.error]="!updateSuccess">
+        {{ updateMessage }}
+      </div>
       }
     </form>
   </div>

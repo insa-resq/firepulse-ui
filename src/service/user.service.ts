@@ -47,21 +47,41 @@ export class UserService {
 
 
   getAllUsers(): Observable<UserModel[]> {
-    return this.http.get<UserModel[]>(`${this.baseUrl}/users`);
+    const token = localStorage.getItem('token'); // Récupération du token
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<UserModel[]>(`${this.baseUrl}/users`, { headers });
   }
 
   updateEmail(email: string): Observable<UserModel> {
-    return this.http.patch<UserModel>(`${this.baseUrl}/users/me`, { email });
+    const token = localStorage.getItem('token'); // Récupération du token
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.patch<UserModel>(`${this.baseUrl}/users/me`, { email }, { headers });
   }
 
   // Update another user's email (admin only)
   updateUserEmail(userId: number, email: string): Observable<UserModel> {
-    return this.http.patch<UserModel>(`${this.baseUrl}/users/${userId}`, { email });
+    const token = localStorage.getItem('token'); // Récupération du token
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.patch<UserModel>(`${this.baseUrl}/users/${userId}`, { email }, { headers });
   }
 
   // Update another user's station (admin only)
   updateUserStation(userId: number, stationId: string): Observable<UserModel> {
-    return this.http.patch<UserModel>(`${this.baseUrl}/users/${userId}`, { stationId });
+    const token = localStorage.getItem('token'); // Récupération du token
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.patch<UserModel>(`${this.baseUrl}/users/${userId}`, { stationId }, { headers });
   }
 
   // Delete user (admin only)

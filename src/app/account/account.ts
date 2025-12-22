@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../service/user.service';
 import { UserModel } from '../../model/user.model';
+import { RegistryService } from '../../service/registry.service';
 
 @Component({
   selector: 'app-account',
@@ -11,9 +12,11 @@ import { UserModel } from '../../model/user.model';
   styleUrl: './account.css',
 })
 export class AccountComponent implements OnInit {
+  [x: string]: any;
   currentUser: UserModel | null = null;
   users: UserModel[] = [];
   isAdmin = false;
+  stationName?: string;
 
   // Own email update
   newEmail = '';
@@ -26,7 +29,7 @@ export class AccountComponent implements OnInit {
   adminMessage = '';
   adminSuccess = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private registryService: RegistryService) {}
 
   ngOnInit() {
     // Get current user
@@ -41,6 +44,10 @@ export class AccountComponent implements OnInit {
     // If admin, load all users
     if (this.isAdmin) {
       this.loadUsers();
+    }
+
+    if (this.currentUser?.stationId) {
+      this.loadStationName(this.currentUser.stationId);
     }
   }
 
@@ -155,6 +162,18 @@ export class AccountComponent implements OnInit {
         this.adminMessage = 'Erreur lors de la suppression de l\'utilisateur';
         this.adminSuccess = false;
         setTimeout(() => this.adminMessage = '', 3000);
+      }
+    });
+  }
+
+  loadStationName(stationId: string) {
+    console.log('Loading station name for ID:', stationId);
+    this.registryService.getStationById(stationId).subscribe({
+      next: (station: any) => {
+        this.stationName = station?.name || 'Station inconnue';
+      },
+      error: () => {
+        this.stationName = 'Station inconnue';
       }
     });
   }

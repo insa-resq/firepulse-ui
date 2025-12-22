@@ -14,6 +14,7 @@ import {UserModel} from '../../model/user.model';
   styleUrls: ['./header.css'],
 })
 export class Header {
+[x: string]: any;
   isLoggedIn = false;
   menuOpen = false;
   userIcon = '';

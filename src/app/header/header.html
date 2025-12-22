@@ -36,6 +36,11 @@
             <li role="menuitem">
               <a routerLink="/account" (click)="menuOpen = false">Compte</a>
             </li>
+            @if (userService.isAdmin()) {
+              <li role="menuitem">
+              <a routerLink="/administration" (click)="menuOpen = false">Gérer</a>
+            </li>
+            }
             <li role="menuitem" (click)="logout()">Déconnexion</li>
           </ul>
         }
