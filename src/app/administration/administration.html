@@ -1,1 +1,89 @@
-<p>administration works!</p>
+<div class="admin-container">
+  <h1>Gestion des utilisateurs</h1>
+  
+  <!-- Message de feedback -->
+  @if(message) {
+    <div [class]="'alert ' + (messageSuccess ? 'alert-success' : 'alert-error')">
+      {{ message }}
+    </div>
+  }
+
+  <!-- Loading state -->
+  @if(isLoading) {
+    <div class="loading">Chargement des utilisateurs...</div>
+  }
+
+  <!-- Users list -->
+  @if(!isLoading && users.length > 0) {
+    <div class="users-section">
+      <div class="users-header">
+        <h2>Liste des utilisateurs ({{ users.length }})</h2>
+      </div>
+
+      <div class="users-grid">
+        @for(user of users; track user.id) {
+          <div class="user-card">
+            <!-- User Info -->
+            <div class="user-info">
+              <div class="user-header-row">
+                <div class="user-details">
+                  <div class="user-email">{{ user.email }}</div>
+                  <div class="user-meta">
+                    <span class="user-role">{{ getRoleName(user.role) }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Edit Mode -->
+              @if(editingUserId === user.id) {
+                <div class="edit-form">
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" [(ngModel)]="editEmail" placeholder="Entrez l'email" />
+                  </div>
+                  <div class="form-group">
+                    <label>Caserne ID</label>
+                    <input type="text" [(ngModel)]="editStationId" placeholder="Entrez l'ID de la caserne" />
+                  </div>
+                  <div class="form-actions">
+                    <button class="btn btn-save" (click)="updateUser(user)">Enregistrer</button>
+                    <button class="btn btn-cancel" (click)="cancelEdit()">Annuler</button>
+                  </div>
+                </div>
+              } @else {
+                <!-- Display Mode -->
+                <div class="user-display">
+                  <div class="info-row">
+                    <span class="label">Email :</span>
+                    <span class="value">{{ user.email }}</span>
+                  </div>
+                  @if(user.stationId) {
+                    <div class="info-row">
+                      <span class="label">Caserne :</span>
+                      <span class="value">{{ stationNames[user.stationId] || user.stationId }}</span>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+
+            <!-- Actions -->
+            @if(editingUserId !== user.id) {
+              <div class="user-actions">
+                <button class="btn btn-edit" (click)="startEdit(user)">Modifier</button>
+                <button class="btn btn-delete" (click)="deleteUser(user)">Supprimer</button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Empty state -->
+  @if(!isLoading && users.length === 0) {
+    <div class="empty-state">
+      <p>Aucun utilisateur trouvé</p>
+    </div>
+  }
+</div>
