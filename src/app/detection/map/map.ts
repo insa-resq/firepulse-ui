@@ -95,7 +95,7 @@ export class Map implements AfterViewInit, OnChanges {
   getColorByStatus(status: string): string {
     const statusColors: { [key: string]: string } = {
       'NEW': '#ff4444',        // rouge
-      'IN PROGRESS': '#ff9800', // orange
+      'IN_PROGRESS': '#ff9800', // orange
       'RESOLVED': '#4caf50',   // vert
       'DISMISSED': '#9e9e9e'      // gris
     };

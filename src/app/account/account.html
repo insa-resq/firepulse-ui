@@ -3,10 +3,17 @@
 
   <!-- User Info Section -->
   <div class="user-info-card">
-    <h2>Informations personnelles</h2>
-    <div class="info-row">
-      <span class="label">ID:</span>
-      <span class="value">{{ currentUser?.id }}</span>
+    <div class="profile-header">
+      <div class="avatar-container">
+        @if (currentUser?.avatarUrl) {
+          <img [src]="currentUser?.avatarUrl" alt="Photo de profil" class="avatar" />
+        } @else {
+          <div class="avatar-placeholder">
+            {{ currentUser?.email?.charAt(0)?.toUpperCase() }}
+          </div>
+        }
+      </div>
+      <h2>Informations personnelles</h2>
     </div>
     <div class="info-row">
       <span class="label">Email:</span>
@@ -47,66 +54,4 @@
       }
     </form>
   </div>
-
-  <!-- Admin Section -->
-  @if (isAdmin) {
-    <div class="admin-section">
-      <h2>Administration des utilisateurs</h2>
-      
-      <!-- Users List -->
-      <div class="users-list">
-        @for (user of users; track user.id) {
-          <div class="user-card" [class.current-user]="user.id === currentUser?.id">
-            <div class="user-header">
-              <h3>{{ user.email }}</h3>
-              <span class="role-badge">{{ user.role }}</span>
-            </div>
-            <div class="user-details">
-              <span>ID: {{ user.id }}</span>
-              <span>Station: {{ user.stationId }}</span>
-            </div>
-            
-            @if (user.id !== currentUser?.id) {
-              <div class="user-actions">
-                <!-- Edit Email -->
-                <div class="action-group">
-                  <input 
-                    type="email" 
-                    [(ngModel)]="userEdits[user.id].email"
-                    placeholder="Nouvel email"
-                  />
-                  <button (click)="updateOtherUserEmail(user)" class="btn-edit">
-                    Modifier email
-                  </button>
-                </div>
-                
-                <!-- Edit Station -->
-                <div class="action-group">
-                  <input 
-                    type="text" 
-                    [(ngModel)]="userEdits[user.id].stationId"
-                    placeholder="Nouvelle station"
-                  />
-                  <button (click)="updateOtherUserStation(user)" class="btn-edit">
-                    Modifier station
-                  </button>
-                </div>
-                
-                <!-- Delete User -->
-                <button (click)="deleteOtherUser(user)" class="btn-delete">
-                  Supprimer
-                </button>
-              </div>
-            }
-          </div>
-        }
-      </div>
-      
-      @if (adminMessage) {
-        <div class="message" [class.success]="adminSuccess" [class.error]="!adminSuccess">
-          {{ adminMessage }}
-        </div>
-      }
-    </div>
-  }
 </div>

@@ -19,15 +19,15 @@ export class Header {
   userIcon = '';
 
   private readonly RANK_TO_ICON_MAP: Record<FirefighterRank, `${string}.${'png' | 'svg'}`> = {
-    FIRST_CLASS: 'Sap.svg',
-    SECOND_CLASS: 'Sap.svg',
-    CORPORAL: 'Cpl.svg',
-    CHIEF_CORPORAL: 'Cch.svg',
-    SERGEANT: 'Sgt.svg',
-    CHIEF_SERGEANT: 'Sch.svg',
-    ADJUTANT: 'Adj.svg',
-    CHIEF_ADJUTANT: 'Adc.svg',
-    LIEUTENANT: 'Ltn.svg',
+    FIRST_CLASS: 'Sap.png',
+    SECOND_CLASS: 'Sap.png',
+    CORPORAL: 'Cpl.png',
+    CHIEF_CORPORAL: 'Cch.png',
+    SERGEANT: 'Sgt.png',
+    CHIEF_SERGEANT: 'Sch.png',
+    ADJUTANT: 'Adj.png',
+    CHIEF_ADJUTANT: 'Adc.png',
+    LIEUTENANT: 'Ltn.png',
   } as const;
 
   constructor(
