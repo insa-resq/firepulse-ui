@@ -20,8 +20,42 @@
         <h2>Liste des utilisateurs ({{ users.length }})</h2>
       </div>
 
+      <!-- Recherche et Filtres -->
+      <div class="filters-container">
+        <div class="search-box">
+          <input 
+            type="text" 
+            [(ngModel)]="searchEmail" 
+            placeholder="Rechercher par adresse email"
+            class="search-input"
+          />
+        </div>
+
+        <div class="filters-row">
+          <select [(ngModel)]="filterStation" class="filter-select">
+            <option value="">Toutes les casernes</option>
+            @for(station of getSortedStations(); track station) {
+              <option [value]="station">
+                {{ stationNames[station] || station }}
+              </option>
+            }
+          </select>
+
+          @if(searchEmail || filterStation) {
+            <button class="btn btn-reset" (click)="resetFilters()">Réinitialiser</button>
+          }
+        </div>
+      </div>
+
+      <!-- Résultats du filtrage -->
+      @if(getFilteredUsers().length === 0 && (searchEmail || filterStation)) {
+        <div class="no-results">
+          <p>Aucun utilisateur ne correspond aux critères de recherche</p>
+        </div>
+      }
+
       <div class="users-grid">
-        @for(user of users; track user.id) {
+        @for(user of getFilteredUsers(); track user.id) {
           <div class="user-card">
             <!-- User Info -->
             <div class="user-info">

@@ -22,12 +22,16 @@ export class AdministrationComponent implements OnInit {
   editingUserId: number | null = null;
   editEmail = '';
   editStationId = '';
-  
+
+  // Filtrage et recherche
+  searchEmail = '';
+  filterStation = '';
+  availableStations: Set<string> = new Set();
 
   constructor(
     private userService: UserService,
     private registryService: RegistryService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadUsers();
@@ -39,8 +43,11 @@ export class AdministrationComponent implements OnInit {
       next: (users) => {
         this.users = users;
         this.isLoading = false;
+        // Collecter toutes les stations uniques
+        this.availableStations.clear();
         users.forEach(user => {
           if (user.stationId) {
+            this.availableStations.add(user.stationId);
             this.loadStationName(user.stationId);
           }
         });
@@ -163,4 +170,29 @@ export class AdministrationComponent implements OnInit {
     };
     return roleMap[role] || role;
   }
+
+  // Filtrer les utilisateurs selon la recherche et le filtre
+  getFilteredUsers(): UserModel[] {
+    return this.users.filter(user => {
+      const matchEmail = user.email.toLowerCase().includes(this.searchEmail.toLowerCase());
+      const matchStation = !this.filterStation || user.stationId === this.filterStation;
+      return matchEmail && matchStation;
+    });
+  }
+
+  // Réinitialiser les filtres
+  resetFilters() {
+    this.searchEmail = '';
+    this.filterStation = '';
+  }
+
+  // Obtenir les stations triées pour le select
+  getSortedStations(): string[] {
+    return Array.from(this.availableStations).sort((a, b) => {
+      const nameA = this.stationNames[a] || a;
+      const nameB = this.stationNames[b] || b;
+      return nameA.localeCompare(nameB);
+    });
+  }
 }
+
