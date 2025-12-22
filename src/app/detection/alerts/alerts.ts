@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DetectionService } from '../../../service/detection.service';
 import { DatePipe } from '@angular/common';
 import { Alert } from '../../../model/alert.model';
@@ -15,6 +15,7 @@ export class Alerts implements OnInit {
   @Input() selectedAlertId?: number;
   @Output() statusUpdated = new EventEmitter<void>();
   @Output() alertSelected = new EventEmitter<Alert>();
+  @ViewChild('alertsContainer') alertsContainer?: ElementRef<HTMLDivElement>;
 
   constructor(private detectionService: DetectionService) {}
 
@@ -43,6 +44,17 @@ export class Alerts implements OnInit {
   selectAlert(alert: Alert) {
     console.log('Alert selected (alerts component):', alert.id); // debug
     this.alertSelected.emit(alert);
-    
+  }
+
+  scrollToAlert(alertId: number) {
+    if (!this.alertsContainer) return;
+
+    const alertElement = this.alertsContainer.nativeElement.querySelector(
+      `.alert-card[data-alert-id="${alertId}"]`
+    );
+
+    if (alertElement) {
+      alertElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
 }

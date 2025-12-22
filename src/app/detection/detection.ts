@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Alerts } from './alerts/alerts';
 import { Map } from './map/map';
 import { DetectionService } from '../../service/detection.service';
@@ -14,6 +14,7 @@ import { Alert } from '../../model/alert.model';
 export class DetectionComponent implements OnInit {
   alerts: Alert[] = [];
   selectedAlertId?: number;
+  @ViewChild(Alerts) alertsComponent?: Alerts;
 
   constructor(private detectionService: DetectionService) {}
 
@@ -32,6 +33,10 @@ export class DetectionComponent implements OnInit {
   onAlertSelected(alert: Alert) {
     console.log('Alert selected:', alert.id); // debug
     this.selectedAlertId = alert.id;
+    // Scroll l'alerte en vue dans la liste si elle est hors écran
+    if (this.alertsComponent) {
+      this.alertsComponent.scrollToAlert(alert.id);
+    }
     console.log('selectedAlertId set to:', this.selectedAlertId); // debug
   }
 }

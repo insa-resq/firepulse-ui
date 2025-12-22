@@ -1,7 +1,8 @@
-<div class="alerts-container">
+<div class="alerts-container" #alertsContainer>
   @for (alert of alerts; track alert.id) {
     <div class="alert-card"
          [class.is-selected]="alert.id === selectedAlertId"
+         [attr.data-alert-id]="alert.id"
          (click)="selectAlert(alert)">
       <!-- Header avec statut et sévérité -->
       <div class="alert-header">
