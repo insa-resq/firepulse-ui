@@ -76,8 +76,15 @@
                     <input type="email" [(ngModel)]="editEmail" placeholder="Entrez l'email" />
                   </div>
                   <div class="form-group">
-                    <label>Caserne ID</label>
-                    <input type="text" [(ngModel)]="editStationId" placeholder="Entrez l'ID de la caserne" />
+                    <label>Caserne</label>
+                    <select [(ngModel)]="editStationId" class="form-select">
+                      <option value="">-- Sélectionner une caserne --</option>
+                      @for(station of getSortedStations(); track station) {
+                        <option [value]="station">
+                          {{ stationNames[station] || station }}
+                        </option>
+                      }
+                    </select>
                   </div>
                   <div class="form-actions">
                     <button class="btn btn-save" (click)="updateUser(user)">Enregistrer</button>
