@@ -18,6 +18,7 @@ export class AdministrationComponent implements OnInit {
   message = '';
   messageSuccess = false;
   stationNames: { [stationId: string]: string } = {};
+  loadingStations: Set<string> = new Set();
   editingUserId: number | null = null;
   editEmail = '';
   editStationId = '';
@@ -57,13 +58,16 @@ export class AdministrationComponent implements OnInit {
     if (this.stationNames[stationId]) {
       return;
     }
+    this.loadingStations.add(stationId);
     this.registryService.getStationById(stationId).subscribe({
       next: (station: any) => {
         this.stationNames[stationId] = station.name || stationId;
+        this.loadingStations.delete(stationId);
       },
       error: (error) => {
         console.error('Error loading station:', error);
         this.stationNames[stationId] = stationId;
+        this.loadingStations.delete(stationId);
       }
     });
   }

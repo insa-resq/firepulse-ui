@@ -60,7 +60,14 @@
                   @if(user.stationId) {
                     <div class="info-row">
                       <span class="label">Caserne :</span>
-                      <span class="value">{{ stationNames[user.stationId] || user.stationId }}</span>
+                      @if(loadingStations.has(user.stationId)) {
+                        <span class="value loading-station">
+                          <span class="spinner"></span>
+                          Chargement...
+                        </span>
+                      } @else {
+                        <span class="value">{{ stationNames[user.stationId] || user.stationId }}</span>
+                      }
                     </div>
                   }
                 </div>
