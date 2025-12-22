@@ -177,5 +177,15 @@ export class AccountComponent implements OnInit {
       }
     });
   }
+
+  getRoleName(role: string): string {
+    const roleMap: { [key: string]: string } = {
+      'ADMIN': 'Administrateur',
+      'ALERT_MONITOR': 'Moniteur d\'alerte',
+      'PLANNING_MANAGER': 'Gestionnaire de planning',
+      'FIREFIGHTER': 'Pompier'
+    };
+    return roleMap[role] || role;
+  }
 }
 

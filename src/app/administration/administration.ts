@@ -26,6 +26,7 @@ export class AdministrationComponent implements OnInit {
   // Filtrage et recherche
   searchEmail = '';
   filterStation = '';
+  filterRole = '';
   availableStations: Set<string> = new Set();
 
   constructor(
@@ -176,7 +177,8 @@ export class AdministrationComponent implements OnInit {
     return this.users.filter(user => {
       const matchEmail = user.email.toLowerCase().includes(this.searchEmail.toLowerCase());
       const matchStation = !this.filterStation || user.stationId === this.filterStation;
-      return matchEmail && matchStation;
+      const matchRole = !this.filterRole || user.role === this.filterRole;
+      return matchEmail && matchStation && matchRole;
     });
   }
 
@@ -184,6 +186,7 @@ export class AdministrationComponent implements OnInit {
   resetFilters() {
     this.searchEmail = '';
     this.filterStation = '';
+    this.filterRole = '';
   }
 
   // Obtenir les stations triées pour le select
