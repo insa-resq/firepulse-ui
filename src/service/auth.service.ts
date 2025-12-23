@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {catchError, map, of, tap} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,4 +18,26 @@ export class AuthService {
         { email, password }
       );
   }
+
+  restoreSession() {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return of(false);
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.baseUrl}/users/me`, { headers }).pipe(
+      tap(() => console.log('Session restaurée')),
+      map(() => true),
+      catchError(() => {
+        localStorage.removeItem('token');
+        return of(false);
+      })
+    );
+  }
+
 }

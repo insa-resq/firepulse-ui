@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Footer } from './footer/footer';
 import { Header } from './header/header';
-import { LoginComponent } from "./login/login";
+import {AuthService} from '../service/auth.service';
 
 
 @Component({
@@ -16,4 +16,8 @@ import { LoginComponent } from "./login/login";
 })
 export class App {
   protected readonly title = signal('resQ');
+
+  constructor(private auth: AuthService) {
+    this.auth.restoreSession().subscribe();
+  }
 }
