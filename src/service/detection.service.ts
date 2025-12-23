@@ -6,7 +6,7 @@ import { environment } from '../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class DetectionService {
   private readonly baseUrl = new URL('detection-service', environment.apiUrl).toString().replace(/\/+$/, '');
-  
+
   constructor(private http: HttpClient) {}
 
   getAlerts() {
@@ -15,11 +15,20 @@ export class DetectionService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    
+
     return this.http.get<Alert[]>(`${this.baseUrl}/fire-alerts`, { headers });
   }
 
   updateStatus(id: number, status: string) {
     return this.http.patch(`${this.baseUrl}/${id}`, { status });
+  }
+
+  deleteAlert(id: number) {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.delete(`${this.baseUrl}/fire-alerts/${id}`, { headers });
   }
 }
