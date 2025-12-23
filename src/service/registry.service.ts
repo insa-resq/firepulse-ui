@@ -7,7 +7,7 @@ import { environment } from '../environments/environment';
 })
 export class RegistryService {
   private readonly baseUrl = new URL('registry-service', environment.apiUrl).toString().replace(/\/+$/, '');
-  
+
   constructor(private http: HttpClient) { }
 
   getStationById(id: string) {
@@ -17,6 +17,6 @@ export class RegistryService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<{}>(`${this.baseUrl}/fire-stations/${id}`, { headers });
+    return this.http.get<{}>(`${this.baseUrl}/fire-stations/${id}`, {headers});
   }
 }

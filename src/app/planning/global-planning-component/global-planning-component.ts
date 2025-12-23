@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {TabletComponent} from '../../tablet/tablet';
 import {NgClass} from '@angular/common';
 
@@ -21,7 +21,7 @@ export class GlobalPlanningComponent {
   ];
 
   currentDate = new Date();
-  nbWeek!: number;
+  @Input() nbWeek!: number;
 
   availability = [
     { week: 50, firefighter: 'Dupont', day: 'Lundi', status: 'available' },

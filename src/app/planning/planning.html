@@ -1,8 +1,9 @@
-@if(hasGlobalPlanningRights){
-  <app-global-planning-component></app-global-planning-component>
+@if (hasGlobalPlanningRights) {
+  <app-global-planning-component
+    [nbWeek]="currentWeek">
+  </app-global-planning-component>
 } @else {
-  <app-individual-planning-component></app-individual-planning-component>
+  <app-individual-planning-component
+    [nbWeek]="currentWeek">
+  </app-individual-planning-component>
 }
-
-
-

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TabletComponent} from '../../tablet/tablet';
 
 @Component({
@@ -14,7 +14,7 @@ export class IndividualPlanningComponent implements OnInit{
   days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
   currentDate = new Date();
-  nbWeek!: number;
+  @Input() nbWeek!: number;
 
   avaibility = [
     { week: 50, day: 'Lundi', status: 'available' },

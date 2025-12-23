@@ -1,0 +1,658 @@
+/* Administration Page Styles */
+.admin-container-wrapper {
+  width: 100%;
+  margin: 0;
+  padding: 2rem;
+  background: #f5f5f5;
+  min-height: calc(100vh - 80px);
+  box-sizing: border-box;
+}
+
+.admin-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.admin-container h1 {
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+/* Alert Messages */
+.alert {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Users Section */
+.users-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.users-header {
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 1rem;
+}
+
+.users-header h2 {
+  color: #333;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Filters Container */
+.filters-container {
+  margin-bottom: 2rem;
+  padding: 0;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.filters-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 1rem 1.5rem;
+  margin: 0;
+}
+
+.filters-header h3 {
+  color: white;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.search-box {
+  padding: 1.5rem 1.5rem 0.75rem 1.5rem;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  width: 20px;
+  height: 20px;
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.875rem 3rem 0.875rem 3rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  background: #f9fafb;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.clear-search {
+  position: absolute;
+  right: 0.75rem;
+  background: #e5e7eb;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.clear-search svg {
+  width: 14px;
+  height: 14px;
+  color: #6b7280;
+}
+
+.clear-search:hover {
+  background: #d1d5db;
+  transform: scale(1.1);
+}
+
+.filters-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+  padding: 0.75rem 1.5rem 1.5rem 1.5rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.filter-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  background-color: #f9fafb;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  font-weight: 500;
+  color: #374151;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.filter-select:hover {
+  border-color: #667eea;
+  background: white;
+}
+
+.btn-reset {
+  background: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+}
+
+.btn-reset svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-reset:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.btn-reset:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 1024px) {
+  .filters-row {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-reset {
+    justify-content: center;
+  }
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 2px dashed #e5e7eb;
+  color: #6b7280;
+  margin: 2rem 0;
+}
+
+.no-results p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Users Grid */
+.users-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  min-height: 400px;
+}
+
+/* User Card */
+.user-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  background: #fafafa;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+  border-color: #0066cc;
+}
+
+/* User Info */
+.user-info {
+  flex: 1;
+}
+
+.user-header-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.user-details {
+  flex: 1;
+}
+
+.user-email {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  word-break: break-all;
+}
+
+.user-meta {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.user-role {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Couleurs spécifiques par rôle */
+.user-role-admin {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.user-role-alert_monitor {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.user-role-planning_manager {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.user-role-firefighter {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* Display Mode */
+.user-display {
+  padding: 1rem 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.info-row .label {
+  font-weight: 600;
+  color: #333;
+  flex-shrink: 0;
+  margin-right: 1rem;
+}
+
+.info-row .value {
+  text-align: right;
+  word-break: break-word;
+  flex: 1;
+}
+
+/* Edit Form */
+.edit-form {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 2px solid #0066cc;
+  margin: 1rem 0;
+  box-sizing: border-box;
+}
+
+.form-group {
+  margin-bottom: 0.75rem;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.form-select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* User Actions */
+.user-actions {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.btn-edit {
+  flex: 1;
+  background: #0066cc;
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #0052a3;
+}
+
+.btn-delete {
+  flex: 1;
+  background: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #c82333;
+}
+
+.btn-save {
+  flex: 1;
+  background: #28a745;
+  color: white;
+}
+
+.btn-save:hover {
+  background: #218838;
+}
+
+.btn-cancel {
+  flex: 1;
+  background: #6c757d;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: #5a6268;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #999;
+}
+
+.empty-state p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1280px) {
+  .users-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .filters-row {
+    flex-direction: column;
+  }
+
+  .filter-select {
+    width: 100%;
+  }
+
+  .btn-reset {
+    width: 100%;
+  }
+
+  .admin-container {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .users-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-container {
+    padding: 1rem;
+  }
+
+  .admin-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .users-section {
+    padding: 1rem;
+  }
+
+  .user-card {
+    padding: 1rem;
+  }
+
+  .info-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .info-row .label {
+    margin-right: 0;
+    margin-bottom: 0.25rem;
+  }
+
+  .info-row .value {
+    text-align: left;
+  }
+
+  .user-actions {
+    flex-direction: column;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-container {
+    padding: 0.75rem;
+  }
+
+  .admin-container h1 {
+    font-size: 1.25rem;
+  }
+
+  .users-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .user-email {
+    font-size: 1rem;
+  }
+
+  .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .user-card {
+    padding: 0.75rem;
+  }
+
+  .users-section {
+    padding: 0.75rem;
+  }
+
+  .filters-container {
+    padding: 1rem;
+  }
+
+  .search-input {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .filter-select {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .btn-reset {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .filters-row {
+    gap: 0.5rem;
+  }
+
+  .user-email {
+    font-size: 1rem;
+  }
+
+  .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+}
