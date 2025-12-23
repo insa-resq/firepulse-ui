@@ -12,13 +12,10 @@ COPY . .
 
 RUN npm run build -- --configuration=production
 
-FROM base-stage AS runtime-stage
+FROM nginx:alpine AS runtime-stage
 
-COPY --chown=node:node --from=build-stage /app/dist/resQ ./
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-USER node
+COPY --from=build-stage /app/dist/resQ/browser /usr/share/nginx/html
 
-ENV NODE_ENV=production
-ENV PORT=4200
-
-CMD ["node", "server/server.mjs"]
+CMD ["nginx", "-g", "daemon off;"]

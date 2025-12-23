@@ -14,11 +14,11 @@ services:
       update_config:
         failure_action: rollback
     ports:
-      - '4200:4200'
+      - '4200:80'
     networks:
       - firepulse_ui
     healthcheck:
-      test: [ "CMD", "wget", "-q", "-O-", "http://localhost:4200/health" ]
+      test: [ "CMD", "wget", "-q", "-O-", "http://127.0.0.1:80" ]
       start_period: 10s
       interval: 30s
       timeout: 10s
