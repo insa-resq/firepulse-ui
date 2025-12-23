@@ -42,7 +42,6 @@ export class Alerts implements OnInit {
   }
 
   selectAlert(alert: Alert) {
-    console.log('Alert selected (alerts component):', alert.id); // debug
     this.alertSelected.emit(alert);
   }
 

@@ -12,7 +12,6 @@ import { RegistryService } from '../../service/registry.service';
   styleUrl: './account.css',
 })
 export class AccountComponent implements OnInit {
-  [x: string]: any;
   currentUser: UserModel | null = null;
   users: UserModel[] = [];
   isAdmin = false;
@@ -167,7 +166,6 @@ export class AccountComponent implements OnInit {
   }
 
   loadStationName(stationId: string) {
-    console.log('Loading station name for ID:', stationId);
     this.registryService.getStationById(stationId).subscribe({
       next: (station: any) => {
         this.stationName = station?.name || 'Station inconnue';

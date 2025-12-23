@@ -31,12 +31,10 @@ export class DetectionComponent implements OnInit {
   }
 
   onAlertSelected(alert: Alert) {
-    console.log('Alert selected:', alert.id); // debug
     this.selectedAlertId = alert.id;
     // Scroll l'alerte en vue dans la liste si elle est hors écran
     if (this.alertsComponent) {
       this.alertsComponent.scrollToAlert(alert.id);
     }
-    console.log('selectedAlertId set to:', this.selectedAlertId); // debug
   }
 }

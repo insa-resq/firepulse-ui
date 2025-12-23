@@ -11,7 +11,6 @@ export class RegistryService {
   constructor(private http: HttpClient) { }
 
   getStationById(id: string) {
-    console.log('Fetching station with ID:', id); // debug
     const token = localStorage.getItem('token'); // Récupération du token
 
     const headers = new HttpHeaders({

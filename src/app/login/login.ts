@@ -32,7 +32,12 @@ export class LoginComponent {
     this.isLoading = true;
 
     this.auth.login(this.email, this.password).subscribe({
-      next : () => this.router.navigate(['/homepage']),
+      next: async ({ token }) => {
+        localStorage.setItem('token', token);
+        this.isLoading = false;
+        await this.router.navigate(['/'], { replaceUrl: true });
+        location.reload();
+      },
       error: (err) => {
         this.isLoading = false;
 
@@ -44,10 +49,7 @@ export class LoginComponent {
           this.errorMessage = 'Une erreur est survenue. Réessayez plus tard.';
         }
       },
-      complete: () => {
-        this.isLoading = false;
-      }});
-
+    });
   }
 
   clearError() {

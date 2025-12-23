@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable, tap} from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import {UserModel} from '../model/user.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../environments/environment';
@@ -33,59 +33,39 @@ export class UserService {
   isAdmin(): boolean {
     return this.userSubject.value?.role === 'ADMIN';
   }
-
-  getCurrentUser(): Observable<UserModel> {
-    const token = localStorage.getItem('token'); // Récupération du token
-
-    const headers = new HttpHeaders({
+  
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
+  }
 
-    return this.http.get<UserModel>(`${this.baseUrl}/users/me`, { headers })
+  getCurrentUser(): Observable<UserModel> {
+    return this.http.get<UserModel>(`${this.baseUrl}/users/me`, { headers: this.getHeaders() })
       .pipe( tap(user => this.setUser(user)));
   }
 
-
   getAllUsers(): Observable<UserModel[]> {
-    const token = localStorage.getItem('token'); // Récupération du token
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.get<UserModel[]>(`${this.baseUrl}/users`, { headers });
+    return this.http.get<UserModel[]>(`${this.baseUrl}/users`, { headers: this.getHeaders() });
   }
 
   updateEmail(email: string): Observable<UserModel> {
-    const token = localStorage.getItem('token'); // Récupération du token
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.patch<UserModel>(`${this.baseUrl}/users/me`, { email }, { headers });
+    return this.http.patch<UserModel>(`${this.baseUrl}/users/me`, { email }, { headers: this.getHeaders() });
   }
 
   // Update another user's email (admin only)
   updateUserEmail(userId: number, email: string): Observable<UserModel> {
-    const token = localStorage.getItem('token'); // Récupération du token
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.patch<UserModel>(`${this.baseUrl}/users/${userId}`, { email }, { headers });
+    return this.http.patch<UserModel>(`${this.baseUrl}/users/${userId}`, { email }, { headers: this.getHeaders() });
   }
 
   // Update another user's station (admin only)
   updateUserStation(userId: number, stationId: string): Observable<UserModel> {
-    const token = localStorage.getItem('token'); // Récupération du token
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.patch<UserModel>(`${this.baseUrl}/users/${userId}`, { stationId }, { headers });
+    return this.http.patch<UserModel>(`${this.baseUrl}/users/${userId}`, { stationId }, { headers: this.getHeaders() });
   }
 
   // Delete user (admin only)
   deleteUser(userId: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/users/${userId}`);
+    return this.http.delete<void>(`${this.baseUrl}/users/${userId}`, { headers: this.getHeaders() });
   }
 }

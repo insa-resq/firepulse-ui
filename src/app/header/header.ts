@@ -14,10 +14,9 @@ import {UserModel} from '../../model/user.model';
   styleUrls: ['./header.css'],
 })
 export class Header {
-[x: string]: any;
-  isLoggedIn = false;
   menuOpen = false;
   userIcon = '';
+  currentUser: UserModel | null = null;
 
   private readonly RANK_TO_ICON_MAP: Record<FirefighterRank, `${string}.${'png' | 'svg'}`> = {
     FIRST_CLASS: 'Sap.png',
@@ -37,26 +36,26 @@ export class Header {
     public userService: UserService,
     public el:  ElementRef
   ) {
-    this.auth.isLoggedIn$.subscribe(status => {
-      this.isLoggedIn = status;
-      this.updateUserIcon();
+    if (this.userService.currentUser) {
+      this.currentUser = this.userService.currentUser;
+      this.updateUserIcon(this.userService.currentUser);
+    }
+    
+    this.userService.user$.subscribe((value) => {
+      this.currentUser = value;
+      this.updateUserIcon(value);
     });
   }
 
-  login() {
+  logout() {
+    localStorage.removeItem('token');
+    this.menuOpen = false;
+    this.userService.clearUser();
     this.router.navigate(['/login']).catch();
   }
 
-  logout() {
-    this.menuOpen = false;
-    this.auth.logout();
-    this.router.navigate(['/homepage']).catch();
-  }
-
-  private updateUserIcon() {
-    const user: UserModel | null = this.userService.currentUser;
-
-    if (user) {
+  private updateUserIcon(user: UserModel | null) {
+    if (user && user.role === 'FIREFIGHTER') {
       const rank = FirefighterRank.SECOND_CLASS; // Get the actual rank from the API
       
       const iconFile = this.RANK_TO_ICON_MAP[rank];

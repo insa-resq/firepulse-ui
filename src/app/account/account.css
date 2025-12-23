@@ -1,18 +1,18 @@
 .account-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
   padding: 2rem;
 }
 
 h1 {
   color: #333;
-  margin-bottom: 2rem;
+  margin: 0 0 2rem 0;
 }
 
 h2 {
   color: #555;
   font-size: 1.5rem;
-  margin-bottom: 1rem;
+  margin: 0 0 1rem 0;
 }
 
 /* User Info Card */
@@ -82,11 +82,11 @@ h2 {
   background: white;
   border-radius: 8px;
   padding: 1.5rem;
-  margin-bottom: 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
+  width: 100%;
   margin-bottom: 1rem;
 }
 
@@ -98,7 +98,7 @@ h2 {
 }
 
 .form-group input {
-  width: 100%;
+  width: calc(100% - 1.5rem);
   padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 4px;

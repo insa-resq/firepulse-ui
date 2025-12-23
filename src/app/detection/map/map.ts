@@ -48,7 +48,6 @@ export class Map implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log('ngOnChanges - selectedAlertId:', this.selectedAlertId); // debug
     if (this.map) {
       this.plotMarkers();
       this.focusSelected();
@@ -74,7 +73,6 @@ export class Map implements AfterViewInit, OnChanges {
       const marker = this.L.marker([a.latitude, a.longitude], { icon: customIcon })
         .bindPopup(`<b>${a.description}</b><br>Status : ${a.status}`)
         .on('click', () => {
-          console.log('Marker clicked:', a); // debug
           this.alertSelected.emit(a)})
         .addTo(this.markersLayer);
       
