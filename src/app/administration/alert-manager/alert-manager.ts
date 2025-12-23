@@ -22,7 +22,6 @@ export class AlertManager {
   filterStatus = '';
   isLoading = true;
 
-  editingAlertId: number | null = null;
 
   constructor(private detectionService: DetectionService) {
   }
@@ -59,17 +58,4 @@ export class AlertManager {
     });
   }
 
-  saveStatus(alert: Alert) {
-    this.detectionService.updateStatus(alert.id, alert.status).subscribe(()  => {
-      this.applyFilters();
-    });
-  }
-
-  cancelEdit() {
-    this.editingAlertId = null;
-  }
-
-  startEdit(alert: Alert) {
-    this.editingAlertId = alert.id;
-  }
 }

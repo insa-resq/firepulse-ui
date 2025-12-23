@@ -19,19 +19,11 @@
                   [ngClass]="'alert-badge-severity-' + alert.severity.toLowerCase()">
               {{ alert.severity }}
             </span>
-            @if(editingAlertId === alert.id) {
-              <select class="status-select" [(ngModel)]="alert.status">
-                <option value="NEW">Nouvelle</option>
-                <option value="IN PROGRESS">En cours</option>
-                <option value="RESOLVED">Résolue</option>
-                <option value="DISMISSED">Ignorée</option>
-              </select>
-            } @else {
               <span class="alert-badge"
                     [ngClass]="'alert-badge-status-' + alert.status.toLowerCase().replace(' ', '-')">
       {{ alert.status }}
               </span>
-            }
+
           </div>
 
         </div>
@@ -57,13 +49,7 @@
         </div>
 
         <div class="alert-actions">
-          @if(editingAlertId === alert.id) {
-            <button class="btn btn-save" (click)="saveStatus(alert)">Enregistrer</button>
-            <button class="btn btn-cancel" (click)="cancelEdit()">Annuler</button>
-          } @else {
-            <button class="btn btn-edit" (click)="startEdit(alert)">Modifier</button>
-            <button class="btn btn-delete" (click)="deleteAlert(alert)">Supprimer</button>
-          }
+          <button class="btn btn-delete" (click)="deleteAlert(alert)">Supprimer</button>
         </div>
 
       </div>
