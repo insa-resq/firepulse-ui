@@ -31,8 +31,6 @@ export class AuthService {
     });
 
     return this.http.get(`${this.baseUrl}/users/me`, { headers }).pipe(
-      tap(() => console.log('Session restaurée')),
-      map(() => true),
       catchError(() => {
         localStorage.removeItem('token');
         return of(false);

@@ -1,5 +1,6 @@
 import { Component, Input, AfterViewInit, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Alert } from '../../../model/alert.model';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-map',
@@ -13,31 +14,24 @@ export class Map implements AfterViewInit, OnChanges {
   @Output() alertSelected = new EventEmitter<Alert>();
 
   // Leaflet objects kept as any to avoid top-level access during SSR
-  L: any;
-  map: any;
+  private map!: L.Map
   markersLayer: any;
   markersById = new globalThis.Map<number, any>();
 
   // Garder async pour pouvoir await import()
   async ngAfterViewInit() {
-    // Eviter l'exécution côté serveur
-    if (typeof window === 'undefined') return;
+    this.initMap();
+  }
 
-    // Import dynamique de Leaflet uniquement côté client
-    this.L = await import('leaflet');
-
-    // Fix pour les icônes Leaflet avec Vite/Angular
-    // delete (this.L.Icon.Default.prototype as any)._getIconUrl;
-    // this.L.Icon.Default.mergeOptions({});
-
-    // Initialisations Leaflet
-    this.map = this.L.map('alert-map', { maxBounds: [[41, -5], [51.5, 9]], maxBoundsViscosity: 1.0 }).setView([46.8, 2.2], 6);
-
-    this.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  private initMap() {
+    const baseMapURl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    this.map = L.map('alert-map', { maxBounds: [[41, -5], [51.5, 9]], maxBoundsViscosity: 1.0 });
+    this.map.setView([46.8, 2.2], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19
     }).addTo(this.map);
 
-    this.markersLayer = this.L.layerGroup();
+    this.markersLayer = L.layerGroup();
     this.markersLayer.addTo(this.map);
 
     this.plotMarkers();
@@ -51,14 +45,14 @@ export class Map implements AfterViewInit, OnChanges {
   }
 
   plotMarkers() {
-    if (!this.markersLayer || !this.L) return;
+    if (!this.markersLayer) return;
     this.markersLayer.clearLayers();
     this.markersById.clear();
 
     this.alerts.forEach(a => {
       const color = this.getColorByStatus(a.status);
       
-      const customIcon = this.L.divIcon({
+      const customIcon = L.divIcon({
         className: 'custom-marker',
         html: `<div style="background-color: ${color}; width: 15px; height: 15px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3);"></div>`,
         iconSize: [25, 25],
@@ -66,7 +60,7 @@ export class Map implements AfterViewInit, OnChanges {
         popupAnchor: [0, -12]
       });
 
-      const marker = this.L.marker([a.latitude, a.longitude], { icon: customIcon })
+      const marker = L.marker([a.latitude, a.longitude], { icon: customIcon })
         .bindPopup(`<b>${a.description}</b><br>Status : ${a.status}`)
         .on('click', () => {
           this.alertSelected.emit(a)})
