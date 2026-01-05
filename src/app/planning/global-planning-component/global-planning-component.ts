@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {TabletComponent} from '../../tablet/tablet';
 import {NgClass} from '@angular/common';
 
@@ -20,8 +20,9 @@ export class GlobalPlanningComponent {
     { name: 'Bernard' }
   ];
 
-  currentDate = new Date();
   @Input() nbWeek!: number;
+  @Output() previous = new EventEmitter<void>();
+  @Output() next = new EventEmitter<void>();
 
   availability = [
     { week: 50, firefighter: 'Dupont', day: 'Lundi', status: 'available' },
@@ -33,26 +34,6 @@ export class GlobalPlanningComponent {
     { week: 51, firefighter: 'Martin', day: 'Vendredi', status: 'on-call' }
   ];
 
-  ngOnInit() {
-    this.updateNbWeek();
-  }
-
-  updateNbWeek() {
-    const date = new Date(this.currentDate);
-    const startYear = new Date(date.getFullYear(), 0, 1);
-    const days = Math.floor((date.getTime() - startYear.getTime()) / 86400000);
-    this.nbWeek = Math.ceil((days + startYear.getDay() + 1) / 7);
-  }
-
-  previousWeek() {
-    this.currentDate.setDate(this.currentDate.getDate() - 7);
-    this.updateNbWeek();
-  }
-
-  nextWeek() {
-    this.currentDate.setDate(this.currentDate.getDate() + 7);
-    this.updateNbWeek();
-  }
 
   getAvailibility(pompier: string, jour: string): string {
     const dispo = this.availability.find(

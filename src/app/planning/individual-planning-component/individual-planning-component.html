@@ -2,9 +2,9 @@
   <div class="planning-container">
 
     <div class="planning-header">
-      <button (click)="previousWeek()">◀ Semaine précédente</button>
+      <button (click)="previous.emit()">◀ Semaine précédente</button>
       <h2>Semaine {{ nbWeek }}</h2>
-      <button (click)="nextWeek()">Semaine suivante ▶</button>
+      <button (click)="next.emit()">Semaine suivante ▶</button>
     </div>
 
     <table class="planning-table">

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {TabletComponent} from '../../tablet/tablet';
 
 @Component({
@@ -9,12 +9,14 @@ import {TabletComponent} from '../../tablet/tablet';
   templateUrl: './individual-planning-component.html',
   styleUrl: './individual-planning-component.css',
 })
-export class IndividualPlanningComponent implements OnInit{
+export class IndividualPlanningComponent {
 
   days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
   currentDate = new Date();
   @Input() nbWeek!: number;
+  @Output() previous = new EventEmitter<void>();
+  @Output() next = new EventEmitter<void>();
 
   avaibility = [
     { week: 50, day: 'Lundi', status: 'available' },
@@ -29,28 +31,6 @@ export class IndividualPlanningComponent implements OnInit{
     { week: 51, day: 'Vendredi', status: 'on-call' },
   ];
 
-  ngOnInit() {
-    this.updateNbWeek();
-  }
-
-  updateNbWeek() {
-    const date = new Date(this.currentDate);
-    const startYear = new Date(date.getFullYear(), 0, 1);
-    const diff = Math.floor(
-      (date.getTime() - startYear.getTime()) / 86400000
-    );
-    this.nbWeek = Math.ceil((diff + startYear.getDay() + 1) / 7);
-  }
-
-  previousWeek() {
-    this.currentDate.setDate(this.currentDate.getDate() - 7);
-    this.updateNbWeek();
-  }
-
-  nextWeek() {
-    this.currentDate.setDate(this.currentDate.getDate() + 7);
-    this.updateNbWeek();
-  }
 
   getStatus(day: string): string {
     const available = this.avaibility.find(
