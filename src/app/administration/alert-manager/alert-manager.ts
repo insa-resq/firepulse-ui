@@ -52,6 +52,10 @@ export class AlertManager {
   }
 
   deleteAlert(toDelete: Alert) {
+    if (!confirm(`Êtes-vous sûr de vouloir supprimer l'alerte ${toDelete.description} ?`)) {
+      return;
+    }
+    
     this.detectionService.deleteAlert(toDelete.id).subscribe(() => {
       this.alerts = this.alerts.filter(alert => alert.id !== toDelete.id);
       this.applyFilters();
