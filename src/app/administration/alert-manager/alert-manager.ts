@@ -11,7 +11,7 @@ import {CommonModule} from '@angular/common';
     FormsModule
   ],
   templateUrl: './alert-manager.html',
-  styleUrl: './alert-manager.css',
+  styleUrls: ['../administration.css'],
 })
 export class AlertManager {
 

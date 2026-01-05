@@ -1,1 +1,50 @@
-<p>station-manager works!</p>
+<div class="alerts-section">
+  <div class="alerts-header">
+    <h2>Gestion des casernes</h2>
+  </div>
+
+  @if(isLoading) {
+    <div class="loading">Chargement des casernes...</div>
+  }
+
+  @if(!isLoading && filteredStations.length === 0) {
+    <div class="empty-state">Aucune caserne pour le moment.</div>
+  }
+
+  <div class="alerts-grid">
+    @for (station of filteredStations; track station.id) {
+      <div class="alert-card">
+        <div class="alert-header">
+          <div class="alert-title">{{ station.name || ('Caserne #' + station.id) }}</div>
+        </div>
+
+        <div class="alert-content">
+          <div class="info-row">
+            <span class="label">Latitude :</span>
+            <span class="value">{{ station.latitude }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Longitude :</span>
+            <span class="value">{{ station.longitude }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Créée le :</span>
+            <span class="value">{{ station.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Modifiée le :</span>
+            <span class="value">{{ station.updatedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+        </div>
+
+        <div class="alert-actions">
+          <button class="btn btn-delete"
+                  [disabled]="deletingIds.has(station.id)"
+                  (click)="deleteStation(station)">
+            {{ deletingIds.has(station.id) ? 'Suppression...' : 'Supprimer' }}
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
