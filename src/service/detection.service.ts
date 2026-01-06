@@ -29,6 +29,7 @@ export class DetectionService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.delete(`${this.baseUrl}/fire-alerts/${id}`, { headers });
+
+    return this.http.delete(`${this.baseUrl}/fire-alerts`, { headers, body: { "fireAlertIds": [id] } });
   }
 }
