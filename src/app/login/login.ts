@@ -35,7 +35,7 @@ export class LoginComponent {
       next: async ({ token }) => {
         localStorage.setItem('token', token);
         this.isLoading = false;
-        await this.router.navigate(['/'], { replaceUrl: true });
+        await this.router.navigate(['/planning'], { replaceUrl: true });
         location.reload();
       },
       error: (err) => {
