@@ -2,12 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {GlobalPlanningComponent} from './global-planning-component/global-planning-component';
 import {IndividualPlanningComponent} from './individual-planning-component/individual-planning-component';
 import {UserService} from '../../service/user.service';
+import {PlanningService} from '../../service/planning.service';
+import {AsyncPipe} from '@angular/common';
+import {InventoryItem} from '../../model/inventoryItem.model';
+import {Observable} from 'rxjs';
 
 
 @Component({
   selector: 'app-planning',
   standalone: true,
-  imports: [GlobalPlanningComponent, IndividualPlanningComponent
+  imports: [GlobalPlanningComponent, IndividualPlanningComponent, AsyncPipe
   ],
   templateUrl: './planning.html',
   styleUrl: './planning.css',
@@ -18,8 +22,11 @@ export class PlanningComponent implements OnInit {
 
   currentDate = new Date();
 
+  inventory$!: Observable<InventoryItem[]>;
+
   constructor(
     private userService: UserService,
+    private planningService: PlanningService
   ) {}
 
   ngOnInit() {
@@ -27,7 +34,9 @@ export class PlanningComponent implements OnInit {
       this.userService.hasRight('GLOBAL_PLANNING');
 
     this.currentWeek = this.getCurrentWeek(this.currentDate) ;
-    console.log(this.currentWeek);
+
+    const stationId = this.userService.getUserStationId();
+    this.inventory$ = this.planningService.getInventory(stationId);
   }
 
   getCurrentWeek(date : Date): number {
