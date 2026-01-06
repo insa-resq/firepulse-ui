@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import {BehaviorSubject, Observable, tap} from 'rxjs';
 import {UserModel} from '../model/user.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../environments/environment';
@@ -33,7 +33,7 @@ export class UserService {
   isAdmin(): boolean {
     return this.userSubject.value?.role === 'ADMIN';
   }
-  
+
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     return new HttpHeaders({
@@ -44,6 +44,10 @@ export class UserService {
   getCurrentUser(): Observable<UserModel> {
     return this.http.get<UserModel>(`${this.baseUrl}/users/me`, { headers: this.getHeaders() })
       .pipe( tap(user => this.setUser(user)));
+  }
+
+  getUserStationId(): string {
+    return this.userSubject.value?.stationId || '';
   }
 
   getAllUsers(): Observable<UserModel[]> {

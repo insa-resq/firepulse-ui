@@ -1,11 +1,15 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {TabletComponent} from '../../tablet/tablet';
-import {NgClass} from '@angular/common';
+import {AsyncPipe, NgClass} from '@angular/common';
+import {Observable} from 'rxjs';
+import {InventoryItem} from '../../../model/inventoryItem.model';
+import {VehicleTypeLabelPipe} from '../../../pipe/vehicule-type-label.pipe';
 
 @Component({
   selector: 'app-global-planning-component',
   imports: [
-    TabletComponent, NgClass
+    TabletComponent, NgClass,
+    VehicleTypeLabelPipe, AsyncPipe
   ],
   templateUrl: './global-planning-component.html',
   styleUrl: './global-planning-component.css',
@@ -21,6 +25,7 @@ export class GlobalPlanningComponent {
   ];
 
   @Input() nbWeek!: number;
+  @Input() inventory!:  Observable<InventoryItem[]>;
   @Output() previous = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
 

@@ -1,10 +1,17 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {TabletComponent} from '../../tablet/tablet';
+import {AsyncPipe} from '@angular/common';
+import {Observable} from 'rxjs';
+import {InventoryItem} from '../../../model/inventoryItem.model';
+import {VehicleTypeLabelPipe} from '../../../pipe/vehicule-type-label.pipe';
 
 @Component({
   selector: 'app-individual-planning-component',
+  standalone: true,
   imports: [
-    TabletComponent
+    TabletComponent,
+    AsyncPipe,
+    VehicleTypeLabelPipe
   ],
   templateUrl: './individual-planning-component.html',
   styleUrl: './individual-planning-component.css',
@@ -13,8 +20,8 @@ export class IndividualPlanningComponent {
 
   days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
-  currentDate = new Date();
   @Input() nbWeek!: number;
+  @Input() inventory!:  Observable<InventoryItem[]>;
   @Output() previous = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
 
