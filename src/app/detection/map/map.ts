@@ -25,9 +25,9 @@ export class Map implements AfterViewInit, OnChanges {
 
   private initMap() {
     const baseMapURl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-    this.map = L.map('alert-map', { maxBounds: [[41, -5], [51.5, 9]], maxBoundsViscosity: 1.0 });
-    this.map.setView([46.8, 2.2], 6);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    this.map = L.map('alert-map', { maxBoundsViscosity: 0.8 });
+    this.map.setView([46.2, 2.2], 6);
+    L.tileLayer(baseMapURl, {
       maxZoom: 19
     }).addTo(this.map);
 

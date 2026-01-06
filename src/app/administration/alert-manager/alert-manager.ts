@@ -11,7 +11,7 @@ import {CommonModule} from '@angular/common';
     FormsModule
   ],
   templateUrl: './alert-manager.html',
-  styleUrl: './alert-manager.css',
+  styleUrls: ['../administration.css'],
 })
 export class AlertManager {
 
@@ -52,6 +52,10 @@ export class AlertManager {
   }
 
   deleteAlert(toDelete: Alert) {
+    if (!confirm(`Êtes-vous sûr de vouloir supprimer l'alerte ${toDelete.description} ?`)) {
+      return;
+    }
+    
     this.detectionService.deleteAlert(toDelete.id).subscribe(() => {
       this.alerts = this.alerts.filter(alert => alert.id !== toDelete.id);
       this.applyFilters();
