@@ -10,15 +10,6 @@
   --text-lg: 20px;
   --text-xl: 24px;
 
-  /* Colors */
-  --color-text: #1a1a1a;
-  --color-muted: #6b7280;
-  --color-primary: #2563eb;
-  --color-bg: #ffffff;
-  --color-bgheader: #f5f5f5;
-  --color-hover: #4b561f;
-  --color-footer: #666666;
-  --color-black: #000;
 
   /* Spacing */
   --space-xs: 4px;
@@ -33,6 +24,17 @@
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 16px; 
+
+  /* Colors */
+  --color-text: #1a1a1a;
+  --color-muted: #6b7280;
+  --color-primary: #2563eb;
+  --color-bg: #ffffff;
+  --color-bgheader: #f5f5f5;
+  --color-hover: #4b561f;
+  --color-footer: #666666;
+  --color-black: #000;
+  --color-background-strip : #97a184;
 
  /* ========== SEVERITY (différenciées des status) ========== */
 /* Palette plus "alerte métier", pas orientée workflow */
