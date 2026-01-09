@@ -2,78 +2,87 @@
 <app-tablet>
 
 <div class="login-container text-compact">
-  <h2>Connexion</h2>
+  <div class="login-header">
+    <h2>Connexion</h2>
+  </div>
+  
+
 
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="form-container">
+    <div class="login-form">
 
-    <!-- Champ email -->
-    <div class="field">
+      <!-- Champ email -->
+      <div class="field">
 
-      <input
-        type="email"
-        name="email"
-        [(ngModel)]="email"
-        (ngModelChange)="clearError()"
-        #emailCtrl="ngModel"
-        placeholder="Email"
-        required
-        email
-      />
+        <input
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          (ngModelChange)="clearError()"
+          #emailCtrl="ngModel"
+          placeholder="Email"
+          required
+          email
+        />
 
-      @if (emailCtrl.invalid && emailCtrl.touched) {
-        <div class="error">
-          @if (emailCtrl.errors?.['required']) {
-            <span>L'email est requis.</span>
-          }
-          @if (emailCtrl.errors?.['email']) {
-            <span>Format d'email invalide.</span>
-          }
-        </div>
-      }
+        @if (emailCtrl.invalid && emailCtrl.touched) {
+          <div class="error">
+            @if (emailCtrl.errors?.['required']) {
+              <span>L'email est requis.</span>
+            }
+            @if (emailCtrl.errors?.['email']) {
+              <span>Format d'email invalide.</span>
+            }
+          </div>
+        }
 
-    </div>
-
-    <!-- Champ mot de passe -->
-    <div class="field">
-
-      <input
-        type="password"
-        name="password"
-        [(ngModel)]="password"
-        (ngModelChange)="clearError()"
-        #passwordCtrl="ngModel"
-        placeholder="Mot de passe"
-        required
-        minlength="6"
-      />
-
-      @if (passwordCtrl.invalid && passwordCtrl.touched) {
-        <div class="error">
-          @if (passwordCtrl.errors?.['required']) {
-            <span>Le mot de passe est requis.</span>
-          }
-          @if (passwordCtrl.errors?.['minlength']) {
-            <span>Minimum 6 caractères.</span>
-          }
-        </div>
-      }
-
-    </div>
-
-    @if (errorMessage) {
-      <div class="error global-error">
-        {{ errorMessage }}
       </div>
-    }
 
-    <button type="submit" [disabled]="loginForm.invalid || isLoading">
-      @if (isLoading) {
-        <span class="spinner"></span>
-        Connexion...
-      } @else {
-        Se connecter
+      <!-- Champ mot de passe -->
+      <div class="field">
+
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          (ngModelChange)="clearError()"
+          #passwordCtrl="ngModel"
+          placeholder="Mot de passe"
+          required
+          minlength="6"
+        />
+
+        @if (passwordCtrl.invalid && passwordCtrl.touched) {
+          <div class="error">
+            @if (passwordCtrl.errors?.['required']) {
+              <span>Le mot de passe est requis.</span>
+            }
+            @if (passwordCtrl.errors?.['minlength']) {
+              <span>Minimum 6 caractères.</span>
+            }
+          </div>
+        }
+
+      </div>
+
+      @if (errorMessage) {
+        <div class="error global-error">
+          {{ errorMessage }}
+        </div>
       }
-    </button>
+  </div>
+
+    <div class="login-footer">
+      <button type="submit" [disabled]="loginForm.invalid || isLoading">
+        @if (isLoading) {
+          <span class="spinner"></span>
+          Connexion...
+        } @else {
+          Se connecter
+        }
+      </button>
+    </div>
+    
 
   </form>
 </div>
