@@ -35,6 +35,8 @@
   --color-footer: #666666;
   --color-black: #000;
   --color-background-strip : #97a184;
+  --color-button-disabled: #c3d0b5;
+  --color-button-hover:   #79926b; 
 
   /* Colors alerts */
   --color-severity-low: #d4edda;
