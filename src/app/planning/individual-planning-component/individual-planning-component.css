@@ -15,7 +15,7 @@
 .planning-header button {
   padding: 10px 18px;
   border: none;
-  background: #1976d2;
+  background: var(--color-button-hover);
   color: white;
   cursor: pointer;
   border-radius: 6px;
@@ -34,7 +34,22 @@
   border: 1px solid #ccc;
   padding: 22px;
   text-align: center;
+  vertical-align: middle;
   font-size: 20px;
+  width: 14.28%;
+  overflow: hidden;
+}
+
+.planning-table th {
+  font-weight: bold;
+}
+
+.th-content {
+  display: flex;
+  align-items: center;      /* vertical */
+  justify-content: center;  /* horizontal */
+  height: 100%;
+  width: 100%;
 }
 
 .cell {
@@ -100,7 +115,7 @@
 }
 
 .inventory-table thead {
-  background: linear-gradient(90deg, #007bff, #0056b3);
+  background: var(--color-button-hover);
   color: white;
 }
 
@@ -125,5 +140,5 @@
 
 .count {
   font-weight: bold;
-  color: #007bff;
+  color: var(--color-button-disabled);
 }

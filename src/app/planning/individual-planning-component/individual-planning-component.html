@@ -9,25 +9,25 @@
 
     <table class="planning-table">
       <thead>
-      <tr>
-        @for (day of days; track day) {
-          <th>{{ day }}</th>
-        }
-      </tr>
+        <tr>
+          @for (day of days; track day) {
+          <th>
+            <div class="th-content">
+              {{ day }}
+            </div>
+          </th>
+          }
+        </tr>
       </thead>
 
       <tbody>
-      <tr>
-        @for (day of days; track day) {
-          <td
-            class="cell"
-            [class.available]="getStatus(day) === 'available'"
-            [class.on-call]="getStatus(day) === 'on-call'"
-            [class.unavailable]="getStatus(day) === 'unavailable'"
-          >
+        <tr>
+          @for (day of days; track day) {
+          <td class="cell" [class.available]="getStatus(day) === 'available'"
+            [class.on-call]="getStatus(day) === 'on-call'" [class.unavailable]="getStatus(day) === 'unavailable'">
           </td>
-        }
-      </tr>
+          }
+        </tr>
       </tbody>
     </table>
 
@@ -48,24 +48,24 @@
 
       <table class="inventory-table">
         <thead>
-        <tr>
-          <th>Véhicule</th>
-          <th>Disponibilité</th>
-        </tr>
+          <tr>
+            <th>Véhicule</th>
+            <th>Disponibilité</th>
+          </tr>
         </thead>
 
         <tbody>
           @for (item of inventory | async; track item.id) {
-            <tr>
-              <td class="vehicle-type">
-                {{ item.type | vehicleTypeLabel }}
-              </td>
-              <td>
-            <span class="count">
-              {{ item.availableCount }} / {{ item.totalCount }}
-            </span>
-              </td>
-            </tr>
+          <tr>
+            <td class="vehicle-type">
+              {{ item.type | vehicleTypeLabel }}
+            </td>
+            <td>
+              <span class="count">
+                {{ item.availableCount }} / {{ item.totalCount }}
+              </span>
+            </td>
+          </tr>
           }
         </tbody>
       </table>
