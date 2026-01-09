@@ -7,10 +7,10 @@
       <!-- Header avec statut et sévérité -->
       <div class="alert-header">
         <span class="badge severity" [class]="'severity-' + alert.severity.toLowerCase()">
-          {{ alert.severity }}
+          {{ translateSeverity(alert.severity) }}
         </span>
-        <span class="badge status" [class]="'status-' + alert.status.toLowerCase().replace(' ', '-')">
-          {{ alert.status }}
+        <span class="badge status" [class]="'status-' + alert.status.toLowerCase().replace('_', '-')">
+          {{ translateStatus(alert.status) }}
         </span>
       </div>
 
