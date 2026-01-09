@@ -1,98 +1,83 @@
 .login-container {
-    width: 90%;
-    max-width: 350px;
-    margin: var(--space-lg) auto;
-    padding: var(--space-lg);
-    border-radius: var(--radius-lg);
-    background: var(--color-bg);
-    box-shadow: var(--shadow-box);
+  width: 90%;
+  max-width: 350px;
+  margin: var(--space-lg) auto;
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-box);
 }
 
-/* Responsive : on centre et on espace */
 .form-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-input {
-    padding: var(--space-sm);
-    font-size: var(--text-md);
-    border-radius: var(--radius-md);
-    border: 1px solid #ccc;
-    transition: border 0.2s ease;
-}
-
-input:focus {
-    border-color: var(--color-primary);
-    outline: none;
-}
-
-button {
-    padding: var(--space-sm);
-    cursor: pointer;
-    font-size: var(--text-md);
-    background: var(--color-primary);
-    color: white;
-    border: none;
-    border-radius: var(--radius-md);
-    transition: background 0.2s ease;
-}
-
-button:disabled {
-    background: #aac5ff;
-    cursor: not-allowed;
-}
-
-button:hover:not(:disabled) {
-    background: #0052a3;
-}
-
-h2 {
-    font-family: 'Crimson Text', serif;
-    text-align: center;
-    position: relative;
-    padding-bottom: 8px;
-}
-
-h2::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
-    width: 60px;
-    height: 3px;
-    background: var(--color-primary);
-    border-radius: var(--radius-sm);
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 400px) {
-    .login-container {
-        padding: 20px;
-    }
-    input, button {
-        font-size: 14px;
-        padding: 10px;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
 }
 
 .field {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Message d’erreur propre */
-.error {
-    margin-top: 6px;
-    font-size: 14px;
-    color: #d93025;
+input {
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid #ccc;
+  transition: border 0.2s ease;
 }
 
-/* On évite les marges négatives qui cassent tout */
+input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
 input.ng-invalid.ng-touched {
-    border-color: #d93025;
+  border-color: var(--color-error);
+}
+
+button {
+  padding: var(--space-sm);
+  cursor: pointer;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  transition: background 0.2s ease;
+  font-weight: 600;
+}
+
+button:hover:not(:disabled) {
+  background: #0052a3;
+}
+
+button:disabled {
+  background: #aac5ff;
+  cursor: not-allowed;
+}
+
+.error {
+  margin-top: 6px;
+  font-size: var(--text-sm);
+  color: var(--color-error);
+}
+
+h2 {
+  font-family: var(--font-primary);
+  text-align: center;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
 }
 
 .spinner {
@@ -108,7 +93,11 @@ input.ng-invalid.ng-touched {
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .login-container { padding: var(--space-sm); }
+  input, button { font-size: var(--text-sm); padding: var(--space-xs); }
 }
