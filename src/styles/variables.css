@@ -34,30 +34,38 @@
   --radius-md: 8px;
   --radius-lg: 16px; 
 
-  /* Colors alerts */
-  --color-severity-low: #d4edda;
-  --color-severity-medium: #fff3cd;
-  --color-severity-high: #f8d7da;
-  --color-severity-critical: #721c24;
+ /* ========== SEVERITY (différenciées des status) ========== */
+/* Palette plus "alerte métier", pas orientée workflow */
 
-  --text-severity-low: #155724;
-  --text-severity-medium: #856404;
-  --text-severity-high: #721c24;
-  --text-severity-critical: #ffffff;
+--color-severity-low: #e6f1f7;        /* vert très doux */
+--color-severity-medium: #fff7e6;     /* jaune crème */
+--color-severity-high: #fdecea;       /* rose pastel */
+--color-severity-critical: #4b1e2f;   /* prune foncé */
 
-  --color-status-new: #cce5ff;
-  --color-status-in-progress: #fff3cd;
-  --color-status-resolved: #d4edda; 
-  --color-status-dismissed: #e2e3e5;
+--text-severity-low: #0c5460;
+--text-severity-medium: #7a4f01;
+--text-severity-high: #8a1c1c;
+--text-severity-critical: #ffffff;
 
-  --text-status-new: #004085;
-  --text-status-in-progress: #856404;
-  --text-status-resolved: #155724;
-  --text-status-dismissed: #383d41;
 
-  /* Map legend colors */
-  --color-legend-new: #ff4444;
-  --color-legend-in-progress: #ff9800;
-  --color-legend-resolved: #4caf50;
-  --color-legend-dismissed: #9e9e9e;
+/* ========== STATUS (alignés avec la legend) ========== */
+/* Même logique de couleur que la carte, en pastel */
+
+--color-status-new: #fde2e2;           /* rouge pastel */
+--color-status-in-progress: #fff0d9;   /* orange pastel */
+--color-status-resolved: #e3f3e8;      /* vert pastel */
+--color-status-dismissed: #eeeeee;     /* gris clair */
+
+--text-status-new: #b71c1c;
+--text-status-in-progress: #a65c00;
+--text-status-resolved: #1b5e20;
+--text-status-dismissed: #424242;
+
+
+/* ========== MAP LEGEND (inchangée ou très proche) ========== */
+
+--color-legend-new: #ff4444;
+--color-legend-in-progress: #ff9800;
+--color-legend-resolved: #4caf50;
+--color-legend-dismissed: #9e9e9e;
 }

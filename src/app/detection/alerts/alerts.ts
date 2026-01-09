@@ -56,4 +56,34 @@ export class Alerts implements OnInit {
       alertElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
+
+  translateStatus(status: string): string {
+    switch (status) {
+      case 'NEW':
+        return 'Nouveau';
+      case 'IN_PROGRESS':
+        return 'En cours';
+      case 'RESOLVED':
+        return 'Résolu';
+      case 'DISMISSED':
+        return 'Ignoré';
+      default:
+        return status;
+    }
+  }
+
+  translateSeverity(severity: string): string {
+    switch (severity) {
+      case 'LOW':
+        return 'Faible';
+      case 'MEDIUM':
+        return 'Moyenne';
+      case 'HIGH':
+        return 'Élevée';
+      case 'CRITICAL':
+        return 'Critique';
+      default:
+        return severity;
+    }
+  }
 }

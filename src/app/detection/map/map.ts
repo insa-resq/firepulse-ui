@@ -61,7 +61,7 @@ export class Map implements AfterViewInit, OnChanges {
       });
 
       const marker = L.marker([a.latitude, a.longitude], { icon: customIcon })
-        .bindPopup(`<b>${a.description}</b><br>Status : ${a.status}`)
+        .bindPopup(`<b>${a.description}</b><br>Status : ${this.translateStatus(a.status)}`)
         .on('click', () => {
           this.alertSelected.emit(a)})
         .addTo(this.markersLayer);
@@ -82,11 +82,26 @@ export class Map implements AfterViewInit, OnChanges {
   // Helper : couleur selon status
   getColorByStatus(status: string): string {
     const statusColors: { [key: string]: string } = {
-      'NEW': '#ff4444',        // rouge
-      'IN_PROGRESS': '#ff9800', // orange
-      'RESOLVED': '#4caf50',   // vert
-      'DISMISSED': '#9e9e9e'      // gris
+      'NEW': 'var(--color-legend-new)',        // rouge
+      'IN_PROGRESS': 'var(--color-legend-in-progress)', // orange
+      'RESOLVED': 'var(--color-legend-resolved)',   // vert
+      'DISMISSED': 'var(--color-legend-dismissed)'      // gris
     };
     return statusColors[status] || '#2196f3'; // bleu par défaut
+  }
+
+  translateStatus(status: string): string {
+    switch (status) {
+      case 'NEW':
+        return 'Nouveau';
+      case 'IN_PROGRESS':
+        return 'En cours';
+      case 'RESOLVED':
+        return 'Résolu';
+      case 'DISMISSED':
+        return 'Ignoré';
+      default:
+        return status;
+    }
   }
 }
