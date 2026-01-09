@@ -1,20 +1,24 @@
 <footer class="site-footer">
 
-  <!-- Onglets -->
-  <div class="footer-top">
-    <button class="tab" [class.active]="activeTab === 'remerciements'" (click)="activeTab = 'remerciements'">
+  <nav class="footer-tabs" aria-label="Footer navigation">
+    <button
+      class="footer-tab"
+      [class.is-active]="activeTab === 'remerciements'"
+      (click)="activeTab = 'remerciements'">
       Remerciements
     </button>
 
-    <button class="tab" [class.active]="activeTab === 'contacts'" (click)="activeTab = 'contacts'">
+    <button
+      class="footer-tab"
+      [class.is-active]="activeTab === 'contacts'"
+      (click)="activeTab = 'contacts'">
       Contacts
     </button>
-  </div>
+  </nav>
 
-  <!-- Zone de contenu -->
-  <div class="footer-content">
+  <section class="footer-content text-compact">
     @if (activeTab === 'remerciements') {
-    <div>
+      <section>
       <p>Nous remercions chaleureusement les personnes qui nous ont accompagnés tout au long de ce projet :</p>
 
       <ul>
@@ -60,11 +64,11 @@
       </ul>
 
       <p>Merci pour vos conseils, votre disponibilité et vos retours à chaque étape du projet.</p>
-    </div>
+    </section>
     }
 
     @if (activeTab === 'contacts') {
-    <div>
+    <section>
       <p>Voici les membres de l'équipe : </p>
 
       <ul>
@@ -98,13 +102,13 @@
           <a href="mailto:plemeill@insa-toulouse.fr">plemeill@insa-toulouse.fr</a>
         </li>
       </ul>
-    </div>
+    </section>
     }
-  </div>
+  </section>
 
-  <div class="footer-bottom">
-    <span class="copyright">© ResQ. 2026</span>
-    <span class="rights">All Rights Reserved</span>
+ <div class="footer-meta">
+    <span>© ResQ. 2026</span>
+    <span>All Rights Reserved</span>
   </div>
 
 </footer>
