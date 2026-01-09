@@ -1,11 +1,11 @@
 .site-footer {
   width: 100%;
-  padding: 10px 20px;
+  padding: var(--space-sm) var(--space-md);
   display: flex;
   flex-direction: column;
-  font-family: 'Crimson Text';
-  background-color: #f5f5f5; /* léger fond pour distinguer le footer */
-  border-radius: 00.5cm;
+  font-family: var(--font-secondary);
+  background-color: var(--color-bgheader);
+  border-radius: var(--radius-md);
   position: relative;
   box-sizing: border-box;
 }
@@ -13,32 +13,32 @@
 /* --- Top links --- */
 .footer-top {
   display: flex;
-  gap: 20px;
+  gap: var(--space-md);
   font-weight: bold;
-  font-size: 14px;
-  color: #666666; /* gris pour les onglets */
-  flex-wrap: wrap; /* permet le wrap sur petits écrans */
+  font-size: var(--text-sm);
+  color: var(--color-footer);
+  flex-wrap: wrap;
 }
 
 .footer-top .tab {
   background: none;
   border: none;
-  font-family: 'Crimson Text';
-  font-size: 14px;
+  font-family: var(--font-secondary);
+  font-size: var(--text-sm);
   font-weight: bold;
   cursor: pointer;
-  padding: 6px 0;
+  padding: var(--space-xs) 0;
   position: relative;
-  color: #666666; /* gris clair */
+  color: var(--color-footer);
   transition: color 0.3s;
 }
 
 .footer-top .tab.active {
-  color: #000; /* noir */
+  color: var(--color-black);
 }
 
 .footer-top .tab:hover {
-  color: #000000; /* fonce au survol */
+  color: var(--color-black);
 }
 
 .footer-top .tab.active::after {
@@ -48,15 +48,15 @@
   left: 0;
   height: 2px;
   width: 100%;
-  background: #000; /* underline noir pour actif */
+  background: var(--color-black);
 }
 
 /* --- Content --- */
 .footer-content {
-  font-family: 'Crimson Text';
-  font-size: 15px;
-  margin-top: 10px;
-  margin-left: 4px;
+  font-family: var(--font-secondary);
+  font-size: var(--text-md);
+  margin-top: var(--space-sm);
+  margin-left: var(--space-xs);
 }
 
 .footer-bottom {
@@ -65,9 +65,9 @@
   justify-content: space-between;
   flex-wrap: wrap;
   width: 100%;
-  font-size: 12px;
-  color: #708050;
-  margin-top: 15px;
+  font-size: var(--text-xs);
+  color: var(--color-footer);
+  margin-top: var(--space-md);
 }
 
 /* --- Responsive --- */

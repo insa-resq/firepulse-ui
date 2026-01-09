@@ -3,10 +3,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-  background: #f5f5f5; /* fond gris clair */
-  color: #222;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-bgheader);
+  color: var(--color-text);
+  box-shadow: var(--shadow-box);
   position: relative;
   z-index: 10;
 }
@@ -27,28 +27,28 @@
 }
 
 .links a {
-  margin: 0 20px;
-  font-size: 18px;
+  margin: 0 var(--space-md);
+  font-size: var(--text-lg);
   font-weight: 600;
   text-decoration: none;
-  color: #222;
+  color: var(--color-text);
   transition: color 0.2s, transform 0.2s;
 }
 
 .links a:hover,
 .links a.active {
-  color: #4b561f; /* juste sur hover/active */
+  color: var(--color-hover);
   transform: scale(1.05);
 }
 
 /* Bouton de connexion coloré */
 .auth-btn {
-  background-color: #4b561f;
+  background-color: var(--color-hover);
   color: white;
-  padding: 8px 20px;
+  padding: var(--space-xs) var(--space-md);
   border: none;
   border-radius: 25px;
-  font-size: 16px;
+  font-size: var(--text-md);
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -56,7 +56,7 @@
 
 .auth-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: var(--shadow-box);
 }
 
 .auth-area {
@@ -81,10 +81,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
+  background: var(--color-bg);
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: var(--shadow-box);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -114,12 +114,12 @@
   position: absolute;
   right: 0;
   top: calc(100% + 8px);
-  background: #fff;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  border-radius: 8px;
+  background: var(--color-bg);
+  box-shadow: var(--shadow-box);
+  border-radius: var(--radius-md);
   list-style: none;
   margin: 0;
-  padding: 6px 0;
+  padding: var(--space-xs) 0;
   min-width: 150px;
   z-index: 50;
   overflow: hidden;
@@ -156,7 +156,7 @@
 }
 
 .dropdown li:hover {
-  background: #f5f5f7;
+  background: var(--color-bgheader);
 }
 
 @keyframes dropdown-appear {

@@ -1,11 +1,11 @@
 .login-container {
     width: 90%;
     max-width: 350px;
-    margin: 50px auto;
-    padding: 30px;
-    border-radius: 10px;
-    background: #fff;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin: var(--space-lg) auto;
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    box-shadow: var(--shadow-box);
 }
 
 /* Responsive : on centre et on espace */
@@ -16,26 +16,26 @@
 }
 
 input {
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 6px;
+    padding: var(--space-sm);
+    font-size: var(--text-md);
+    border-radius: var(--radius-md);
     border: 1px solid #ccc;
     transition: border 0.2s ease;
 }
 
 input:focus {
-    border-color: #2a72ff;
+    border-color: var(--color-primary);
     outline: none;
 }
 
 button {
-    padding: 12px;
+    padding: var(--space-sm);
     cursor: pointer;
-    font-size: 16px;
-    background: #2a72ff;
+    font-size: var(--text-md);
+    background: var(--color-primary);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     transition: background 0.2s ease;
 }
 
@@ -45,7 +45,7 @@ button:disabled {
 }
 
 button:hover:not(:disabled) {
-    background: #005cff;
+    background: #0052a3;
 }
 
 h2 {
@@ -63,8 +63,8 @@ h2::after {
     bottom: 0;
     width: 60px;
     height: 3px;
-    background: #2a72ff;
-    border-radius: 3px;
+    background: var(--color-primary);
+    border-radius: var(--radius-sm);
 }
 
 /* --- RESPONSIVE --- */
