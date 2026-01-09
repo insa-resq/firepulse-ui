@@ -23,3 +23,22 @@ small {
   font-size: var(--text-sm);
   color: var(--color-muted);
 }
+
+.text-compact {
+  font-size: var(--text-sm);
+  line-height: 1.35;
+}
+
+.text-compact ul {
+  line-height: 1.25;
+}
+
+.text-compact strong {
+  font-weight: 600;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}

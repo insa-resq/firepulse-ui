@@ -1,44 +1,51 @@
 <nav class="navbar">
-    <div class="title">
-        <img src="/logo.png" alt="ResQ Logo"/>
-        <span>ResQ</span>
-    </div>
+  <h1 class="navbar__brand">
+    <img src="/logo.png" alt="ResQ Logo" />
+    <span>ResQ</span>
+  </h1>
 
-  <div class="links">
+  <h2 class="navbar__links">
     @if(userService.currentUser){
-      <a routerLink="/detection" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Détection</a>
-      <a routerLink="/planning" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Planning</a>
+      <a routerLink="/detection" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        Détection
+      </a>
+      <a routerLink="/planning" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        Planning
+      </a>
     }
-  </div>
+  </h2>
 
-  <div class="auth-area">
-    <!-- Connecté -->
+  <div class="navbar__auth">
     @if(userService.currentUser){
       <div class="user-menu">
+
         @if(userIcon){
-            <div class="user-icon">
-                <img src="{{ userIcon }}" alt="avatar"/>
-            </div>
+          <div class="user-menu__icon">
+            <img [src]="userIcon" alt="avatar"/>
+          </div>
         }
+
         <button
-          class="user-btn"
+          class="user-menu__btn"
           type="button"
           (click)="menuOpen = !menuOpen"
           aria-haspopup="true"
           [attr.aria-expanded]="menuOpen">
-          <img src="{{ userService.currentUser.avatarUrl }}" alt="avatar" />
+          <img [src]="userService.currentUser.avatarUrl" alt="avatar" />
         </button>
 
         @if(menuOpen){
-          <ul class="dropdown" role="menu">
+          <ul class="user-menu__dropdown" role="menu">
             <li role="menuitem">
               <a routerLink="/account" (click)="menuOpen = false">Compte</a>
             </li>
+
             @if (userService.isAdmin()) {
               <li role="menuitem">
-              <a routerLink="/administration" (click)="menuOpen = false">Gérer</a>
-            </li>
+                <a routerLink="/administration" (click)="menuOpen = false">Gérer</a>
+              </li>
             }
+
             <li role="menuitem" (click)="logout()">Déconnexion</li>
           </ul>
         }
