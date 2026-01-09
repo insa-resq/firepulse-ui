@@ -1,12 +1,38 @@
 .login-container {
-  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;            
+  width: 100%;
   max-width: 350px;
+  min-height: 250px;
   margin: var(--space-lg) auto;
   padding: var(--space-md);
   border-radius: var(--radius-md);
   background: var(--color-bg);
   box-shadow: var(--shadow-box);
+  text-align: center;
 }
+
+.login-header {
+  flex: 0 0 auto; 
+}
+
+.login-form {
+  flex: 1 0 auto; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.login-footer {
+  flex: 0 0 auto; 
+  width: 100%;
+  margin-top: var(--space-md);
+}
+
 
 .form-container {
   display: flex;
@@ -24,10 +50,11 @@ input {
   border-radius: var(--radius-md);
   border: 1px solid #ccc;
   transition: border 0.2s ease;
+  font-size: var(--text-sm);
 }
 
 input:focus {
-  border-color: var(--color-primary);
+  border-color: var(--color-button-hover);
   outline: none;
 }
 
@@ -38,7 +65,7 @@ input.ng-invalid.ng-touched {
 button {
   padding: var(--space-sm);
   cursor: pointer;
-  background: var(--color-primary);
+  background: var(--color-button-hover);
   color: white;
   border: none;
   border-radius: var(--radius-md);
@@ -47,11 +74,11 @@ button {
 }
 
 button:hover:not(:disabled) {
-  background: #0052a3;
+  background: var(--color-button-hover);
 }
 
 button:disabled {
-  background: #aac5ff;
+  background: var(--color-button-disabled);
   cursor: not-allowed;
 }
 
@@ -65,7 +92,7 @@ h2 {
   font-family: var(--font-primary);
   text-align: center;
   position: relative;
-  padding-bottom: 8px;
+  padding-top: 8px;
 }
 
 h2::after {
@@ -76,7 +103,7 @@ h2::after {
   bottom: 0;
   width: 60px;
   height: 3px;
-  background: var(--color-primary);
+  background: var(--color-button-hover);
   border-radius: var(--radius-sm);
 }
 
