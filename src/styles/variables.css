@@ -35,25 +35,25 @@
   --radius-lg: 16px; 
 
   /* Colors alerts */
-  --color--severity-low: #d4edda;
-  --color--severity-medium: #fff3cd;
-  --color--severity-high: #f8d7da;
-  --color--severity-critical: #721c24;
+  --color-severity-low: #d4edda;
+  --color-severity-medium: #fff3cd;
+  --color-severity-high: #f8d7da;
+  --color-severity-critical: #721c24;
 
-  --text--severity-low: #155724;
-  --text--severity-medium: #856404;
-  --text--severity-high: #721c24;
-  --text--severity-critical: #ffffff;
+  --text-severity-low: #155724;
+  --text-severity-medium: #856404;
+  --text-severity-high: #721c24;
+  --text-severity-critical: #ffffff;
 
-  --color--status-new: #cce5ff;
-  --color--status-in-progress: #fff3cd;
-  --color--status-resolved: #d4edda; 
-  --color--status-dismissed: #e2e3e5;
+  --color-status-new: #cce5ff;
+  --color-status-in-progress: #fff3cd;
+  --color-status-resolved: #d4edda; 
+  --color-status-dismissed: #e2e3e5;
 
-  --text--status-new: #004085;
-  --text--status-in-progress: #856404;
-  --text--status-resolved: #155724;
-  --text--status-dismissed: #383d41;
+  --text-status-new: #004085;
+  --text-status-in-progress: #856404;
+  --text-status-resolved: #155724;
+  --text-status-dismissed: #383d41;
 
   /* Map legend colors */
   --color-legend-new: #ff4444;
