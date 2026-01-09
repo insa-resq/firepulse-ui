@@ -6,50 +6,46 @@
 
   <h2 class="navbar__links">
     @if(userService.currentUser){
-      <a routerLink="/detection" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        Détection
-      </a>
-      <a routerLink="/planning" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        Planning
-      </a>
+    <a routerLink="/detection" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      Détection
+    </a>
+    <a routerLink="/planning" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      Planning
+    </a>
     }
   </h2>
 
   <div class="navbar__auth">
     @if(userService.currentUser){
-      <div class="user-menu">
+    <div class="user-menu">
 
-        @if(userIcon){
-          <div class="user-menu__icon">
-            <img [src]="userIcon" alt="avatar"/>
-          </div>
-        }
-
-        <button
-          class="user-menu__btn"
-          type="button"
-          (click)="menuOpen = !menuOpen"
-          aria-haspopup="true"
-          [attr.aria-expanded]="menuOpen">
-          <img [src]="userService.currentUser.avatarUrl" alt="avatar" />
-        </button>
-
-        @if(menuOpen){
-          <ul class="user-menu__dropdown" role="menu">
-            <li role="menuitem">
-              <a routerLink="/account" (click)="menuOpen = false">Compte</a>
-            </li>
-
-            @if (userService.isAdmin()) {
-              <li role="menuitem">
-                <a routerLink="/administration" (click)="menuOpen = false">Gérer</a>
-              </li>
-            }
-
-            <li role="menuitem" (click)="logout()">Déconnexion</li>
-          </ul>
-        }
+      @if(userIcon){
+      <div class="user-menu__icon">
+        <img [src]="userIcon" alt="avatar" />
       </div>
+      }
+
+      <button class="user-menu__btn" type="button" (click)="menuOpen = !menuOpen" aria-haspopup="true"
+        [attr.aria-expanded]="menuOpen">
+        <img [src]="userService.currentUser.avatarUrl" alt="avatar" />
+      </button>
+
+      @if(menuOpen){
+      <ul class="user-menu__dropdown" role="menu">
+        <li role="menuitem">
+          <a routerLink="/account" (click)="menuOpen = false">Compte</a>
+        </li>
+
+        @if (userService.isAdmin()) {
+        <li role="menuitem">
+          <a routerLink="/administration" (click)="menuOpen = false">Gérer</a>
+        </li>
+        }
+
+        <li role="menuitem" (click)="logout()">Déconnexion</li>
+      </ul>
+      }
+    </div>
     }
   </div>
 </nav>

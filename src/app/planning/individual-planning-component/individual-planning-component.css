@@ -140,5 +140,5 @@
 
 .count {
   font-weight: bold;
-  color: var(--color-button-disabled);
+  color: var(--color-button-hover);
 }
