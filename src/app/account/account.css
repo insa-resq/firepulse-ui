@@ -4,17 +4,6 @@
   padding: 2rem;
 }
 
-h1 {
-  color: var(--color-text);
-  margin: 0 0 var(--space-lg) 0;
-}
-
-h2 {
-  color: var(--color-text);
-  font-size: var(--text-lg);
-  margin: 0 0 var(--space-md) 0;
-}
-
 /* User Info Card */
 .user-info-card {
   background: var(--color-bg);
@@ -22,7 +11,9 @@ h2 {
   padding: var(--space-lg);
   margin-bottom: var(--space-lg);
   box-shadow: var(--shadow-box);
+  font-family: var(--font-primary);
 }
+
 
 .profile-header {
   display: flex;
@@ -40,7 +31,7 @@ h2 {
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--color-primary);
+  border: 3px solid var(--color-button-hover);
 }
 
 .avatar-placeholder {
@@ -54,13 +45,14 @@ h2 {
   font-size: 2.5rem;
   font-weight: bold;
   color: white;
-  border: 3px solid #0066cc;
+  border: 3px solid var(--color-button-hover);
 }
 
 .info-row {
   display: flex;
   padding: 0.75rem 0;
   border-bottom: 1px solid #eee;
+  
 }
 
 .info-row:last-child {
@@ -111,7 +103,7 @@ h2 {
 }
 
 button {
-  background-color: #0066cc;
+  background-color: var(--color-button-hover);
   color: white;
   padding: 0.75rem 1.5rem;
   border: none;
@@ -122,11 +114,11 @@ button {
 }
 
 button:hover:not(:disabled) {
-  background-color: #0052a3;
+  background-color: var(--color-button-hover);
 }
 
 button:disabled {
-  background-color: #ccc;
+  background-color: var(--color-button-disabled);
   cursor: not-allowed;
 }
 
@@ -272,7 +264,6 @@ button:disabled {
 .btn-delete {
   background-color: #dc3545;
   padding: 0.5rem 1rem;
-  font-size: 0.9rem;
 }
 
 .btn-delete:hover:not(:disabled) {
@@ -284,7 +275,6 @@ button:disabled {
   margin-top: 1rem;
   padding: 0.75rem;
   border-radius: 4px;
-  font-size: 0.9rem;
 }
 
 .message.success {
