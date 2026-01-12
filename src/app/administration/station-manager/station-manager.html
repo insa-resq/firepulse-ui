@@ -1,5 +1,5 @@
-<div class="alerts-section">
-  <div class="alerts-header">
+<div class="element-section">
+  <div class="element-header">
     <h2>Gestion des casernes</h2>
   </div>
 
@@ -11,14 +11,14 @@
     <div class="empty-state">Aucune caserne pour le moment.</div>
   }
 
-  <div class="alerts-grid">
+  <div class="element-grid">
     @for (station of filteredStations; track station.id) {
-      <div class="alert-card">
-        <div class="alert-header">
-          <div class="alert-title">{{ station.name || ('Caserne #' + station.id) }}</div>
+      <div class="element-card">
+        <div class="element-header">
+          <div class="element-title">{{ station.name || ('Caserne #' + station.id) }}</div>
         </div>
 
-        <div class="alert-content">
+        <div class="element-content">
           <div class="info-row">
             <span class="label">Latitude :</span>
             <span class="value">{{ station.latitude }}</span>
@@ -37,7 +37,7 @@
           </div>
         </div>
 
-        <div class="alert-actions">
+        <div class="element-actions">
           <button class="btn btn-delete"
                   [disabled]="deletingIds.has(station.id)"
                   (click)="deleteStation(station)">

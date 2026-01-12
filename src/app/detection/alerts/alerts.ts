@@ -2,10 +2,12 @@ import { Component, Input, Output, EventEmitter, OnInit, ViewChild, ElementRef }
 import { DetectionService } from '../../../service/detection.service';
 import { DatePipe } from '@angular/common';
 import { Alert } from '../../../model/alert.model';
+import { SeverityPipe } from '../../../pipe/severity.pipe';
+import { StatusPipe } from '../../../pipe/status.pipe';
 
 @Component({
   selector: 'app-alerts',
-  imports: [DatePipe],
+  imports: [DatePipe, SeverityPipe, StatusPipe],
   templateUrl: './alerts.html',
   styleUrls: ['./alerts.css'],
   standalone: true
@@ -57,33 +59,5 @@ export class Alerts implements OnInit {
     }
   }
 
-  translateStatus(status: string): string {
-    switch (status) {
-      case 'NEW':
-        return 'Nouveau';
-      case 'IN_PROGRESS':
-        return 'En cours';
-      case 'RESOLVED':
-        return 'Résolu';
-      case 'DISMISSED':
-        return 'Ignoré';
-      default:
-        return status;
-    }
-  }
 
-  translateSeverity(severity: string): string {
-    switch (severity) {
-      case 'LOW':
-        return 'Faible';
-      case 'MEDIUM':
-        return 'Moyenne';
-      case 'HIGH':
-        return 'Élevée';
-      case 'CRITICAL':
-        return 'Critique';
-      default:
-        return severity;
-    }
-  }
 }

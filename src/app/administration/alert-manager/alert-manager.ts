@@ -3,12 +3,16 @@ import {FormsModule} from '@angular/forms';
 import {Alert} from '../../../model/alert.model';
 import {DetectionService} from '../../../service/detection.service';
 import {CommonModule} from '@angular/common';
+import { SeverityPipe } from '../../../pipe/severity.pipe';
+import { StatusPipe } from '../../../pipe/status.pipe';
 
 @Component({
   selector: 'app-alert-manager',
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    SeverityPipe,
+    StatusPipe
   ],
   templateUrl: './alert-manager.html',
   styleUrls: ['../administration.css'],

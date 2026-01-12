@@ -10,7 +10,7 @@ import {FormsModule} from '@angular/forms';
     FormsModule
   ],
   templateUrl: './user-manager.html',
-  styleUrl: './user-manager.css',
+  styleUrl: '../administration.css',
 })
 export class UserManager implements OnInit{
   users: UserModel[] = [];

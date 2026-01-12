@@ -1,5 +1,5 @@
-<div class="alerts-section">
-  <div class="alerts-header">
+<div class="element-section">
+  <div class="element-header">
     <h2>Gestion des alertes</h2>
   </div>
 
@@ -8,27 +8,27 @@
     <div class="loading">Chargement des alertes...</div>
   }
 
-  <div class="alerts-grid">
+  <div class="element-grid">
     @for(alert of filteredAlerts; track alert.id) {
-      <div class="alert-card">
+      <div class="element-card">
 
-        <div class="alert-header">
-          <div class="alert-title">Alerte #{{ alert.id }}</div>
-          <div class="alert-meta">
-            <span class="alert-badge"
-                  [ngClass]="'alert-badge-severity-' + alert.severity.toLowerCase()">
-              {{ alert.severity }}
+        <div class="element-header">
+          <div class="element-title">Alerte #{{ alert.id }}</div>
+          <div class="element-meta">
+            <span class="element-badge"
+                  [ngClass]="'element-badge-severity-' + alert.severity.toLowerCase()">
+              {{ alert.severity | Severity }}
             </span>
-              <span class="alert-badge"
-                    [ngClass]="'alert-badge-status-' + alert.status.toLowerCase().replace(' ', '-')">
-      {{ alert.status }}
+              <span class="element-badge"
+                    [ngClass]="'element-badge-status-' + alert.status.toLowerCase().replace(' ', '-')">
+      {{ alert.status | Status }}
               </span>
 
           </div>
 
         </div>
 
-        <div class="alert-content">
+        <div class="element-content">
           <div class="info-row">
             <span class="label">Description :</span>
             <span class="value">{{ alert.description }}</span>
@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <div class="alert-actions">
+        <div class="element-actions">
           <button class="btn btn-delete" (click)="deleteAlert(alert)">Supprimer</button>
         </div>
 
