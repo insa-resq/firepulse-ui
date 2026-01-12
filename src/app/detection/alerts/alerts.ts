@@ -60,4 +60,10 @@ export class Alerts implements OnInit {
   }
 
 
+  viewImage(imageId: string) {
+    this.detectionService.getImage(imageId).subscribe((image) => {
+      window.open(image.url, '_blank');
+    });
+  }
+
 }

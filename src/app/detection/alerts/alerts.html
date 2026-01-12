@@ -36,7 +36,7 @@
         </div>
 
         <!-- Lien vers l'image -->
-        <a [href]="'/images/' + alert.imageId" target="_blank" class="image-link">
+        <a (click)="viewImage(alert.imageId)" target="_blank" class="image-link">
           Voir l'image
         </a>
       </div>

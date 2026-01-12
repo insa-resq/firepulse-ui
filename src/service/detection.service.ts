@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import type { Alert } from '../model/alert.model';
 import { environment } from '../environments/environment';
+import { Image } from '../model/image.model';
 
 @Injectable({ providedIn: 'root' })
 export class DetectionService {
@@ -32,4 +33,17 @@ export class DetectionService {
 
     return this.http.delete(`${this.baseUrl}/fire-alerts`, { headers, body: { "fireAlertIds": [id] } });
   }
+
+  getImage(imageId: string) {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<Image>(`${this.baseUrl}/images/${imageId}`, { headers });
+  }
+
+  
+
 }
