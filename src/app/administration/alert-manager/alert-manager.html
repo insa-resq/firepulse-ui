@@ -20,7 +20,7 @@
               {{ alert.severity | Severity }}
             </span>
               <span class="element-badge"
-                    [ngClass]="'element-badge-status-' + alert.status.toLowerCase().replace(' ', '-')">
+                    [ngClass]="'element-badge-status-' + alert.status.toLowerCase().replace('_', '-')">
       {{ alert.status | Status }}
               </span>
 
