@@ -34,13 +34,21 @@
             <span class="value">{{ alert.description }}</span>
           </div>
 
-          <div class="info-row confidence-row">
-            <span class="label">Confiance :</span>
-            <div class="confidence-bar-wrapper">
-              <div class="confidence-bar" [style.width.%]="alert.confidence * 100"></div>
-              <span class="confidence-value">{{ (alert.confidence * 100) | number:'1.0-0' }}%</span>
+         <div class="info-row confidence-row">
+          <span class="label">Confiance :</span>
+
+          <div class="confidence-bar-wrapper">
+            <div
+              class="confidence-bar-mask"
+              [style.width.%]="100 - (alert.confidence * 100)">
             </div>
+
+            <span class="confidence-value">
+              {{ (alert.confidence * 100) | number:'1.0-0' }}%
+            </span>
           </div>
+        </div>
+
 
           <div class="info-row">
             <span class="label">Créée le :</span>

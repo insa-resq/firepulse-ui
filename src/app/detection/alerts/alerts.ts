@@ -19,6 +19,8 @@ export class Alerts implements OnInit {
   @Output() alertSelected = new EventEmitter<Alert>();
   @ViewChild('alertsContainer') alertsContainer?: ElementRef<HTMLDivElement>;
 
+  url: string = '';
+
   constructor(private detectionService: DetectionService) {}
 
   ngOnInit() {
@@ -45,6 +47,7 @@ export class Alerts implements OnInit {
 
   selectAlert(alert: Alert) {
     this.alertSelected.emit(alert);
+    this.viewImage(alert.imageId);
   }
 
   scrollToAlert(alertId: number) {
@@ -62,7 +65,7 @@ export class Alerts implements OnInit {
 
   viewImage(imageId: string) {
     this.detectionService.getImage(imageId).subscribe((image) => {
-      window.open(image.url, '_blank');
+       this.url = image.url;
     });
   }
 
