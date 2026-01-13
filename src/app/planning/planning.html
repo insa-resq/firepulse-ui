@@ -1,26 +1,9 @@
 @if (hasGlobalPlanningRights) {
   <app-global-planning-component
     [nbWeek]="currentWeek"
+    [inventory]="inventory$"
     (previous)="previousWeek()"
     (next)="nextWeek()">>
-
-    <table class="inventory-table">
-      <thead>
-      <tr>
-        <th>Type de véhicule</th>
-        <th>Capacité totale</th>
-      </tr>
-      </thead>
-
-      <tbody>
-        @for (item of inventory$ | async; track item.id) {
-          <tr>
-            <td>{{ item.type }}</td>
-            <td>{{ item.availableCount }} / {{ item.totalCount }}</td>
-          </tr>
-        }
-      </tbody>
-    </table>
 
   </app-global-planning-component>
 } @else {

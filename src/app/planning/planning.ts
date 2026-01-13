@@ -31,7 +31,8 @@ export class PlanningComponent implements OnInit {
 
   ngOnInit() {
     this.hasGlobalPlanningRights =
-      this.userService.hasRight('GLOBAL_PLANNING');
+      this.userService.hasRight('ADMIN') ||
+      this.userService.hasRight('PLANNING_MANAGER');
 
     this.currentWeek = this.getCurrentWeek(this.currentDate) ;
 

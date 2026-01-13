@@ -13,8 +13,8 @@
 .planning-header button {
   padding: 6px 12px;
   border: none;
-  background: #1976d2;
-  color: white;
+  background: var(--color-button-hover);
+  color: var(--color-bg);
   cursor: pointer;
   border-radius: 5px;
 }
@@ -33,7 +33,7 @@
 
 .firefighter {
   font-weight: bold;
-  background: #f4f4f4;
+  background: var(--color-bgheader);
 }
 
 .cell {
@@ -82,15 +82,15 @@
 .inventory-card {
   margin-top: 2rem;
   padding: 1.5rem;
-  background: #ffffff;
+  background: var(--color-bg);
   border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-box);
 }
 
 .inventory-card h3 {
   margin-bottom: 1rem;
   font-size: 1.3rem;
-  color: #333;
+  color: var(--color-black);
 }
 
 .inventory-table {
@@ -99,8 +99,8 @@
 }
 
 .inventory-table thead {
-  background: linear-gradient(90deg, #007bff, #0056b3);
-  color: white;
+  background: var(--color-button-hover);
+  color: var(--color-bg);
 }
 
 .inventory-table th,
@@ -119,10 +119,10 @@
 
 .vehicle-type {
   font-weight: 600;
-  color: #333;
+  color: var(--color-black);
 }
 
 .count {
   font-weight: bold;
-  color: #007bff;
+  color: var(--color-button-hover);
 }
