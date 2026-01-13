@@ -1,55 +1,44 @@
-
 <app-tablet>
   <div class="planning-container">
-
     <div class="planning-header">
-      <button  (click)="previous.emit()">◀ Semaine précédente</button>
+      <button (click)="previous.emit()">◀ Semaine précédente</button>
       <h2>Semaine {{ nbWeek }}</h2>
       <button (click)="next.emit()">Semaine suivante ▶</button>
     </div>
 
     <table class="planning-table">
       <thead>
-      <tr>
-        <th>Pompier</th>
+        <tr>
+          <th>Pompier</th>
 
-        @for (day of days; track day) {
+          @for (day of days; track day) {
           <th>{{ day }}</th>
-        }
-
-      </tr>
+          }
+        </tr>
       </thead>
 
       <tbody>
-
         @for (firefighter of firefighters; track firefighter.name) {
-          <tr>
-            <td class="firefighter">{{ firefighter.name }}</td>
+        <tr>
+          <td class="firefighter">{{ firefighter.name }}</td>
 
-            @for (day of days; track day) {
-              <td
-                class="cell"
-                [ngClass]="getAvailibility(firefighter.name, day)"
-              >
-              </td>
-            }
-
-          </tr>
+          @for (day of days; track day) {
+          <td class="cell" [ngClass]="getAvailibility(firefighter.name, day)"></td>
+          }
+        </tr>
         }
-
       </tbody>
     </table>
 
     <div class="legende">
-      <div class="legende-item">
-        <span class="color-box available"></span> De garde
-      </div>
-      <div class="legende-item">
-        <span class="color-box on-call"></span> Astreinte
-      </div>
-      <div class="legende-item">
-        <span class="color-box unavailable"></span> Indisponible
-      </div>
+      <div class="legende-item"><span class="color-box available"></span> De garde</div>
+      <div class="legende-item"><span class="color-box on-call"></span> Astreinte</div>
+      <div class="legende-item"><span class="color-box unavailable"></span> Indisponible</div>
+      <button (click)="generatePlanning()">
+        @if (isLoadingGenerate) {
+        <span class="spinner"></span>
+        Génération... } @else { Générer le planning }
+      </button>
     </div>
 
     <div class="inventory-card">
@@ -57,29 +46,25 @@
 
       <table class="inventory-table">
         <thead>
-        <tr>
-          <th>Véhicule</th>
-          <th>Disponibilité</th>
-        </tr>
+          <tr>
+            <th>Véhicule</th>
+            <th>Disponibilité</th>
+          </tr>
         </thead>
 
         <tbody>
           @for (item of inventory | async; track item.id) {
-            <tr>
-              <td class="vehicle-type">
-                {{ item.type | vehicleTypeLabel }}
-              </td>
-              <td>
-            <span class="count">
-              {{ item.availableCount }} / {{ item.totalCount }}
-            </span>
-              </td>
-            </tr>
+          <tr>
+            <td class="vehicle-type">
+              {{ item.type | vehicleTypeLabel }}
+            </td>
+            <td>
+              <span class="count"> {{ item.availableCount }} / {{ item.totalCount }} </span>
+            </td>
+          </tr>
           }
         </tbody>
       </table>
     </div>
-
   </div>
-
 </app-tablet>
