@@ -1,27 +1,27 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {TabletComponent} from '../../tablet/tablet';
-import {AsyncPipe} from '@angular/common';
-import {Observable} from 'rxjs';
-import {InventoryItem} from '../../../model/inventoryItem.model';
-import {VehicleTypeLabelPipe} from '../../../pipe/vehicule-type-label.pipe';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { TabletComponent } from '../../tablet/tablet';
+import { AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { InventoryItem } from '../../../model/inventoryItem.model';
+import { VehicleTypeLabelPipe } from '../../../pipe/vehicule-type-label.pipe';
+import { UserService } from '../../../service/user.service';
+import { PlanningService } from '../../../service/planning.service';
 
 @Component({
   selector: 'app-individual-planning-component',
   standalone: true,
-  imports: [
-    TabletComponent,
-    AsyncPipe,
-    VehicleTypeLabelPipe
-  ],
+  imports: [TabletComponent, AsyncPipe, VehicleTypeLabelPipe],
   templateUrl: './individual-planning-component.html',
   styleUrl: './individual-planning-component.css',
 })
 export class IndividualPlanningComponent {
-
   days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+  stationId!: string;
+  planningId!: string;
+  year: number = new Date().getFullYear();
 
   @Input() nbWeek!: number;
-  @Input() inventory!:  Observable<InventoryItem[]>;
+  @Input() inventory!: Observable<InventoryItem[]>;
   @Output() previous = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
 
@@ -38,13 +38,20 @@ export class IndividualPlanningComponent {
     { week: 51, day: 'Vendredi', status: 'on-call' },
   ];
 
+  constructor(private userService: UserService, private planningService: PlanningService) {}
 
-  getStatus(day: string): string {
-    const available = this.avaibility.find(
-      d => d.week === this.nbWeek && d.day === day
-    );
-    return available ? available.status : '';
+  ngOnInit(): void {
+    this.stationId = this.userService.getUserStationId();
+
+    this.planningService
+      .getPlanningByStationId(this.stationId, this.nbWeek, this.year)
+      .subscribe((planning) => {
+        this.planningId = planning.length > 0 ? planning[0].id : '';
+      });
   }
 
-
+  getStatus(day: string): string {
+    const available = this.avaibility.find((d) => d.week === this.nbWeek && d.day === day);
+    return available ? available.status : '';
+  }
 }

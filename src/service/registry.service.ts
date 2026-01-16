@@ -7,39 +7,49 @@ import { StationModel } from '../model/station.model';
   providedIn: 'root',
 })
 export class RegistryService {
-  private readonly baseUrl = new URL('registry-service', environment.apiUrl).toString().replace(/\/+$/, '');
+  private readonly baseUrl = new URL('registry-service', environment.apiUrl)
+    .toString()
+    .replace(/\/+$/, '');
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getStations() {
     const token = localStorage.getItem('token'); // Récupération du token
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     });
 
-    return this.http.get<StationModel[]>(`${this.baseUrl}/fire-stations`, {headers});
+    return this.http.get<StationModel[]>(`${this.baseUrl}/fire-stations`, { headers });
   }
-
 
   deleteStation(id: string) {
     const token = localStorage.getItem('token'); // Récupération du token
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     });
 
-    return this.http.delete(`${this.baseUrl}/fire-stations/${id}`, {headers});
+    return this.http.delete(`${this.baseUrl}/fire-stations/${id}`, { headers });
   }
-
 
   getStationById(id: string) {
     const token = localStorage.getItem('token'); // Récupération du token
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     });
 
-    return this.http.get<StationModel>(`${this.baseUrl}/fire-stations/${id}`, {headers});
+    return this.http.get<StationModel>(`${this.baseUrl}/fire-stations/${id}`, { headers });
+  }
+
+  getFirefighterId(userId: string) {
+    const token = localStorage.getItem('token'); // Récupération du token
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get<string>(`${this.baseUrl}/firefighters/user/${userId}`, { headers });
   }
 }

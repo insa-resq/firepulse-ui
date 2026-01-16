@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TabletComponent } from '../../tablet/tablet';
 import { AsyncPipe, NgClass } from '@angular/common';
-import { interval, Observable, switchMap, takeWhile } from 'rxjs';
+import { interval, Observable, Subscription, switchMap, takeWhile } from 'rxjs';
 import { InventoryItem } from '../../../model/inventoryItem.model';
 import { VehicleTypeLabelPipe } from '../../../pipe/vehicule-type-label.pipe';
 import { PlanningService } from '../../../service/planning.service';
@@ -9,6 +9,7 @@ import { PlanningComponent } from '../planning';
 import { UserService } from '../../../service/user.service';
 import { PlanningModalComponent } from '../planning-modal/planning-modal';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { PlanningGenerationService } from '../../../service/planning-generation.service';
 
 @Component({
   selector: 'app-global-planning-component',
@@ -18,6 +19,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   standalone: true,
 })
 export class GlobalPlanningComponent implements OnInit {
+  private pollingSub?: Subscription;
+
   private year = new Date().getFullYear();
   private stationId: string = '';
   private planningId: string = '';
@@ -46,10 +49,18 @@ export class GlobalPlanningComponent implements OnInit {
   constructor(
     private planningService: PlanningService,
     private userService: UserService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private planningGenerationService: PlanningGenerationService
   ) {}
 
   ngOnInit(): void {
+    const planningId = this.planningGenerationService.getPlanningInProgress();
+
+    if (planningId) {
+      this.isLoadingGenerate = true;
+      this.startPolling(planningId);
+    }
+
     this.stationId = this.userService.getUserStationId();
     this.planningService
       .getPlanningByStationId(this.stationId, this.nbWeek, this.year)
@@ -66,7 +77,7 @@ export class GlobalPlanningComponent implements OnInit {
     return dispo ? dispo.status : '';
   }
 
-  generatePlanning() {
+  generatePlanning(): void {
     this.isLoadingGenerate = true;
 
     const request$ = this.planningId
@@ -76,18 +87,16 @@ export class GlobalPlanningComponent implements OnInit {
     request$.subscribe({
       next: (planning: any) => {
         const planningId = planning.id;
-        this.pollPlanningStatus(planningId);
+        this.planningGenerationService.savePlanningInProgress(planningId);
+
+        this.startPolling(planningId);
       },
       error: () => {
-        this.dialog.open(PlanningModalComponent, {
-          data: {
-            success: false,
-            message: this.planningId
-              ? 'Une erreur est survenue lors de la régénération du planning.'
-              : 'Une erreur est survenue lors de la génération du planning.',
-          },
-        });
-        this.isLoadingGenerate = false;
+        this.showError(
+          this.planningId
+            ? 'Une erreur est survenue lors de la régénération du planning.'
+            : 'Une erreur est survenue lors de la génération du planning.'
+        );
       },
     });
   }
@@ -120,5 +129,44 @@ export class GlobalPlanningComponent implements OnInit {
         this.isLoadingGenerate = false;
       },
     });
+  }
+
+  private startPolling(planningId: string): void {
+    this.pollingSub?.unsubscribe();
+
+    this.pollingSub = this.planningGenerationService.pollPlanningStatus(planningId).subscribe({
+      next: (status: string) => {
+        if (status === 'FINALIZED') {
+          this.dialog.open(PlanningModalComponent, {
+            data: {
+              success: true,
+              message: 'Le planning a bien été généré.',
+            },
+          });
+
+          this.isLoadingGenerate = false;
+          this.planningGenerationService.clearPlanningInProgress();
+        }
+      },
+      error: () => {
+        this.showError('Erreur lors de la vérification du status du planning.');
+      },
+    });
+  }
+
+  private showError(message: string): void {
+    this.dialog.open(PlanningModalComponent, {
+      data: {
+        success: false,
+        message,
+      },
+    });
+
+    this.isLoadingGenerate = false;
+    this.planningGenerationService.clearPlanningInProgress();
+  }
+
+  ngOnDestroy(): void {
+    this.pollingSub?.unsubscribe();
   }
 }
