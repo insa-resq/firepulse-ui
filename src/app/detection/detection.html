@@ -4,7 +4,8 @@
       [alerts]="alerts"
       [selectedAlertId]="selectedAlertId"
       (statusUpdated)="onStatusChanged()"
-      (alertSelected)="onAlertSelected($event)">
+      (alertSelected)="onAlertSelected($event)"
+    >
     </app-alerts>
   </div>
 
@@ -12,7 +13,9 @@
     <app-map
       [alerts]="alerts"
       [selectedAlertId]="selectedAlertId"
-      (alertSelected)="onAlertSelected($event)">
+      [station]="station"
+      (alertSelected)="onAlertSelected($event)"
+    >
     </app-map>
   </div>
 </div>

@@ -3,24 +3,40 @@ import { Alerts } from './alerts/alerts';
 import { Map } from './map/map';
 import { DetectionService } from '../../service/detection.service';
 import { Alert } from '../../model/alert.model';
+import { RegistryService } from '../../service/registry.service';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-detection',
   imports: [Alerts, Map],
   templateUrl: './detection.html',
   styleUrls: ['./detection.css'],
-  standalone: true
+  standalone: true,
 })
 export class DetectionComponent implements OnInit {
   alerts: Alert[] = [];
   selectedAlertId?: number;
   @ViewChild(Alerts) alertsComponent?: Alerts;
 
-  constructor(private detectionService: DetectionService) {}
+  station?: { latitude: number; longitude: number; name?: string };
+
+  constructor(
+    private detectionService: DetectionService,
+    private userService: UserService,
+    private registryService: RegistryService
+  ) {}
 
   ngOnInit() {
     this.detectionService.getAlerts().subscribe((data) => {
       this.alerts = data;
+    });
+    const stationId = this.userService.getUserStationId();
+    this.registryService.getStationById(stationId).subscribe((station) => {
+      this.station = {
+        latitude: station.latitude,
+        longitude: station.longitude,
+        name: station.name,
+      };
     });
   }
 
