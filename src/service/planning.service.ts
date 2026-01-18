@@ -70,4 +70,15 @@ export class PlanningService {
       headers,
     });
   }
+
+  getShiftAssignmentsForIndividual(firefighterId: string, planningId: string) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    return this.http.get<any[]>(
+      `${this.baseUrlPlanning}/shift-assignments?firefighterId=${firefighterId}&planningId=${planningId}`,
+      { headers }
+    );
+  }
 }

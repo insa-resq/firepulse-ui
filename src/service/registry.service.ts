@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { StationModel } from '../model/station.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -50,6 +51,8 @@ export class RegistryService {
       Authorization: `Bearer ${token}`,
     });
 
-    return this.http.get<string>(`${this.baseUrl}/firefighters/user/${userId}`, { headers });
+    return this.http
+      .get<string>(`${this.baseUrl}/firefighters/users/${userId}`, { headers })
+      .pipe(map((response: any) => response.id));
   }
 }
