@@ -7,13 +7,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DayPipe implements PipeTransform {
   transform(day: string): string {
     const labels: Record<string, string> = {
-      Monday: 'Lundi',
-      Tuesday: 'Mardi',
-      Wednesday: 'Mercredi',
-      Thursday: 'Jeudi',
-      Friday: 'Vendredi',
-      Saturday: 'Samedi',
-      Sunday: 'Dimanche',
+      MONDAY: 'Lundi',
+      TUESDAY: 'Mardi',
+      WEDNESDAY: 'Mercredi',
+      THURSDAY: 'Jeudi',
+      FRIDAY: 'Vendredi',
+      SATURDAY: 'Samedi',
+      SUNDAY: 'Dimanche',
     };
 
     return labels[day] ?? day;

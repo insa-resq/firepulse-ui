@@ -41,15 +41,15 @@
   font-weight: bold;
 }
 
-.available {
+.AVAILABLE {
   background-color: #c8e6c9;
 }
 
-.on-call {
+.ON_SHIFT {
   background-color: #fff9c4;
 }
 
-.unavailable {
+.OFF_SHIFT {
   background-color: #ffcdd2;
 }
 

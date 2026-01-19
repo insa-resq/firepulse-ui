@@ -17,7 +17,7 @@ import { DayPipe } from '../../../pipe/day.pipe';
   styleUrl: './individual-planning-component.css',
 })
 export class IndividualPlanningComponent {
-  days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  days = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
   stationId!: string;
   planningId!: string;
   year: number = new Date().getFullYear();
@@ -74,15 +74,9 @@ export class IndividualPlanningComponent {
     const shift = this.shiftsByDay[day];
 
     if (!shift) {
-      return 'available';
+      return 'AVAILABLE';
     }
 
-    return this.SHIFT_TO_STATUS[shift.shiftType];
+    return shift.shiftType;
   }
-
-  private SHIFT_TO_STATUS: Record<string, string> = {
-    ON_SHIFT: 'on-call',
-    OFF_SHIFT: 'unavailable',
-    AVAILABLE: 'available',
-  };
 }

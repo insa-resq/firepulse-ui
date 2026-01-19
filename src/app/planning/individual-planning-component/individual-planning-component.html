@@ -24,9 +24,9 @@
           @for (day of days; track day) {
           <td
             class="cell"
-            [class.available]="getStatus(day) === 'available'"
-            [class.on-call]="getStatus(day) === 'on-call'"
-            [class.unavailable]="getStatus(day) === 'unavailable'"
+            [class.on-call]="getStatus(day) === 'ON_SHIFT'"
+            [class.unavailable]="getStatus(day) === 'OFF_SHIFT'"
+            [class.available]="getStatus(day) === 'AVAILABLE'"
           ></td>
           }
         </tr>

@@ -81,4 +81,15 @@ export class PlanningService {
       { headers }
     );
   }
+
+  getShiftAssignmentsForGlobal(planningId: string) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    return this.http.get<any[]>(
+      `${this.baseUrlPlanning}/shift-assignments/detailed?planningId=${planningId}`,
+      { headers }
+    );
+  }
 }

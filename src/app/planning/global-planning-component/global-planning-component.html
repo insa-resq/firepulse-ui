@@ -12,7 +12,7 @@
           <th>Pompier</th>
 
           @for (day of days; track day) {
-          <th>{{ day }}</th>
+          <th>{{ day | DayPipe }}</th>
           }
         </tr>
       </thead>
@@ -31,9 +31,9 @@
     </table>
 
     <div class="legende">
-      <div class="legende-item"><span class="color-box available"></span> De garde</div>
-      <div class="legende-item"><span class="color-box on-call"></span> Astreinte</div>
-      <div class="legende-item"><span class="color-box unavailable"></span> Indisponible</div>
+      <div class="legende-item"><span class="color-box AVAILABLE"></span> Disponible</div>
+      <div class="legende-item"><span class="color-box ON_SHIFT"></span> Astreinte</div>
+      <div class="legende-item"><span class="color-box OFF_SHIFT"></span> Indisponible</div>
       <button (click)="generatePlanning()">
         @if (isLoadingGenerate) {
         <span class="spinner"></span>

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TabletComponent } from '../../tablet/tablet';
 import { AsyncPipe, NgClass } from '@angular/common';
-import { interval, Observable, Subscription, switchMap, takeWhile } from 'rxjs';
+import { interval, Observable, Subscription, switchMap, takeWhile, tap } from 'rxjs';
 import { InventoryItem } from '../../../model/inventoryItem.model';
 import { VehicleTypeLabelPipe } from '../../../pipe/vehicule-type-label.pipe';
 import { PlanningService } from '../../../service/planning.service';
@@ -10,10 +10,12 @@ import { UserService } from '../../../service/user.service';
 import { PlanningModalComponent } from '../planning-modal/planning-modal';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PlanningGenerationService } from '../../../service/planning-generation.service';
+import { DayPipe } from '../../../pipe/day.pipe';
+import { ShiftAssignment } from '../../../model/shift-assignment.model';
 
 @Component({
   selector: 'app-global-planning-component',
-  imports: [TabletComponent, NgClass, VehicleTypeLabelPipe, AsyncPipe, MatDialogModule],
+  imports: [TabletComponent, NgClass, VehicleTypeLabelPipe, AsyncPipe, MatDialogModule, DayPipe],
   templateUrl: './global-planning-component.html',
   styleUrl: './global-planning-component.css',
   standalone: true,
@@ -27,24 +29,17 @@ export class GlobalPlanningComponent implements OnInit {
 
   isLoadingGenerate = false;
 
-  days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+  days = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
+  shiftsIndex: Record<string, ShiftAssignment> = {};
 
-  firefighters = [{ name: 'Dupont' }, { name: 'Martin' }, { name: 'Bernard' }];
+  firefighters: { name: string }[] = [];
 
   @Input() nbWeek!: number;
   @Input() inventory!: Observable<InventoryItem[]>;
   @Output() previous = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
 
-  availability = [
-    { week: 50, firefighter: 'Dupont', day: 'Lundi', status: 'available' },
-    { week: 50, firefighter: 'Dupont', day: 'Samedi', status: 'on-call' },
-    { week: 50, firefighter: 'Martin', day: 'Mardi', status: 'unavailable' },
-    { week: 50, firefighter: 'Bernard', day: 'Dimanche', status: 'available' },
-
-    { week: 51, firefighter: 'Dupont', day: 'Lundi', status: 'unavailable' },
-    { week: 51, firefighter: 'Martin', day: 'Vendredi', status: 'on-call' },
-  ];
+  availability = [];
 
   constructor(
     private planningService: PlanningService,
@@ -64,17 +59,43 @@ export class GlobalPlanningComponent implements OnInit {
     this.stationId = this.userService.getUserStationId();
     this.planningService
       .getPlanningByStationId(this.stationId, this.nbWeek, this.year)
-      .subscribe((planning) => {
-        this.planningId = planning.length > 0 ? planning[0].id : '';
+      .pipe(
+        tap((planning) => {
+          this.planningId = planning.length > 0 ? planning[0].id : '';
+        }),
+        switchMap(() => this.planningService.getShiftAssignmentsForGlobal(this.planningId))
+      )
+      .subscribe((assignments) => {
+        console.log('Shift assignments for global planning:', assignments);
+        this.buildShiftsIndex(assignments);
+        this.buildFirefighters(assignments);
       });
   }
 
-  getAvailibility(pompier: string, jour: string): string {
-    const dispo = this.availability.find(
-      (d) => d.week === this.nbWeek && d.firefighter === pompier && d.day === jour
-    );
+  private buildFirefighters(assignments: ShiftAssignment[]): void {
+    const unique = new Set<string>();
 
-    return dispo ? dispo.status : '';
+    assignments.forEach((a) => {
+      const name = a.firefighter.lastName;
+      unique.add(name);
+    });
+
+    this.firefighters = Array.from(unique).map((name) => ({ name }));
+  }
+
+  private buildShiftsIndex(assignments: ShiftAssignment[]): void {
+    this.shiftsIndex = assignments.reduce((acc, a) => {
+      const key = `${a.firefighter.id}_${a.weekday}`;
+      acc[key] = a;
+      return acc;
+    }, {} as Record<string, ShiftAssignment>);
+  }
+
+  getAvailibility(pompier: string, day: string): string {
+    const key = `${pompier}_${day}`;
+    const shift = this.shiftsIndex[key];
+
+    return shift?.shiftType ?? 'AVAILABLE';
   }
 
   generatePlanning(): void {
