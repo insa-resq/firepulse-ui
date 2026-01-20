@@ -23,7 +23,7 @@ export class PlanningService {
 
     return this.http.get<any[]>(
       `${this.baseUrlPlanning}/plannings?stationId=${stationId}&weekNumber=${week}&year=${year}`,
-      { headers }
+      { headers },
     );
   }
 
@@ -35,7 +35,7 @@ export class PlanningService {
     return this.http.post(
       `${this.baseUrlPlanning}/plannings`,
       { stationId, weekNumber: week, year },
-      { headers }
+      { headers },
     );
   }
 
@@ -47,7 +47,7 @@ export class PlanningService {
     return this.http.post(
       `${this.baseUrlPlanning}/plannings/${planningId}/regenerate`,
       {},
-      { headers }
+      { headers },
     );
   }
 
@@ -71,6 +71,17 @@ export class PlanningService {
     });
   }
 
+  getVehicleAvailability(vehicleIds: string[], weekday: string) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    return this.http.get<any[]>(
+      `${this.baseUrlPlanning}/vehicle-availabilities?vehicleIds=${vehicleIds.join(',')}&weekday=${weekday}`,
+      { headers },
+    );
+  }
+
   getShiftAssignmentsForIndividual(firefighterId: string, planningId: string) {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
@@ -78,7 +89,7 @@ export class PlanningService {
 
     return this.http.get<any[]>(
       `${this.baseUrlPlanning}/shift-assignments?firefighterId=${firefighterId}&planningId=${planningId}`,
-      { headers }
+      { headers },
     );
   }
 
@@ -89,7 +100,7 @@ export class PlanningService {
 
     return this.http.get<any[]>(
       `${this.baseUrlPlanning}/shift-assignments/detailed?planningId=${planningId}`,
-      { headers }
+      { headers },
     );
   }
 }

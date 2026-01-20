@@ -2,16 +2,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TabletComponent } from '../../tablet/tablet';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { interval, Observable, Subscription, switchMap, takeWhile, tap } from 'rxjs';
-import { InventoryItem } from '../../../model/inventoryItem.model';
 import { VehicleTypeLabelPipe } from '../../../pipe/vehicule-type-label.pipe';
 import { PlanningService } from '../../../service/planning.service';
-import { PlanningComponent } from '../planning';
 import { UserService } from '../../../service/user.service';
 import { PlanningModalComponent } from '../planning-modal/planning-modal';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PlanningGenerationService } from '../../../service/planning-generation.service';
 import { DayPipe } from '../../../pipe/day.pipe';
 import { ShiftAssignment } from '../../../model/shift-assignment.model';
+import { VehicleInventory } from '../../../model/vehicleInventory.model';
 
 @Component({
   selector: 'app-global-planning-component',
@@ -35,7 +34,7 @@ export class GlobalPlanningComponent implements OnInit {
   firefighters: { name: string }[] = [];
 
   @Input() nbWeek!: number;
-  @Input() inventory!: Observable<InventoryItem[]>;
+  @Input() inventory!: Observable<VehicleInventory[]>;
   @Output() previous = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
 
@@ -45,7 +44,7 @@ export class GlobalPlanningComponent implements OnInit {
     private planningService: PlanningService,
     private userService: UserService,
     private dialog: MatDialog,
-    private planningGenerationService: PlanningGenerationService
+    private planningGenerationService: PlanningGenerationService,
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +62,7 @@ export class GlobalPlanningComponent implements OnInit {
         tap((planning) => {
           this.planningId = planning.length > 0 ? planning[0].id : '';
         }),
-        switchMap(() => this.planningService.getShiftAssignmentsForGlobal(this.planningId))
+        switchMap(() => this.planningService.getShiftAssignmentsForGlobal(this.planningId)),
       )
       .subscribe((assignments) => {
         console.log('Shift assignments for global planning:', assignments);
@@ -84,11 +83,14 @@ export class GlobalPlanningComponent implements OnInit {
   }
 
   private buildShiftsIndex(assignments: ShiftAssignment[]): void {
-    this.shiftsIndex = assignments.reduce((acc, a) => {
-      const key = `${a.firefighter.id}_${a.weekday}`;
-      acc[key] = a;
-      return acc;
-    }, {} as Record<string, ShiftAssignment>);
+    this.shiftsIndex = assignments.reduce(
+      (acc, a) => {
+        const key = `${a.firefighter.id}_${a.weekday}`;
+        acc[key] = a;
+        return acc;
+      },
+      {} as Record<string, ShiftAssignment>,
+    );
   }
 
   getAvailibility(pompier: string, day: string): string {
@@ -116,7 +118,7 @@ export class GlobalPlanningComponent implements OnInit {
         this.showError(
           this.planningId
             ? 'Une erreur est survenue lors de la régénération du planning.'
-            : 'Une erreur est survenue lors de la génération du planning.'
+            : 'Une erreur est survenue lors de la génération du planning.',
         );
       },
     });
@@ -125,7 +127,7 @@ export class GlobalPlanningComponent implements OnInit {
   pollPlanningStatus(planningId: string) {
     const polling$ = interval(3000).pipe(
       switchMap(() => this.planningService.getPlanningStatus(planningId)),
-      takeWhile((status: any) => status !== 'FINALIZED', true)
+      takeWhile((status: any) => status !== 'FINALIZED', true),
     );
 
     polling$.subscribe({

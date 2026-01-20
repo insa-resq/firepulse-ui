@@ -12,20 +12,20 @@
           <th>Pompier</th>
 
           @for (day of days; track day) {
-          <th>{{ day | DayPipe }}</th>
+            <th>{{ day | DayPipe }}</th>
           }
         </tr>
       </thead>
 
       <tbody>
         @for (firefighter of firefighters; track firefighter.name) {
-        <tr>
-          <td class="firefighter">{{ firefighter.name }}</td>
+          <tr>
+            <td class="firefighter">{{ firefighter.name }}</td>
 
-          @for (day of days; track day) {
-          <td class="cell" [ngClass]="getAvailibility(firefighter.name, day)"></td>
-          }
-        </tr>
+            @for (day of days; track day) {
+              <td class="cell" [ngClass]="getAvailibility(firefighter.name, day)"></td>
+            }
+          </tr>
         }
       </tbody>
     </table>
@@ -36,8 +36,11 @@
       <div class="legende-item"><span class="color-box OFF_SHIFT"></span> Indisponible</div>
       <button (click)="generatePlanning()">
         @if (isLoadingGenerate) {
-        <span class="spinner"></span>
-        Génération... } @else { Générer le planning }
+          <span class="spinner"></span>
+          Génération...
+        } @else {
+          Générer le planning
+        }
       </button>
     </div>
 
@@ -53,15 +56,20 @@
         </thead>
 
         <tbody>
-          @for (item of inventory | async; track item.id) {
-          <tr>
-            <td class="vehicle-type">
-              {{ item.type | vehicleTypeLabel }}
-            </td>
-            <td>
-              <span class="count"> {{ item.availableCount }} / {{ item.totalCount }} </span>
-            </td>
-          </tr>
+          @for (item of inventory | async; track item.vehicleId) {
+            <tr>
+              <td class="vehicle-type">
+                {{ item.type | vehicleTypeLabel }}
+              </td>
+              <td>
+                <span class="count">
+                  {{ item.availableCount }} / {{ item.totalCount }} ({{
+                    item.bookedCount
+                  }}
+                  bloqué(s) par la coordination)</span
+                >
+              </td>
+            </tr>
           }
         </tbody>
       </table>

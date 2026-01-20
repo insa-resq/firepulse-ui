@@ -10,11 +10,11 @@
       <thead>
         <tr>
           @for (day of days; track day) {
-          <th>
-            <div class="th-content">
-              {{ day | DayPipe }}
-            </div>
-          </th>
+            <th>
+              <div class="th-content">
+                {{ day | DayPipe }}
+              </div>
+            </th>
           }
         </tr>
       </thead>
@@ -22,12 +22,12 @@
       <tbody>
         <tr>
           @for (day of days; track day) {
-          <td
-            class="cell"
-            [class.on-call]="getStatus(day) === 'ON_SHIFT'"
-            [class.unavailable]="getStatus(day) === 'OFF_SHIFT'"
-            [class.available]="getStatus(day) === 'AVAILABLE'"
-          ></td>
+            <td
+              class="cell"
+              [class.on-call]="getStatus(day) === 'ON_SHIFT'"
+              [class.unavailable]="getStatus(day) === 'OFF_SHIFT'"
+              [class.available]="getStatus(day) === 'AVAILABLE'"
+            ></td>
           }
         </tr>
       </tbody>
@@ -52,14 +52,17 @@
 
         <tbody>
           @for (item of inventory | async; track item.id) {
-          <tr>
-            <td class="vehicle-type">
-              {{ item.type | vehicleTypeLabel }}
-            </td>
-            <td>
-              <span class="count"> {{ item.availableCount }} / {{ item.totalCount }} </span>
-            </td>
-          </tr>
+            <tr>
+              <td class="vehicle-type">
+                {{ item.type | vehicleTypeLabel }}
+              </td>
+              <td>
+                <span class="count">
+                  {{ item.availableCount }} / {{ item.totalCount }} ({{ item.bookedCount }}
+                  bloqué(s) par la coordination)
+                </span>
+              </td>
+            </tr>
           }
         </tbody>
       </table>
