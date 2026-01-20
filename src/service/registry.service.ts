@@ -44,6 +44,15 @@ export class RegistryService {
     return this.http.get<StationModel>(`${this.baseUrl}/fire-stations/${id}`, { headers });
   }
 
+  getStation() {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get<StationModel>(`${this.baseUrl}/fire-stations`, { headers });
+  }
+
   getFirefighterId(userId: string) {
     const token = localStorage.getItem('token'); // Récupération du token
 

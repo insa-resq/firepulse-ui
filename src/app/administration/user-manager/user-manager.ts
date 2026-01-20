@@ -1,18 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {RegistryService} from '../../../service/registry.service';
-import {UserService} from '../../../service/user.service';
-import {UserModel} from '../../../model/user.model';
-import {FormsModule} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { RegistryService } from '../../../service/registry.service';
+import { UserService } from '../../../service/user.service';
+import { UserModel } from '../../../model/user.model';
+import { FormsModule } from '@angular/forms';
+import { StationModel } from '../../../model/station.model';
 
 @Component({
   selector: 'app-user-manager',
-  imports: [
-    FormsModule
-  ],
+  imports: [FormsModule],
   templateUrl: './user-manager.html',
   styleUrl: '../administration.css',
 })
-export class UserManager implements OnInit{
+export class UserManager implements OnInit {
   users: UserModel[] = [];
   isLoading = false;
   message = '';
@@ -29,13 +28,23 @@ export class UserManager implements OnInit{
   filterRole = '';
   availableStations: Set<string> = new Set();
 
+  stations: StationModel[] = [];
+
   constructor(
     private userService: UserService,
-    private registryService: RegistryService
-  ) { }
+    private registryService: RegistryService,
+  ) {}
 
   ngOnInit() {
     this.loadUsers();
+    this.registryService.getStations().subscribe({
+      next: (stations) => {
+        this.stations = stations;
+      },
+      error: (error) => {
+        console.error('Error loading stations:', error);
+      },
+    });
   }
 
   loadUsers() {
@@ -46,7 +55,7 @@ export class UserManager implements OnInit{
         this.isLoading = false;
         // Collecter toutes les stations uniques
         this.availableStations.clear();
-        users.forEach(user => {
+        users.forEach((user) => {
           if (user.stationId) {
             this.availableStations.add(user.stationId);
             this.loadStationName(user.stationId);
@@ -58,26 +67,17 @@ export class UserManager implements OnInit{
         this.message = 'Erreur lors du chargement des utilisateurs';
         this.messageSuccess = false;
         this.isLoading = false;
-      }
+      },
     });
   }
 
   loadStationName(stationId: string) {
-    if (this.stationNames[stationId]) {
-      return;
+    const station = this.stations.find((s) => s.id === stationId);
+    if (station) {
+      this.stationNames[stationId] = station.name;
+    } else {
+      this.stationNames[stationId] = 'Inconnue';
     }
-    this.loadingStations.add(stationId);
-    this.registryService.getStationById(stationId).subscribe({
-      next: (station: any) => {
-        this.stationNames[stationId] = station.name || stationId;
-        this.loadingStations.delete(stationId);
-      },
-      error: (error) => {
-        console.error('Error loading station:', error);
-        this.stationNames[stationId] = stationId;
-        this.loadingStations.delete(stationId);
-      }
-    });
   }
 
   startEdit(user: UserModel) {
@@ -115,29 +115,29 @@ export class UserManager implements OnInit{
               this.message = `Utilisateur ${this.editEmail} mis à jour avec succès`;
               this.messageSuccess = true;
               this.cancelEdit();
-              setTimeout(() => this.message = '', 3000);
+              setTimeout(() => (this.message = ''), 3000);
             },
             error: (error) => {
               console.error('Error updating station:', error);
               this.message = 'Erreur lors de la mise à jour de la caserne';
               this.messageSuccess = false;
-              setTimeout(() => this.message = '', 3000);
-            }
+              setTimeout(() => (this.message = ''), 3000);
+            },
           });
         } else {
           this.loadUsers();
           this.message = `Utilisateur ${this.editEmail} mis à jour avec succès`;
           this.messageSuccess = true;
           this.cancelEdit();
-          setTimeout(() => this.message = '', 3000);
+          setTimeout(() => (this.message = ''), 3000);
         }
       },
       error: (error) => {
         console.error('Error updating email:', error);
-        this.message = 'Erreur lors de la mise à jour de l\'email';
+        this.message = "Erreur lors de la mise à jour de l'email";
         this.messageSuccess = false;
-        setTimeout(() => this.message = '', 3000);
-      }
+        setTimeout(() => (this.message = ''), 3000);
+      },
     });
   }
 
@@ -148,33 +148,33 @@ export class UserManager implements OnInit{
 
     this.userService.deleteUser(user.id).subscribe({
       next: () => {
-        this.users = this.users.filter(u => u.id !== user.id);
+        this.users = this.users.filter((u) => u.id !== user.id);
         this.message = `Utilisateur ${user.email} supprimé avec succès`;
         this.messageSuccess = true;
-        setTimeout(() => this.message = '', 3000);
+        setTimeout(() => (this.message = ''), 3000);
       },
       error: (error) => {
         console.error('Error deleting user:', error);
-        this.message = 'Erreur lors de la suppression de l\'utilisateur';
+        this.message = "Erreur lors de la suppression de l'utilisateur";
         this.messageSuccess = false;
-        setTimeout(() => this.message = '', 3000);
-      }
+        setTimeout(() => (this.message = ''), 3000);
+      },
     });
   }
 
   getRoleName(role: string): string {
     const roleMap: { [key: string]: string } = {
-      'ADMIN': 'Administrateur',
-      'ALERT_MONITOR': 'Moniteur d\'alerte',
-      'PLANNING_MANAGER': 'Gestionnaire de planning',
-      'FIREFIGHTER': 'Pompier'
+      ADMIN: 'Administrateur',
+      ALERT_MONITOR: "Moniteur d'alerte",
+      PLANNING_MANAGER: 'Gestionnaire de planning',
+      FIREFIGHTER: 'Pompier',
     };
     return roleMap[role] || role;
   }
 
   // Filtrer les utilisateurs selon la recherche et le filtre
   getFilteredUsers(): UserModel[] {
-    return this.users.filter(user => {
+    return this.users.filter((user) => {
       const matchEmail = user.email.toLowerCase().includes(this.searchEmail.toLowerCase());
       const matchStation = !this.filterStation || user.stationId === this.filterStation;
       const matchRole = !this.filterRole || user.role === this.filterRole;
