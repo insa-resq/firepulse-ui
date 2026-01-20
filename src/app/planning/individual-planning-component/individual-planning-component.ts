@@ -27,14 +27,13 @@ export class IndividualPlanningComponent {
   shiftsByDay: Record<string, any> = {};
 
   @Input() nbWeek!: number;
-  @Input() inventory!: Observable<VehicleInventory[]>;
   @Output() previous = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
 
   constructor(
     private userService: UserService,
     private planningService: PlanningService,
-    private registryService: RegistryService
+    private registryService: RegistryService,
   ) {}
 
   ngOnInit(): void {
@@ -51,28 +50,34 @@ export class IndividualPlanningComponent {
           this.planningService.getPlanningByStationId(this.stationId, this.nbWeek, this.year).pipe(
             tap((planning) => {
               this.planningId = planning.length > 0 ? planning[0].id : '';
-            })
-          )
+            }),
+          ),
         ),
         switchMap(() =>
-          this.planningService.getShiftAssignmentsForIndividual(this.firefighterId, this.planningId)
-        )
+          this.planningService.getShiftAssignmentsForIndividual(
+            this.firefighterId,
+            this.planningId,
+          ),
+        ),
       )
       .subscribe((shifts) => {
+        console.log(shifts);
         this.buildShiftsIndex(shifts);
       });
   }
 
   buildShiftsIndex(shifts: any[]): void {
-    this.shiftsByDay = shifts.reduce((acc, shift) => {
-      acc[shift.weekday] = shift;
-      return acc;
-    }, {} as Record<string, any>);
+    this.shiftsByDay = shifts.reduce(
+      (acc, shift) => {
+        acc[shift.weekday] = shift;
+        return acc;
+      },
+      {} as Record<string, any>,
+    );
   }
 
   getStatus(day: string): string {
     const shift = this.shiftsByDay[day];
-
     if (!shift) {
       return 'AVAILABLE';
     }

@@ -37,31 +37,33 @@ export class PlanningComponent implements OnInit {
 
     this.currentWeek = this.getCurrentWeek(this.currentDate);
 
-    const stationId = this.userService.getUserStationId();
-    this.inventory$ = this.planningService.getInventory(stationId);
-    this.vehicleAvailability$ = this.inventory$.pipe(
-      map((items) => items.map((item) => item.id)),
-      switchMap((vehicleIds) =>
-        this.planningService.getVehicleAvailability(vehicleIds, this.getCurrentWeekday()),
-      ),
-    );
+    if (this.hasGlobalPlanningRights) {
+      const stationId = this.userService.getUserStationId();
+      this.inventory$ = this.planningService.getInventory(stationId);
+      this.vehicleAvailability$ = this.inventory$.pipe(
+        map((items) => items.map((item) => item.id)),
+        switchMap((vehicleIds) =>
+          this.planningService.getVehicleAvailability(vehicleIds, this.getCurrentWeekday()),
+        ),
+      );
 
-    this.vehicleInventory$ = combineLatest([this.inventory$, this.vehicleAvailability$]).pipe(
-      map(([inventory, availability]) =>
-        inventory.map((item) => {
-          const avail = availability.find((a) => a.vehicleId === item.id);
+      this.vehicleInventory$ = combineLatest([this.inventory$, this.vehicleAvailability$]).pipe(
+        map(([inventory, availability]) =>
+          inventory.map((item) => {
+            const avail = availability.find((a) => a.vehicleId === item.id);
 
-          return {
-            id: item.id,
-            vehicleId: item.id,
-            type: item.type,
-            totalCount: item.totalCount,
-            bookedCount: avail?.bookedCount ?? 0,
-            availableCount: avail?.availableCount ?? item.totalCount,
-          };
-        }),
-      ),
-    );
+            return {
+              id: item.id,
+              vehicleId: item.id,
+              type: item.type,
+              totalCount: item.totalCount,
+              bookedCount: avail?.bookedCount ?? 0,
+              availableCount: avail?.availableCount ?? item.totalCount,
+            };
+          }),
+        ),
+      );
+    }
   }
 
   getCurrentWeek(date: Date): number {

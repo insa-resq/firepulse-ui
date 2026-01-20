@@ -46,8 +46,8 @@
 
 .th-content {
   display: flex;
-  align-items: center;      /* vertical */
-  justify-content: center;  /* horizontal */
+  align-items: center; /* vertical */
+  justify-content: center; /* horizontal */
   height: 100%;
   width: 100%;
 }
@@ -90,55 +90,4 @@
 .legende-item {
   display: flex;
   align-items: center;
-}
-
-
-
-/* Inventaire */
-.inventory-card {
-  margin-top: 2rem;
-  padding: 1.5rem;
-  background: #ffffff;
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-}
-
-.inventory-card h3 {
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
-  color: var(--color-black);
-}
-
-.inventory-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.inventory-table thead {
-  background: var(--color-button-hover);
-  color: white;
-}
-
-.inventory-table th,
-.inventory-table td {
-  padding: 0.9rem 1rem;
-  text-align: left;
-}
-
-.inventory-table tbody tr {
-  border-bottom: 1px solid #eaeaea;
-}
-
-.inventory-table tbody tr:hover {
-  background-color: #f5f9ff;
-}
-
-.vehicle-type {
-  font-weight: 600;
-  color: var(--color-black);
-}
-
-.count {
-  font-weight: bold;
-  color: var(--color-button-hover);
 }

@@ -38,34 +38,5 @@
       <div class="legende-item"><span class="color-box on-call"></span> Astreinte</div>
       <div class="legende-item"><span class="color-box unavailable"></span> Indisponible</div>
     </div>
-
-    <div class="inventory-card">
-      <h3>Inventaire des véhicules</h3>
-
-      <table class="inventory-table">
-        <thead>
-          <tr>
-            <th>Véhicule</th>
-            <th>Disponibilité</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          @for (item of inventory | async; track item.id) {
-            <tr>
-              <td class="vehicle-type">
-                {{ item.type | vehicleTypeLabel }}
-              </td>
-              <td>
-                <span class="count">
-                  {{ item.availableCount }} / {{ item.totalCount }} ({{ item.bookedCount }}
-                  bloqué(s) par la coordination)
-                </span>
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
-    </div>
   </div>
 </app-tablet>

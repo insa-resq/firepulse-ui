@@ -1,4 +1,3 @@
-
 .admin-container-wrapper {
   width: 100%;
   min-height: calc(100vh - 80px);
@@ -12,7 +11,6 @@
   margin: 0 auto;
   padding: 2rem;
 }
-
 
 .admin-tabs-wrapper {
   display: flex;
@@ -59,7 +57,6 @@
   color: var(--color-bg);
 }
 
-
 .admin-tab-content {
   animation: fadeIn 0.35s ease;
 }
@@ -89,7 +86,6 @@
   color: #6b7280;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
-
 
 @media (max-width: 768px) {
   .admin-container {
@@ -123,7 +119,6 @@
   }
 }
 
-
 .element-section {
   background: var(--color-bgheader);
   border-radius: 12px;
@@ -142,8 +137,12 @@
   gap: 1.5rem;
   grid-template-columns: repeat(3, 1fr);
 
-  @media (max-width: 1024px) { grid-template-columns: repeat(2, 1fr); }
-  @media (max-width: 768px) { grid-template-columns: 1fr; }
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .element-card {
@@ -157,7 +156,9 @@
   position: relative;
   overflow: visible;
 
-  &:hover { box-shadow: var(--shadow-box); }
+  &:hover {
+    box-shadow: var(--shadow-box);
+  }
 
   .element-header {
     display: flex;
@@ -165,7 +166,11 @@
     align-items: flex-start;
     margin-bottom: 1rem;
 
-    .element-title { font-weight: 600; font-size: 1.1rem; color: var(--color-black); }
+    .element-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--color-black);
+    }
 
     .element-meta {
       display: flex;
@@ -184,9 +189,9 @@
   }
 
   .user-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
-  border-color: var(--color-button-hover);
-}
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+    border-color: var(--color-button-hover);
+  }
 
   .element-content {
     display: flex;
@@ -197,11 +202,17 @@
       display: flex;
       justify-content: space-between;
       font-size: 0.95rem;
-      color:var(--color-black);
+      color: var(--color-black);
 
-      .label { font-weight: 600; color: var(--color-black); }
+      .label {
+        font-weight: 600;
+        color: var(--color-black);
+      }
 
-      .value { text-align: right; word-break: break-word; }
+      .value {
+        text-align: right;
+        word-break: break-word;
+      }
 
       &.confidence-row {
         flex-direction: column;
@@ -238,60 +249,93 @@
           font-weight: 600;
           color: var(--color-black);
         }
-
-        }
-      }
-    }
-
-    .element-select {
-      padding: 0.5rem 0.75rem;
-      border-radius: 6px;
-      border: 1px solid #ddd;
-      font-size: 0.9rem;
-      background-color: var(--color-bg);
-      cursor: pointer;
-      transition: border-color 0.3s ease;
-
-      &:focus {
-        outline: none;
-        border-color: var(--color-button-hover);
-        box-shadow: var(--shadow-box);
       }
     }
   }
 
-  .element-actions {
-    margin-top: 1rem;
-    display: flex;
-    gap: 0.75rem;
+  .element-select {
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 0.9rem;
+    background-color: var(--color-bg);
+    cursor: pointer;
+    transition: border-color 0.3s ease;
 
-    .btn {
-      flex: 0 0 auto;
-      padding: 0.6rem 1rem;
-      border: none;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      pointer-events: auto;
-
-      &.btn-edit { background: #0066cc; color: white; }
-      &.btn-edit:hover { background: #0052a3; }
-
-      &.btn-delete { background: #dc3545; color: white; }
-      &.btn-delete:hover { background: #c82333; }
+    &:focus {
+      outline: none;
+      border-color: var(--color-button-hover);
+      box-shadow: var(--shadow-box);
     }
   }
+}
 
-.element-badge-severity-low { background: var(--color-severity-low); color: var(--text-severity-low); }
-.element-badge-severity-medium { background: var(--color-severity-medium); color: var(--text-severity-medium); }
-.element-badge-severity-high { background: var(--color-severity-high); color: var(--text-severity-high); }
-.element-badge-severity-critical { background: var(--color-severity-critical); color: var(--text-severity-critical); }
+.element-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.75rem;
 
-.element-badge-status-new { background: var(--color-status-new); color: var(--text-status-new); }
-.element-badge-status-in-progress { background: var(--color-status-in-progress); color: var(--text-status-in-progress); }
-.element-badge-status-resolved { background: var(--color-status-resolved); color: var(--text-status-resolved); }
-.element-badge-status-dismissed { background: var(--color-status-dismissed); color: var(--text-status-dismissed); }
+  .btn {
+    flex: 0 0 auto;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+
+    &.btn-edit {
+      background: #0066cc;
+      color: white;
+    }
+    &.btn-edit:hover {
+      background: #0052a3;
+    }
+
+    &.btn-delete {
+      background: #dc3545;
+      color: white;
+    }
+    &.btn-delete:hover {
+      background: #c82333;
+    }
+  }
+}
+
+.element-badge-severity-low {
+  background: var(--color-severity-low);
+  color: var(--text-severity-low);
+}
+.element-badge-severity-medium {
+  background: var(--color-severity-medium);
+  color: var(--text-severity-medium);
+}
+.element-badge-severity-high {
+  background: var(--color-severity-high);
+  color: var(--text-severity-high);
+}
+.element-badge-severity-critical {
+  background: var(--color-severity-critical);
+  color: var(--text-severity-critical);
+}
+
+.element-badge-status-new {
+  background: var(--color-status-new);
+  color: var(--text-status-new);
+}
+.element-badge-status-in-progress {
+  background: var(--color-status-in-progress);
+  color: var(--text-status-in-progress);
+}
+.element-badge-status-resolved {
+  background: var(--color-status-resolved);
+  color: var(--text-status-resolved);
+}
+.element-badge-status-dismissed {
+  background: var(--color-status-dismissed);
+  color: var(--text-status-dismissed);
+}
 
 .element-empty {
   text-align: center;
@@ -301,7 +345,6 @@
   border: 2px dashed #e5e7eb;
   color: #6b7280;
 }
-
 
 .element-badge-status-editing {
   background: #ffe58a;
@@ -336,7 +379,6 @@
   padding: 2rem;
   color: var(--color-footer);
 }
-
 
 /* Filters Container */
 .filters-container {
@@ -478,7 +520,7 @@
 }
 
 .btn-reset {
-  background: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
+  background: var(--color-severity-high);
   color: white;
   padding: 0.75rem 1.5rem;
   border: none;
