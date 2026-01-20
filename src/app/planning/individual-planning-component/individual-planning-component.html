@@ -25,7 +25,7 @@
             <td
               class="cell"
               [class.on-call]="getStatus(day) === 'ON_SHIFT'"
-              [class.unavailable]="getStatus(day) === 'OFF_SHIFT'"
+              [class.unavailable]="getStatus(day) === 'OFF_DUTY'"
               [class.available]="getStatus(day) === 'AVAILABLE'"
             ></td>
           }

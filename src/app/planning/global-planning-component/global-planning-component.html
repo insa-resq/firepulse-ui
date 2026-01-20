@@ -23,7 +23,7 @@
             <td class="firefighter">{{ firefighter.name }}</td>
 
             @for (day of days; track day) {
-              <td class="cell" [ngClass]="getAvailibility(firefighter.name, day)"></td>
+              <td class="cell" [ngClass]="getAvailibility(firefighter.id, day)"></td>
             }
           </tr>
         }
@@ -33,7 +33,7 @@
     <div class="legende">
       <div class="legende-item"><span class="color-box AVAILABLE"></span> Disponible</div>
       <div class="legende-item"><span class="color-box ON_SHIFT"></span> Astreinte</div>
-      <div class="legende-item"><span class="color-box OFF_SHIFT"></span> Indisponible</div>
+      <div class="legende-item"><span class="color-box OFF_DUTY"></span> Indisponible</div>
       <button (click)="generatePlanning()">
         @if (isLoadingGenerate) {
           <span class="spinner"></span>

@@ -31,7 +31,7 @@ export class GlobalPlanningComponent implements OnInit {
   days = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
   shiftsIndex: Record<string, ShiftAssignment> = {};
 
-  firefighters: { name: string }[] = [];
+  firefighters: { name: string; id: string }[] = [];
 
   @Input() nbWeek!: number;
   @Input() inventory!: Observable<VehicleInventory[]>;
@@ -72,14 +72,15 @@ export class GlobalPlanningComponent implements OnInit {
   }
 
   private buildFirefighters(assignments: ShiftAssignment[]): void {
-    const unique = new Set<string>();
+    const unique = new Map<string, string>();
 
     assignments.forEach((a) => {
       const name = a.firefighter.lastName;
-      unique.add(name);
+      const id = a.firefighter.id;
+      unique.set(id, name);
     });
 
-    this.firefighters = Array.from(unique).map((name) => ({ name }));
+    this.firefighters = Array.from(unique).map(([id, name]) => ({ name, id }));
   }
 
   private buildShiftsIndex(assignments: ShiftAssignment[]): void {
@@ -94,6 +95,7 @@ export class GlobalPlanningComponent implements OnInit {
   }
 
   getAvailibility(pompier: string, day: string): string {
+    console.log(pompier);
     const key = `${pompier}_${day}`;
     const shift = this.shiftsIndex[key];
 
