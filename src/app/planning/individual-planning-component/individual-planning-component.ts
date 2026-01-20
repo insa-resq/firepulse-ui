@@ -18,7 +18,6 @@ import { VehicleInventory } from '../../../model/vehicleInventory.model';
 })
 export class IndividualPlanningComponent {
   days = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
-  stationId!: string;
   planningId!: string;
   year: number = new Date().getFullYear();
 
@@ -37,8 +36,6 @@ export class IndividualPlanningComponent {
   ) {}
 
   ngOnInit(): void {
-    this.stationId = this.userService.getUserStationId();
-
     this.userService
       .getCurrentUser()
       .pipe(
@@ -47,21 +44,24 @@ export class IndividualPlanningComponent {
           this.firefighterId = firefighterId;
         }),
         switchMap(() =>
-          this.planningService.getPlanningByStationId(this.stationId, this.nbWeek, this.year).pipe(
+          this.planningService.getMyPlanning(this.nbWeek, this.year).pipe(
             tap((planning) => {
               this.planningId = planning.length > 0 ? planning[0].id : '';
+              console.log('planningId', planning);
             }),
           ),
         ),
         switchMap(() =>
-          this.planningService.getShiftAssignmentsForIndividual(
-            this.firefighterId,
-            this.planningId,
-          ),
+          this.planningService
+            .getShiftAssignmentsForIndividual(this.firefighterId, this.planningId)
+            .pipe(
+              tap((shifts) => {
+                console.log('shifts', shifts);
+              }),
+            ),
         ),
       )
       .subscribe((shifts) => {
-        console.log(shifts);
         this.buildShiftsIndex(shifts);
       });
   }

@@ -65,7 +65,6 @@ export class GlobalPlanningComponent implements OnInit {
         switchMap(() => this.planningService.getShiftAssignmentsForGlobal(this.planningId)),
       )
       .subscribe((assignments) => {
-        console.log('Shift assignments for global planning:', assignments);
         this.buildShiftsIndex(assignments);
         this.buildFirefighters(assignments);
       });
@@ -75,7 +74,7 @@ export class GlobalPlanningComponent implements OnInit {
     const unique = new Map<string, string>();
 
     assignments.forEach((a) => {
-      const name = a.firefighter.lastName;
+      const name = a.firefighter.firstName + ' ' + a.firefighter.lastName;
       const id = a.firefighter.id;
       unique.set(id, name);
     });
@@ -95,7 +94,6 @@ export class GlobalPlanningComponent implements OnInit {
   }
 
   getAvailibility(pompier: string, day: string): string {
-    console.log(pompier);
     const key = `${pompier}_${day}`;
     const shift = this.shiftsIndex[key];
 

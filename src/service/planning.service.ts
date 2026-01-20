@@ -27,6 +27,17 @@ export class PlanningService {
     );
   }
 
+  getMyPlanning(week: number, year: number) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+
+    return this.http.get<any[]>(
+      `${this.baseUrlPlanning}/plannings?weekNumber=${week}&year=${year}`,
+      { headers },
+    );
+  }
+
   generatePlanningForWeek(stationId: string, week: number, year: number) {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
