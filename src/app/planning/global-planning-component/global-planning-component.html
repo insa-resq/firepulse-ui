@@ -56,7 +56,7 @@
         </thead>
 
         <tbody>
-          @for (item of inventory | async; track item.vehicleId) {
+          @for (item of vehicleInventory$ | async; track item.vehicleId) {
             <tr>
               <td class="vehicle-type">
                 {{ item.type | vehicleTypeLabel }}

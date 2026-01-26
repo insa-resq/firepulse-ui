@@ -1,7 +1,6 @@
 @if (hasGlobalPlanningRights) {
   <app-global-planning-component
     [nbWeek]="currentWeek"
-    [inventory]="vehicleInventory$"
     (previous)="previousWeek()"
     (next)="nextWeek()"
     >>

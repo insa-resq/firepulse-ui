@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, type OnDestroy, OnInit, Output } from '@angular/core';
+import type { InventoryItem } from '../../../model/inventoryItem.model';
 import { TabletComponent } from '../../tablet/tablet';
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Observable, Subscription, switchMap, tap } from 'rxjs';
+import { combineLatest, map, Observable, Subscription, switchMap, tap } from 'rxjs';
 import { VehicleTypeLabelPipe } from '../../../pipe/vehicule-type-label.pipe';
 import { PlanningService } from '../../../service/planning.service';
 import { UserService } from '../../../service/user.service';
@@ -32,9 +33,10 @@ export class GlobalPlanningComponent implements OnInit, OnDestroy {
   shiftsIndex: Record<string, ShiftAssignment> = {};
 
   firefighters: { name: string; id: string }[] = [];
+  inventory$!: Observable<InventoryItem[]>;
+  vehicleInventory$!: Observable<VehicleInventory[]>;
 
   @Input() nbWeek!: number;
-  @Input() inventory!: Observable<VehicleInventory[]>;
   @Output() previous = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
   
@@ -54,6 +56,7 @@ export class GlobalPlanningComponent implements OnInit, OnDestroy {
     }
 
     this.stationId = this.userService.getUserStationId();
+    
     this.planningService
       .getPlanningByStationId(this.stationId, this.nbWeek, this.year)
       .pipe(
@@ -66,6 +69,10 @@ export class GlobalPlanningComponent implements OnInit, OnDestroy {
         this.buildShiftsIndex(assignments);
         this.buildFirefighters(assignments);
       });
+    
+    this.inventory$ = this.planningService.getInventory(this.stationId);
+    
+    this.fetchVehiclesInventories();
   }
 
   private buildFirefighters(assignments: ShiftAssignment[]): void {
@@ -128,6 +135,8 @@ export class GlobalPlanningComponent implements OnInit, OnDestroy {
     this.pollingSub = this.planningGenerationService.pollPlanningStatus(planningId).subscribe({
       next: (status: string) => {
         if (status === 'FINALIZED') {
+          this.pollingSub?.unsubscribe();
+          
           this.dialog.open(PlanningModalComponent, {
             data: {
               success: true,
@@ -137,12 +146,49 @@ export class GlobalPlanningComponent implements OnInit, OnDestroy {
 
           this.isLoadingGenerate = false;
           this.planningGenerationService.clearPlanningInProgress();
+          
+          this.planningService
+            .getShiftAssignmentsForGlobal(this.planningId)
+            .subscribe((assignments) => {
+              this.buildShiftsIndex(assignments);
+              this.buildFirefighters(assignments);
+            });
+          
+          this.fetchVehiclesInventories();
         }
       },
       error: () => {
         this.showError('Erreur lors de la vérification du status du planning.');
       },
     });
+  }
+  
+  private fetchVehiclesInventories() {
+    const currentWeekday = this.getCurrentWeekday();
+    
+    const vehicleAvailability = this.inventory$.pipe(
+        map((items) => items.map((item) => item.id)),
+        switchMap((vehicleIds) =>
+            this.planningService.getVehicleAvailability(vehicleIds, currentWeekday),
+        ),
+    );
+    
+    this.vehicleInventory$ = combineLatest([this.inventory$, vehicleAvailability]).pipe(
+        map(([inventory, availability]) =>
+            inventory.map((item) => {
+              const avail = availability.find((a) => a.vehicleId === item.id);
+              
+              return {
+                id: item.id,
+                vehicleId: item.id,
+                type: item.type,
+                totalCount: item.totalCount,
+                bookedCount: avail?.bookedCount ?? 0,
+                availableCount: avail?.availableCount ?? 0,
+              };
+            }),
+        ),
+    );
   }
 
   private showError(message: string): void {
@@ -155,6 +201,12 @@ export class GlobalPlanningComponent implements OnInit, OnDestroy {
 
     this.isLoadingGenerate = false;
     this.planningGenerationService.clearPlanningInProgress();
+  }
+  
+  private getCurrentWeekday(): string {
+    const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+    
+    return days[new Date().getDay()];
   }
 
   ngOnDestroy(): void {
