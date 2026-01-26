@@ -35,7 +35,7 @@
       <div class="legende-item"><span class="color-box ON_SHIFT"></span> Astreinte</div>
       <div class="legende-item"><span class="color-box OFF_DUTY"></span> Indisponible</div>
       <button (click)="generatePlanning()">
-        @if (!isLoadingGenerate) {
+        @if (isLoadingGenerate) {
             <span class="spinner">⌛</span>
             Génération en cours...
         } @else {
