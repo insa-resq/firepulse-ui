@@ -61,9 +61,9 @@ export class GlobalPlanningComponent implements OnInit, OnDestroy {
       .getPlanningByStationId(this.stationId, this.nbWeek, this.year)
       .pipe(
         tap((planning) => {
-          this.planningId = planning.length > 0 ? planning[0].id : '';
+          this.planningId = planning[0]?.id;
         }),
-        switchMap(() => this.planningService.getShiftAssignmentsForGlobal(this.planningId)),
+        switchMap(() => this.planningId ? this.planningService.getShiftAssignmentsForGlobal(this.planningId) : []),
       )
       .subscribe((assignments) => {
         this.buildShiftsIndex(assignments);
@@ -148,7 +148,7 @@ export class GlobalPlanningComponent implements OnInit, OnDestroy {
           this.planningGenerationService.clearPlanningInProgress();
           
           this.planningService
-            .getShiftAssignmentsForGlobal(this.planningId)
+            .getShiftAssignmentsForGlobal(planningId)
             .subscribe((assignments) => {
               this.buildShiftsIndex(assignments);
               this.buildFirefighters(assignments);
