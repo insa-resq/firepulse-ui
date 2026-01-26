@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, type OnDestroy, OnInit, Output } from '@angular/core';
 import { TabletComponent } from '../../tablet/tablet';
 import { AsyncPipe, NgClass } from '@angular/common';
-import { interval, Observable, Subscription, switchMap, takeWhile, tap } from 'rxjs';
+import { Observable, Subscription, switchMap, tap } from 'rxjs';
 import { VehicleTypeLabelPipe } from '../../../pipe/vehicule-type-label.pipe';
 import { PlanningService } from '../../../service/planning.service';
 import { UserService } from '../../../service/user.service';
@@ -19,7 +19,7 @@ import { VehicleInventory } from '../../../model/vehicleInventory.model';
   styleUrl: './global-planning-component.css',
   standalone: true,
 })
-export class GlobalPlanningComponent implements OnInit {
+export class GlobalPlanningComponent implements OnInit, OnDestroy {
   private pollingSub?: Subscription;
 
   private year = new Date().getFullYear();
@@ -37,9 +37,7 @@ export class GlobalPlanningComponent implements OnInit {
   @Input() inventory!: Observable<VehicleInventory[]>;
   @Output() previous = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
-
-  availability = [];
-
+  
   constructor(
     private planningService: PlanningService,
     private userService: UserService,
@@ -120,36 +118,6 @@ export class GlobalPlanningComponent implements OnInit {
             ? 'Une erreur est survenue lors de la régénération du planning.'
             : 'Une erreur est survenue lors de la génération du planning.',
         );
-      },
-    });
-  }
-
-  pollPlanningStatus(planningId: string) {
-    const polling$ = interval(3000).pipe(
-      switchMap(() => this.planningService.getPlanningStatus(planningId)),
-      takeWhile((status: any) => status !== 'FINALIZED', true),
-    );
-
-    polling$.subscribe({
-      next: (status: any) => {
-        if (status === 'FINALIZED') {
-          this.dialog.open(PlanningModalComponent, {
-            data: {
-              success: true,
-              message: 'Le planning a bien été généré.',
-            },
-          });
-          this.isLoadingGenerate = false;
-        }
-      },
-      error: () => {
-        this.dialog.open(PlanningModalComponent, {
-          data: {
-            success: false,
-            message: 'Erreur lors de la vérification du status du planning.',
-          },
-        });
-        this.isLoadingGenerate = false;
       },
     });
   }

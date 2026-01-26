@@ -58,7 +58,7 @@ export class PlanningComponent implements OnInit {
               type: item.type,
               totalCount: item.totalCount,
               bookedCount: avail?.bookedCount ?? 0,
-              availableCount: avail?.availableCount ?? item.totalCount,
+              availableCount: avail?.availableCount ?? 0,
             };
           }),
         ),

@@ -1,18 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TabletComponent } from '../../tablet/tablet';
-import { AsyncPipe } from '@angular/common';
-import { Observable, switchMap, tap } from 'rxjs';
-import { VehicleTypeLabelPipe } from '../../../pipe/vehicule-type-label.pipe';
+import { switchMap, tap } from 'rxjs';
 import { UserService } from '../../../service/user.service';
 import { PlanningService } from '../../../service/planning.service';
 import { RegistryService } from '../../../service/registry.service';
 import { DayPipe } from '../../../pipe/day.pipe';
-import { VehicleInventory } from '../../../model/vehicleInventory.model';
 
 @Component({
   selector: 'app-individual-planning-component',
   standalone: true,
-  imports: [TabletComponent, AsyncPipe, VehicleTypeLabelPipe, DayPipe],
+  imports: [TabletComponent, DayPipe],
   templateUrl: './individual-planning-component.html',
   styleUrl: './individual-planning-component.css',
 })
